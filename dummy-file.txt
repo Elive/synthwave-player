@@ -2,3 +2,4 @@
 working version
 rename
 feat: added the synthwave player script
+feat: added the synthwave player with better icons
