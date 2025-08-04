@@ -59,3 +59,4 @@ new prev/next icons
 new shuffle and repeat icons
 hide cover on mobile and fix scroll
 feat: added 3 repeat modes: off, all, and one
+center mobile controls and new volume icon
