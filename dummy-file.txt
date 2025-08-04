@@ -19,3 +19,4 @@ feat: added genre filters and playlist blacklisting
 refactor: Adjust sidebar layout and refine URL parameter handling
 refactor: Enforce single URL parameter for view initialization
 feat: added patterns to the playlist blacklist
+feat: log the IP and file path when a song plays
