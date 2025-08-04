@@ -12,3 +12,4 @@ fix autoplay and better ui
 feat: scroll the selected song into view
 feat: better player slider and album art UI
 fix audio playback from url
+feat: added font size settings and polished the UI
