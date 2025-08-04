@@ -15,3 +15,4 @@ fix audio playback from url
 feat: added font size settings and polished the UI
 feat: Add shareable playlist URLs and list bottom padding
 bump
+feat: added genre filters and playlist blacklisting
