@@ -35,3 +35,4 @@ style: Replace tooltips with Tailwind and resize sidebars
 feat: added a rating filter to the UI
 added 1-star rating filter
 perf: Optimize shuffled song navigation lookup
+fix id3v2 cover art extraction
