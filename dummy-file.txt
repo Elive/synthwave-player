@@ -37,3 +37,4 @@ added 1-star rating filter
 perf: Optimize shuffled song navigation lookup
 fix id3v2 cover art extraction
 feat: randomize the song list and better shuffle
+feat: auto-scroll to the current song and highlight the sorted column
