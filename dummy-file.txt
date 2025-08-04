@@ -29,3 +29,4 @@ style: Increase base font size slightly
 feat: add the song to the URL and scroll to it automatically
 feat: better responsive UI with tooltips and collapsible sidebars
 fix initial load and url typo
+fix mobile loading and sidebar collapse
