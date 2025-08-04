@@ -47,3 +47,4 @@ fix id3v2 tag access for covers
 feat: added real-time search
 fix title and sidebar highlighting
 feat: new welcome message with a synthwave animation
+fix: Prevent flash of 'All Tracks' on specific URL loads
