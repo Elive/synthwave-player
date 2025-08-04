@@ -24,3 +24,4 @@ feat: library now sorts by rating by default
 refactor: Consolidate song logging and reduce default font size
 feat: added a context menu and better sidebar selection
 bump
+perf: Optimize playlist loading and add loading indicators
