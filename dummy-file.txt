@@ -17,3 +17,4 @@ feat: Add shareable playlist URLs and list bottom padding
 bump
 feat: added genre filters and playlist blacklisting
 refactor: Adjust sidebar layout and refine URL parameter handling
+refactor: Enforce single URL parameter for view initialization
