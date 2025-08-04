@@ -31,3 +31,4 @@ feat: better responsive UI with tooltips and collapsible sidebars
 fix initial load and url typo
 fix mobile loading and sidebar collapse
 numerical sorting for ratings and duration
+style: Replace tooltips with Tailwind and resize sidebars
