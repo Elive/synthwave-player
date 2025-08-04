@@ -50,3 +50,4 @@ feat: new welcome message with a synthwave animation
 fix: Prevent flash of 'All Tracks' on specific URL loads
 style: Adjust player bar layout for responsiveness and time display
 feat: added delayed playback when loading from a URL
+style: Make player bar seek slider multiline on mobile
