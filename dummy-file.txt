@@ -23,3 +23,4 @@ feat: log the IP and file path when a song plays
 feat: library now sorts by rating by default
 refactor: Consolidate song logging and reduce default font size
 feat: added a context menu and better sidebar selection
+bump
