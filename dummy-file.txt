@@ -45,3 +45,4 @@ feat: song URLs now work with playlists and genres
 feat: welcome message is now animated and configurable
 fix id3v2 tag access for covers
 feat: added real-time search
+fix title and sidebar highlighting
