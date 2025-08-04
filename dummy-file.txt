@@ -42,3 +42,4 @@ fix shuffle randomization
 feat: added an animated welcome message you can change
 feat: show when the tracklist is randomized
 feat: song URLs now work with playlists and genres
+feat: welcome message is now animated and configurable
