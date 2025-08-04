@@ -48,3 +48,4 @@ feat: added real-time search
 fix title and sidebar highlighting
 feat: new welcome message with a synthwave animation
 fix: Prevent flash of 'All Tracks' on specific URL loads
+style: Adjust player bar layout for responsiveness and time display
