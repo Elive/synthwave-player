@@ -28,3 +28,4 @@ perf: Optimize playlist loading and add loading indicators
 style: Increase base font size slightly
 feat: add the song to the URL and scroll to it automatically
 feat: better responsive UI with tooltips and collapsible sidebars
+fix initial load and url typo
