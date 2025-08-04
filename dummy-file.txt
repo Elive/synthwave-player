@@ -40,3 +40,4 @@ feat: randomize the song list and better shuffle
 feat: auto-scroll to the current song and highlight the sorted column
 fix shuffle randomization
 feat: added an animated welcome message you can change
+feat: show when the tracklist is randomized
