@@ -13,3 +13,4 @@ feat: scroll the selected song into view
 feat: better player slider and album art UI
 fix audio playback from url
 feat: added font size settings and polished the UI
+feat: Add shareable playlist URLs and list bottom padding
