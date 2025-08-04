@@ -6,3 +6,4 @@ feat: added the synthwave player with better icons
 fix
 feat: better synthwave-style animated buttons
 feat: show loading progress and song count
+feat: added async library loading with progress
