@@ -53,3 +53,4 @@ feat: added delayed playback when loading from a URL
 style: Make player bar seek slider multiline on mobile
 better player ui and prev song logic
 style: Adjust player bar layout and hide tooltips on mobile
+feat: Adjust player bar mobile layout and increase rating filter size
