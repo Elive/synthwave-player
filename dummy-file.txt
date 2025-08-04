@@ -9,3 +9,4 @@ feat: show loading progress and song count
 feat: added async library loading with progress
 perf: added infinite scroll for the song list
 fix autoplay and better ui
+feat: scroll the selected song into view
