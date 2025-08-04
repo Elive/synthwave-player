@@ -56,3 +56,4 @@ style: Adjust player bar layout and hide tooltips on mobile
 feat: Adjust player bar mobile layout and increase rating filter size
 better upnp port forwarding
 new prev/next icons
+new shuffle and repeat icons
