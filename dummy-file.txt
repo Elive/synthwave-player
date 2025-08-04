@@ -32,3 +32,4 @@ fix initial load and url typo
 fix mobile loading and sidebar collapse
 numerical sorting for ratings and duration
 style: Replace tooltips with Tailwind and resize sidebars
+feat: added a rating filter to the UI
