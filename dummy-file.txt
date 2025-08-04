@@ -4,3 +4,4 @@ rename
 feat: added the synthwave player script
 feat: added the synthwave player with better icons
 fix
+feat: better synthwave-style animated buttons
