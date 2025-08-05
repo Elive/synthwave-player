@@ -110,3 +110,4 @@ feat: mobile cover button is now an image instead of text
 style: Refactor mobile fullscreen cover art background and glow
 style: Align mobile player controls right
 mobile cover art next to controls
+style: Adjust mobile fullscreen cover art vertical alignment
