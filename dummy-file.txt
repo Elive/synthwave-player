@@ -219,3 +219,4 @@ ask the user before starting autoplay
 style: Adjust fullscreen cover image position and size
 prompt user for autoplay
 style: Improve autoplay modal text and heading size
+feat: better share menu with icons
