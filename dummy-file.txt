@@ -172,3 +172,4 @@ style: Increase padding and font size of track list sorting headers
 style: Adjust disk horizontal position for new design
 feat: moved the disc and fullscreen cover art
 style: Increase font size of song count display
+style: Reduce font size for song count display
