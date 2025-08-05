@@ -310,3 +310,4 @@ fix reverse proxy ip logging
 manual x-forwarded-for handling
 chore: Add loading time estimate to music library message
 autoplay modal won't close on outside click
+feat: intro modal now works on mobile
