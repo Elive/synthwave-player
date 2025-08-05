@@ -84,3 +84,4 @@ prioritize front cover art
 feat: highlight what you searched for in the song list
 fix exiftool json and base64 covers
 style: Use neon cyan for search result highlighting
+hide sidebars on mobile search
