@@ -233,3 +233,4 @@ fix mobile fullscreen cover position
 removed top padding from mobile cover
 feat: added a welcome modal that shows features
 wording by me
+feat: updated intro title and added visualizer info
