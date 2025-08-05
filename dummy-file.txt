@@ -114,3 +114,4 @@ style: Adjust mobile fullscreen cover art vertical alignment
 force 100% volume on mobile init
 player controls don't close cover art
 style: Position fullscreen cover art higher on mobile
+feat: better mobile player layout with multiple rows
