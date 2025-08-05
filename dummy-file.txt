@@ -265,3 +265,4 @@ style: Reduce footer glassmorphism background opacity
 feat: search box flickers once when you click it
 better message for missing rhythmbox db
 style: Add inline SVG favicon with cyan E logo
+fix rhythmdb path
