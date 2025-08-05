@@ -167,3 +167,4 @@ perf: Optimize music player loading, remove fake progress
 style: Reduce vertical padding in track list
 style: Enlarge and reposition desktop player cover art
 feat: show song loading progress right away
+style: Reduce disk size and adjust position for new design
