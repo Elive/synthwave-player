@@ -181,3 +181,4 @@ fix: Prevent song list from stretching when below page limit
 feat: mobile search box now has a blinking neon effect
 feat: auto-hide cover art and tweak the layout
 feat: show a fake loading bar with the song count
+feat: added fuzzy search to the player
