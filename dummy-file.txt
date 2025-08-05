@@ -336,3 +336,4 @@ feat: disc glow is now off by default
 no autoplay modal on desktop
 ignore transient window blur
 notify if desktop autoplay is blocked
+feat: added more colors for the disc glow
