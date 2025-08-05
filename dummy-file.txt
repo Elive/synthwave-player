@@ -130,3 +130,4 @@ feat: cover art dims when you click away from the window
 fix mobile cover animation
 style: Remove 'cover' text from placeholder SVGs
 refactor: Remove device orientation cover animation
+fix: Close fullscreen cover only on image tap
