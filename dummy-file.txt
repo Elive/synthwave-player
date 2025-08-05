@@ -235,3 +235,4 @@ feat: added a welcome modal that shows features
 wording by me
 feat: updated intro title and added visualizer info
 docs: Clarify intro modal features and title
+feat: show the intro modal right away
