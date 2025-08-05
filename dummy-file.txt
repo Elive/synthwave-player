@@ -241,3 +241,4 @@ feat: click the title to go home and reset the player
 docs: Enhance intro modal feature descriptions
 reset sort on genre change
 style: Increase size of rating stars in song list
+feat: can now open and close sidebars on desktop
