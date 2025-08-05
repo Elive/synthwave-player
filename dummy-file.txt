@@ -121,3 +121,4 @@ style: Adjust player button sizes and spacing for better usability
 feat: stop cover animations when the window isn't active
 style: Update mobile player controls to match desktop design
 feat: Pause cover art on unfocus with fade and delayed update
+style: Shift mobile player buttons right for cover art
