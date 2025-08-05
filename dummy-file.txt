@@ -259,3 +259,4 @@ feat: added Twitter metadata for sharing
 updated twitter tags and x link
 feat: updated share text to 'I really love this song'
 feat: search box border blinks when focused
+style: Implement dynamic transparency for player footer
