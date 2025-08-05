@@ -202,3 +202,4 @@ perf: Optimize Alpine.js reactivity for song list display
 center mobile controls and cover
 style: Increase size of stop button
 perf: Pre-calculate highlighted text for songs to improve rendering performance
+style: Use red clear button for search on all screen sizes
