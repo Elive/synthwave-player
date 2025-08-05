@@ -124,3 +124,4 @@ feat: Pause cover art on unfocus with fade and delayed update
 style: Shift mobile player buttons right for cover art
 mobile cover animation always on
 pause cover art on unfocus
+style: Remove redundant layout spacer
