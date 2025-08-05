@@ -103,3 +103,4 @@ feat: better controls for mobile cover art
 better mobile cover zoom
 click image to close cover
 center song scroll on mobile
+small improvements
