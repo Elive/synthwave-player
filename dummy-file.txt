@@ -135,3 +135,4 @@ refactor: Stop cover art animation instead of pausing it
 feat: added fullscreen cover art for desktop
 fix: Adjust cover art opacity when animation is paused
 click overlay to close mobile cover
+style: Adjust fullscreen mobile cover art animation origin
