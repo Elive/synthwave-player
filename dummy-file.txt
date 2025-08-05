@@ -104,3 +104,4 @@ better mobile cover zoom
 click image to close cover
 center song scroll on mobile
 small improvements
+hide title/artist on mobile player
