@@ -174,3 +174,4 @@ feat: moved the disc and fullscreen cover art
 style: Increase font size of song count display
 style: Reduce font size for song count display
 refactor: Refactor desktop player layout for vertical alignment
+feat: added neon blinking to mobile search
