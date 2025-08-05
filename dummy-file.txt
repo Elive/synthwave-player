@@ -63,3 +63,4 @@ center mobile controls and new volume icon
 style: Redesign shuffle icon for clarity
 better autoscroll position
 feat: show more columns on mobile and cleaned up artist names
+refactor: Redesign cover placeholder SVG to synthwave style
