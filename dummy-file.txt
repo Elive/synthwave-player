@@ -105,3 +105,4 @@ click image to close cover
 center song scroll on mobile
 small improvements
 hide title/artist on mobile player
+style: Improve mobile cover art animation for mobile
