@@ -303,3 +303,4 @@ bump
 fix: Hide intro modal on mobile screens
 feat: highlight songs that are about to play
 style: Adjust preloading song row background transparency
+style: Add transparent pink background to notifications
