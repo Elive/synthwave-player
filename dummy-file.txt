@@ -166,3 +166,4 @@ feat: new design for the disc and fullscreen cover
 perf: Optimize music player loading, remove fake progress
 style: Reduce vertical padding in track list
 style: Enlarge and reposition desktop player cover art
+feat: show song loading progress right away
