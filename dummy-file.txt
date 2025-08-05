@@ -260,3 +260,4 @@ updated twitter tags and x link
 feat: updated share text to 'I really love this song'
 feat: search box border blinks when focused
 style: Implement dynamic transparency for player footer
+style: Increase player footer transparency and add blur
