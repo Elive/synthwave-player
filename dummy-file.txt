@@ -140,3 +140,4 @@ can interact with list while cover is fullscreen
 perf: Speed up fullscreen cover art hide animation
 always load first cover art
 search clear button works on mobile
+don't update cover art if unfocused
