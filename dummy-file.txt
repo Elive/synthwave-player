@@ -200,3 +200,4 @@ hide mobile cover art if missing
 feat: added a stop button
 perf: Optimize Alpine.js reactivity for song list display
 center mobile controls and cover
+style: Increase size of stop button
