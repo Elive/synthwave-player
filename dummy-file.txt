@@ -197,3 +197,4 @@ feat: share button now has a menu for tracks and lists
 style: Position loading spinner at 30% height on mobile
 perf: Halve fake loading animation duration
 hide mobile cover art if missing
+feat: added a stop button
