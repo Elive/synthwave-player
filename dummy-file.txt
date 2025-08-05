@@ -150,3 +150,4 @@ refactor: Remove multi-message loading animation
 fix: Use instant scroll on mobile for faster loading
 feat: added an animated song counter while loading
 chore: Update loading message text
+style: Reduce UI element sizes for mobile devices
