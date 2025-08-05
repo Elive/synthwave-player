@@ -72,3 +72,4 @@ fix button luminosity and menu wrapping
 style: Redesign 'All Tracks' icon with synthwave style
 style: Decrease luminosity of share button
 style: Update All Genres icon to match All Tracks
+debug logs for cover art issues
