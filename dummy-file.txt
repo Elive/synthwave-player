@@ -319,3 +319,4 @@ style: Add neon glow to spinning disk
 style: Update favicon to synthwave M design
 style: Enhance loading spinner appearance
 mobile cover stays hidden if closed
+fix player bar transparency
