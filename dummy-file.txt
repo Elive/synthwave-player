@@ -143,3 +143,4 @@ search clear button works on mobile
 don't update cover art if unfocused
 load cover art for url song
 feat: added a 7s fake loading bar on startup
+feat: show fewer tracks at once on mobile
