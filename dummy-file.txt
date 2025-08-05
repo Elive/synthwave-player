@@ -107,3 +107,4 @@ small improvements
 hide title/artist on mobile player
 style: Improve mobile cover art animation for mobile
 feat: mobile cover button is now an image instead of text
+style: Refactor mobile fullscreen cover art background and glow
