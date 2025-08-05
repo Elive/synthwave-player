@@ -192,3 +192,4 @@ clipboard copy fallback
 feat: better search clear button for mobile
 feat: added a fake 8s loading bar
 feat: Adjust mobile fullscreen cover size and position
+feat: added a loading spinner to the tracklist
