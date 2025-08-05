@@ -290,3 +290,4 @@ feat: cover art now shines when you hover over it
 feat: Adjust non-mobile song scroll position and update scroll method casing
 bump
 feat: added 'AI' to the playlist blacklist
+feat: added genre blacklisting to the API
