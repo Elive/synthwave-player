@@ -300,3 +300,4 @@ perf: Optimize library loading by prepending current song
 feat: set up Nginx for a secure subdomain
 feat: added HTTPS support via Nginx
 bump
+fix: Hide intro modal on mobile screens
