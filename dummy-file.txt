@@ -308,3 +308,4 @@ fix preloading highlight
 chore: Configure app for reverse proxy
 fix reverse proxy ip logging
 manual x-forwarded-for handling
+chore: Add loading time estimate to music library message
