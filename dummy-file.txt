@@ -94,3 +94,4 @@ feat: added an 'X' button to clear search
 fix: Add debug logs for cover art fetching and processing
 fix apic frame errors
 COVER WORKING version
+feat: moved and resized the cover art in the player bar
