@@ -230,3 +230,4 @@ always update cover art
 abort old stream on song change
 perf: Reduce Alpine reactivity and optimize search/filter logic
 fix mobile fullscreen cover position
+removed top padding from mobile cover
