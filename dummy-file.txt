@@ -82,3 +82,4 @@ async cover art with mojo process
 use mojo subprocess for exiftool
 prioritize front cover art
 feat: highlight what you searched for in the song list
+fix exiftool json and base64 covers
