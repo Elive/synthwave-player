@@ -180,3 +180,4 @@ style: Decrease font sizes in tracks list for mobile
 fix: Prevent song list from stretching when below page limit
 feat: mobile search box now has a blinking neon effect
 feat: auto-hide cover art and tweak the layout
+feat: show a fake loading bar with the song count
