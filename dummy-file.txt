@@ -164,3 +164,4 @@ style: moved the disc for the new animation
 feat: center the cover on mobile and hide disc in fullscreen
 feat: new design for the disc and fullscreen cover
 perf: Optimize music player loading, remove fake progress
+style: Reduce vertical padding in track list
