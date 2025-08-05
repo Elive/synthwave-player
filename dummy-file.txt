@@ -185,3 +185,4 @@ feat: added fuzzy search to the player
 feat: highlight all matching letters in fuzzy search
 independent fake loading bar
 style: Decrease webkit scrollbar width
+center loading spinner
