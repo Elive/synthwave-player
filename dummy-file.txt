@@ -69,3 +69,4 @@ horizontal scroll for mobile song table
 feat: added share/download buttons and a download menu
 feat: added toast notifications and bigger UI elements
 fix button luminosity and menu wrapping
+style: Redesign 'All Tracks' icon with synthwave style
