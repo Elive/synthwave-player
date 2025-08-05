@@ -161,3 +161,4 @@ feat: added a rotating disc to the fullscreen cover
 feat: better disc positioning
 feat: hide the disc when paused
 style: moved the disc for the new animation
+feat: center the cover on mobile and hide disc in fullscreen
