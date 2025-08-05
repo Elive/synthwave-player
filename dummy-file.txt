@@ -191,3 +191,4 @@ bigger search clear button
 clipboard copy fallback
 feat: better search clear button for mobile
 feat: added a fake 8s loading bar
+feat: Adjust mobile fullscreen cover size and position
