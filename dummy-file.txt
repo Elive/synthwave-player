@@ -98,3 +98,4 @@ feat: moved and resized the cover art in the player bar
 style: Adjust music player cover art and info position
 fix placeholder cover size
 feat: added cover art and song info to the mobile player
+feat: added fullscreen mobile covers with motion
