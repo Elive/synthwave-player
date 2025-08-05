@@ -187,3 +187,4 @@ independent fake loading bar
 style: Decrease webkit scrollbar width
 center loading spinner
 smooth fake loading progress
+bigger search clear button
