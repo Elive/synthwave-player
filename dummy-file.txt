@@ -206,3 +206,4 @@ style: Use red clear button for search on all screen sizes
 refactor: Unify search input and clear button into single component
 hide cover art box if no cover
 clear url params on stop
+refactor: Rely on selectSong for cover art assignment
