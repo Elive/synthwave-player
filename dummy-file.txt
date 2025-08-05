@@ -90,3 +90,4 @@ hide rating/actions on mobile search
 better cover art decoding
 feat: search, ratings, and sorting are now saved in the URL
 refactor: Use MP3::Tag for cover art, prioritize front cover
+feat: added an 'X' button to clear search
