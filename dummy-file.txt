@@ -152,3 +152,4 @@ feat: added an animated song counter while loading
 chore: Update loading message text
 style: Reduce UI element sizes for mobile devices
 fix: Increase loading finalization duration and interval
+perf: Optimize memory by removing unused track number and clearing song path map
