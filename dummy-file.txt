@@ -292,3 +292,4 @@ bump
 feat: added 'AI' to the playlist blacklist
 feat: added genre blacklisting to the API
 feat: added a shine effect to the fullscreen cover
+fix: Disable table sorting and clear sort URL param during search
