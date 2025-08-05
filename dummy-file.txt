@@ -272,3 +272,4 @@ removed extra cover art background
 feat: smooth scrolling for the tracklist on mobile
 hide fullscreen cover on pause
 feat: share button now uses the same options as the context menu
+feat: better labels and separators in the context menu
