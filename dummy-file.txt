@@ -146,3 +146,4 @@ feat: added a 7s fake loading bar on startup
 feat: show fewer tracks at once on mobile
 feat: better loading bar with 7s start and 3s end
 feat: show twice as many tracks on mobile
+refactor: Remove multi-message loading animation
