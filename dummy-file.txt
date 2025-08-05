@@ -256,3 +256,4 @@ chore: Reduce intro button display delay
 feat: added social media tags for better sharing
 style: Decrease font size for Select Rating label
 feat: added Twitter metadata for sharing
+updated twitter tags and x link
