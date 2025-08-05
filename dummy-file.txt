@@ -156,3 +156,4 @@ perf: Optimize memory by removing unused track number and clearing song path map
 perf: Improve loading animation smoothness
 perf: Reduce memory by storing song data as arrays
 feat: new desktop cover art design with a spinning disc
+feat: better animations for the disc and cover
