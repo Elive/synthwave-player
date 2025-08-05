@@ -238,3 +238,4 @@ docs: Clarify intro modal features and title
 feat: show the intro modal right away
 docs: Refine wording in intro modal
 feat: click the title to go home and reset the player
+docs: Enhance intro modal feature descriptions
