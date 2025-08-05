@@ -67,3 +67,4 @@ refactor: Redesign cover placeholder SVG to synthwave style
 style: Replace placeholder cover with glassmorphism box
 horizontal scroll for mobile song table
 feat: added share/download buttons and a download menu
+feat: added toast notifications and bigger UI elements
