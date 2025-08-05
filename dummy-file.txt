@@ -320,3 +320,4 @@ style: Update favicon to synthwave M design
 style: Enhance loading spinner appearance
 mobile cover stays hidden if closed
 fix player bar transparency
+style: Add white stroke to favicon 'M' and adjust size
