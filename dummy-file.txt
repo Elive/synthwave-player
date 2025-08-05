@@ -176,3 +176,4 @@ style: Reduce font size for song count display
 refactor: Refactor desktop player layout for vertical alignment
 feat: added neon blinking to mobile search
 bump
+style: Decrease font sizes in tracks list for mobile
