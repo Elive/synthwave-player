@@ -112,3 +112,4 @@ style: Align mobile player controls right
 mobile cover art next to controls
 style: Adjust mobile fullscreen cover art vertical alignment
 force 100% volume on mobile init
+player controls don't close cover art
