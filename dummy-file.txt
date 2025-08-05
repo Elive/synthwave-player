@@ -66,3 +66,4 @@ feat: show more columns on mobile and cleaned up artist names
 refactor: Redesign cover placeholder SVG to synthwave style
 style: Replace placeholder cover with glassmorphism box
 horizontal scroll for mobile song table
+feat: added share/download buttons and a download menu
