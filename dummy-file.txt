@@ -334,3 +334,4 @@ added a neon glow effect to the disc
 songs now autoplay when loaded from a URL
 feat: disc glow is now off by default
 no autoplay modal on desktop
+ignore transient window blur
