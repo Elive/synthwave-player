@@ -287,3 +287,4 @@ fix playprev without history
 feat: Increase pagination display limits by 30%
 refactor: Adjust display limits and increments
 feat: cover art now shines when you hover over it
+feat: Adjust non-mobile song scroll position and update scroll method casing
