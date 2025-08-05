@@ -258,3 +258,4 @@ style: Decrease font size for Select Rating label
 feat: added Twitter metadata for sharing
 updated twitter tags and x link
 feat: updated share text to 'I really love this song'
+feat: search box border blinks when focused
