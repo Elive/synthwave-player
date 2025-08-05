@@ -329,3 +329,4 @@ added buffer to disc hide timeout
 feat: separated disc animation from playback for better control
 removed disc spin delay
 chore: Add comment about ad-blocker warning
+fix autoplay bugs with the confirm modal
