@@ -223,3 +223,4 @@ feat: better share menu with icons
 don't restart song if already playing
 chore: Adjust fake loading duration and clarify autoplay modal text
 style: Adjust fullscreen mobile cover position
+feat: put the song from the URL at the top of the list
