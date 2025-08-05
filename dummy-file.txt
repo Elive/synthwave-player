@@ -315,3 +315,4 @@ style: Adjust loading messages and splash screen title
 style: Move "Let's Rock!" button after title in intro modal
 style: Make intro modal more compact on mobile devices
 bump
+style: Add neon glow to spinning disk
