@@ -154,3 +154,4 @@ style: Reduce UI element sizes for mobile devices
 fix: Increase loading finalization duration and interval
 perf: Optimize memory by removing unused track number and clearing song path map
 perf: Improve loading animation smoothness
+perf: Reduce memory by storing song data as arrays
