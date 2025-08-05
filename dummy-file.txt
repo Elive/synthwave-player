@@ -117,3 +117,4 @@ style: Position fullscreen cover art higher on mobile
 feat: better mobile player layout with multiple rows
 fix mobile song scroll position
 feat: mobile web app now runs in fullscreen
+style: Adjust player button sizes and spacing for better usability
