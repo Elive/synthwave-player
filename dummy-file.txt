@@ -277,3 +277,4 @@ always put sort param in url
 feat: log new remote connections clearly
 remote ip show
 feat: Add client-side logging for player actions and update stream log
+chore: Silence verbose cover art logging
