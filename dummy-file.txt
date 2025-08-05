@@ -286,3 +286,4 @@ feat: added playback history so 'previous' works better
 fix playprev without history
 feat: Increase pagination display limits by 30%
 refactor: Adjust display limits and increments
+feat: cover art now shines when you hover over it
