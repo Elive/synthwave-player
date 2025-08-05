@@ -100,3 +100,4 @@ fix placeholder cover size
 feat: added cover art and song info to the mobile player
 feat: added fullscreen mobile covers with motion
 feat: better controls for mobile cover art
+better mobile cover zoom
