@@ -281,3 +281,4 @@ chore: Silence verbose cover art logging
 chore: Set log level to debug
 refactor: Make website title and domain configurable
 chore: Add artist to debug log for song streaming
+only prepend url song if not on first page
