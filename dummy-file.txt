@@ -127,3 +127,4 @@ pause cover art on unfocus
 style: Remove redundant layout spacer
 feat: cover art moves when you tilt your phone (parallax)
 feat: cover art dims when you click away from the window
+fix mobile cover animation
