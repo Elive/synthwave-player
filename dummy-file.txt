@@ -232,3 +232,4 @@ perf: Reduce Alpine reactivity and optimize search/filter logic
 fix mobile fullscreen cover position
 removed top padding from mobile cover
 feat: added a welcome modal that shows features
+wording by me
