@@ -88,3 +88,4 @@ hide sidebars on mobile search
 use exiftool xml for cover art
 hide rating/actions on mobile search
 better cover art decoding
+feat: search, ratings, and sorting are now saved in the URL
