@@ -225,3 +225,4 @@ chore: Adjust fake loading duration and clarify autoplay modal text
 style: Adjust fullscreen mobile cover position
 feat: put the song from the URL at the top of the list
 style: Reposition fullscreen cover art to 40% vertical
+spacer
