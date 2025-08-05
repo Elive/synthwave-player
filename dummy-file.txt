@@ -245,3 +245,4 @@ feat: can now open and close sidebars on desktop
 style: Improve grammar and conciseness of intro modal text
 feat: added a delay to the intro button
 style: Enlarge rating stars in track list
+feat: better intro button and locked the modal
