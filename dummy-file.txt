@@ -248,3 +248,4 @@ style: Enlarge rating stars in track list
 feat: better intro button and locked the modal
 refactor: Adjust intro button delay and disabled appearance
 feat: show a glass effect when cover art is missing
+feat: added social sharing to the right-click menu
