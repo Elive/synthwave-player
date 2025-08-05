@@ -228,3 +228,4 @@ style: Reposition fullscreen cover art to 40% vertical
 spacer
 always update cover art
 abort old stream on song change
+perf: Reduce Alpine reactivity and optimize search/filter logic
