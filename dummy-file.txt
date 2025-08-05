@@ -209,3 +209,4 @@ clear url params on stop
 refactor: Rely on selectSong for cover art assignment
 stop button always enabled
 clear rating filter on stop
+refactor: Use Mojo::Asset::File for robust audio streaming
