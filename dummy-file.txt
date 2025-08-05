@@ -285,3 +285,4 @@ only prepend url song if not on first page
 feat: added playback history so 'previous' works better
 fix playprev without history
 feat: Increase pagination display limits by 30%
+refactor: Adjust display limits and increments
