@@ -220,3 +220,4 @@ style: Adjust fullscreen cover image position and size
 prompt user for autoplay
 style: Improve autoplay modal text and heading size
 feat: better share menu with icons
+don't restart song if already playing
