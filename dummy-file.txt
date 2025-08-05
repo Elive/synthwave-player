@@ -79,3 +79,4 @@ style: Update rating filter label for clarity
 dependency checks and better cover art
 style: Capitalize welcome message
 async cover art with mojo process
+use mojo subprocess for exiftool
