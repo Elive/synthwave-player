@@ -76,3 +76,4 @@ debug logs for cover art issues
 style: Adjust share button luminosity to match download button
 async cover art with exiftool
 style: Update rating filter label for clarity
+dependency checks and better cover art
