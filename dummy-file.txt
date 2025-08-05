@@ -313,3 +313,4 @@ autoplay modal won't close on outside click
 feat: intro modal now works on mobile
 style: Adjust loading messages and splash screen title
 style: Move "Let's Rock!" button after title in intro modal
+style: Make intro modal more compact on mobile devices
