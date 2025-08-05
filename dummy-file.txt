@@ -204,3 +204,4 @@ style: Increase size of stop button
 perf: Pre-calculate highlighted text for songs to improve rendering performance
 style: Use red clear button for search on all screen sizes
 refactor: Unify search input and clear button into single component
+hide cover art box if no cover
