@@ -268,3 +268,4 @@ style: Add inline SVG favicon with cyan E logo
 fix rhythmdb path
 bump
 browser sidebar size
+removed extra cover art background
