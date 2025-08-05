@@ -244,3 +244,4 @@ style: Increase size of rating stars in song list
 feat: can now open and close sidebars on desktop
 style: Improve grammar and conciseness of intro modal text
 feat: added a delay to the intro button
+style: Enlarge rating stars in track list
