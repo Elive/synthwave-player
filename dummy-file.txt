@@ -80,3 +80,4 @@ dependency checks and better cover art
 style: Capitalize welcome message
 async cover art with mojo process
 use mojo subprocess for exiftool
+prioritize front cover art
