@@ -214,3 +214,4 @@ fix: Add spacer to genre sidebar to prevent player overlap
 refactor: Move stop button to the right of download button
 reset view and filters on stop
 perf: turned on Gzip for the API
+reset sort on stop
