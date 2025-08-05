@@ -297,3 +297,4 @@ feat: can now use regex for the genre blacklist
 bump
 fix search interference on load
 perf: Optimize library loading by prepending current song
+feat: set up Nginx for a secure subdomain
