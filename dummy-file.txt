@@ -298,3 +298,4 @@ bump
 fix search interference on load
 perf: Optimize library loading by prepending current song
 feat: set up Nginx for a secure subdomain
+feat: added HTTPS support via Nginx
