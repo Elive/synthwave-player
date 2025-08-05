@@ -170,3 +170,4 @@ feat: show song loading progress right away
 style: Reduce disk size and adjust position for new design
 style: Increase padding and font size of track list sorting headers
 style: Adjust disk horizontal position for new design
+feat: moved the disc and fullscreen cover art
