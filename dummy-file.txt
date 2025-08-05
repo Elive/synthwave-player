@@ -305,3 +305,4 @@ feat: highlight songs that are about to play
 style: Adjust preloading song row background transparency
 style: Add transparent pink background to notifications
 fix preloading highlight
+chore: Configure app for reverse proxy
