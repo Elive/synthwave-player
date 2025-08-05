@@ -160,3 +160,4 @@ feat: better animations for the disc and cover
 feat: added a rotating disc to the fullscreen cover
 feat: better disc positioning
 feat: hide the disc when paused
+style: moved the disc for the new animation
