@@ -211,3 +211,4 @@ stop button always enabled
 clear rating filter on stop
 refactor: Use Mojo::Asset::File for robust audio streaming
 fix: Add spacer to genre sidebar to prevent player overlap
+refactor: Move stop button to the right of download button
