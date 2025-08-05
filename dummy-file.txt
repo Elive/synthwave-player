@@ -227,3 +227,4 @@ feat: put the song from the URL at the top of the list
 style: Reposition fullscreen cover art to 40% vertical
 spacer
 always update cover art
+abort old stream on song change
