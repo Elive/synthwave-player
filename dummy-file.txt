@@ -326,3 +326,4 @@ style: Adjust favicon M for better vertical spacing
 feat: added fade-out for disc glow and a 'none' option
 sequential disc hide animation
 added buffer to disc hide timeout
+feat: separated disc animation from playback for better control
