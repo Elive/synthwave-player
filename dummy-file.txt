@@ -133,3 +133,4 @@ refactor: Remove device orientation cover animation
 fix: Close fullscreen cover only on image tap
 refactor: Stop cover art animation instead of pausing it
 feat: added fullscreen cover art for desktop
+fix: Adjust cover art opacity when animation is paused
