@@ -280,3 +280,4 @@ feat: Add client-side logging for player actions and update stream log
 chore: Silence verbose cover art logging
 chore: Set log level to debug
 refactor: Make website title and domain configurable
+chore: Add artist to debug log for song streaming
