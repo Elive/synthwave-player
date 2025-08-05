@@ -306,3 +306,4 @@ style: Adjust preloading song row background transparency
 style: Add transparent pink background to notifications
 fix preloading highlight
 chore: Configure app for reverse proxy
+fix reverse proxy ip logging
