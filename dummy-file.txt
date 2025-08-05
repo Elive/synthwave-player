@@ -254,3 +254,4 @@ feat: can now click outside the intro modal to close it
 pre-filled text for facebook shares
 chore: Reduce intro button display delay
 feat: added social media tags for better sharing
+style: Decrease font size for Select Rating label
