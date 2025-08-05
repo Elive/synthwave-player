@@ -186,3 +186,4 @@ feat: highlight all matching letters in fuzzy search
 independent fake loading bar
 style: Decrease webkit scrollbar width
 center loading spinner
+smooth fake loading progress
