@@ -356,3 +356,4 @@ style: Enlarge loading grid indicator
 fix: Keep cover art display open when switching songs with covers
 feat: spacebar now toggles play/pause
 feat: sidebars now have their own scrollbars
+better multi-keyword search
