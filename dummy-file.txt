@@ -346,3 +346,4 @@ style: Set disc glow interval to 10s
 fix: Hide player song info when no song is selected
 feat: tracklist headers now stay at the top when scrolling
 sticky tracklist header
+fix sticky header alignment
