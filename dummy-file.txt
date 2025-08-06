@@ -384,3 +384,4 @@ fix mobile sidebar collapse
 feat: tracklist now fills the screen and scrolls behind the player
 enabled mobile tracklist scrolling
 fix sidebars and tracklist layout
+bump
