@@ -370,3 +370,4 @@ equal sidebar heights
 feat: added a 2s delay before sidebars expand on hover
 style: Increase sidebar transition duration for smoother animation
 adjusted sidebar delays
+fix sidebar resize jump
