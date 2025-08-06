@@ -363,3 +363,4 @@ moved desktop cover art down
 fix genre list layout
 style: Remove bottom padding from genre list
 hide cover art on genre hover
+fix main content padding
