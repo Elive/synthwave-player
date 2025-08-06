@@ -342,3 +342,4 @@ chore: Disable specific disc glow colors
 modals positioned from top
 refactor: Make website domain dynamic
 faster disc glow transition
+style: Set disc glow interval to 10s
