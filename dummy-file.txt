@@ -376,3 +376,4 @@ feat: show more items on wide screens
 perf: Speed up sidebar expansion animation
 style: Tighten UI layout by reducing padding and margins
 no shiny hover if no cover art
+collapse inactive sidebar on hover
