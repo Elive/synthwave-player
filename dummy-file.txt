@@ -348,3 +348,4 @@ feat: tracklist headers now stay at the top when scrolling
 sticky tracklist header
 fix sticky header alignment
 bump
+perf: Cache API responses for 1 week
