@@ -360,3 +360,4 @@ better multi-keyword search
 esc key closes intro and autoplay modals
 feat: better spacing and padding for the lists
 moved desktop cover art down
+fix genre list layout
