@@ -380,3 +380,4 @@ collapse inactive sidebar on hover
 style: Reduce vertical padding for genre list items
 style: Compact sidebar layout by reducing gaps and padding
 style: Adjust genre sidebar width for expanded view
+fix mobile sidebar collapse
