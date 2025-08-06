@@ -364,3 +364,4 @@ fix genre list layout
 style: Remove bottom padding from genre list
 hide cover art on genre hover
 fix main content padding
+feat: sidebars now expand on hover
