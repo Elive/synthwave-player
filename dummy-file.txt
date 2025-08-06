@@ -341,3 +341,4 @@ always show autoplay modal
 chore: Disable specific disc glow colors
 modals positioned from top
 refactor: Make website domain dynamic
+faster disc glow transition
