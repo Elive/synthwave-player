@@ -353,3 +353,4 @@ feat: show up to 100 songs per page on mobile
 feat: show more songs in the list
 feat: tracklist and sidebars now scroll independently
 style: Enlarge loading grid indicator
+fix: Keep cover art display open when switching songs with covers
