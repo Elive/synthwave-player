@@ -338,3 +338,4 @@ ignore transient window blur
 notify if desktop autoplay is blocked
 feat: added more colors for the disc glow
 always show autoplay modal
+chore: Disable specific disc glow colors
