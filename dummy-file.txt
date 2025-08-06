@@ -350,3 +350,4 @@ fix sticky header alignment
 bump
 perf: Cache API responses for 1 week
 feat: show up to 100 songs per page on mobile
+feat: show more songs in the list
