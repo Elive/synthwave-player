@@ -373,3 +373,4 @@ adjusted sidebar delays
 fix sidebar resize jump
 feat: press spacebar to play/pause
 feat: show more items on wide screens
+perf: Speed up sidebar expansion animation
