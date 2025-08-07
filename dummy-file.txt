@@ -473,3 +473,4 @@ docs: Replace video links with YouTube embed in README
 feat: update the URL with the song ID when playing
 fix mobile context menu position
 update cover art on song change
+docs: Clarify single file app in README with emojis
