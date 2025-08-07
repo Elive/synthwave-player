@@ -483,3 +483,4 @@ refactor: moved search and pagination to the server
 feat: added a clear button when no search results are found
 single character search allowed
 feat: moved shuffle to the server and improved scrolling
+Refactor: Streamline scroll loading and update playlist shuffle logic
