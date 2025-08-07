@@ -466,3 +466,4 @@ style: Update footer branding link text and attributes
 hide player credit on mobile
 docs: Update advanced setup with robust Nginx/Certbot SSL
 docs: Update run instructions, add desktop app & cron persistence
+feat: use a PID file to stop multiple instances from running
