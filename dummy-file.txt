@@ -426,3 +426,4 @@ feat: tap the playing song in mini-view to see the menu
 refactor: Consolidate song processing and sharing logic
 fix: Move search logic to server to include active filters
 better 'no tracks found' message
+consistent 'songs found' text
