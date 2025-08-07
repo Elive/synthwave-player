@@ -442,3 +442,4 @@ fix: "Show Cover" checks server for art, aborts silently if none
 refactor: Reorder song contextual menu items
 better 'show cover' accuracy
 hide cover art if missing
+esc key exits fullscreen cover
