@@ -404,3 +404,4 @@ refactor: Compact micro-player interface vertical spacing
 style: Reduce 'All Tracks' title size in microplayer
 fix mobile scroll position
 feat: tracklist shrinks when sidebars open in microplayer
+style: Make all tracks title smaller on mobile
