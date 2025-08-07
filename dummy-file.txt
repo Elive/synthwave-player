@@ -400,3 +400,4 @@ fix active song scroll on mobile
 style: Compact star filter row in microplayer
 smaller ready to rock modal on mobile
 fix: Adjust scroll position for better visibility on mobile
+refactor: Compact micro-player interface vertical spacing
