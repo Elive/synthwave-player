@@ -412,3 +412,4 @@ style: Adjust tracklist title size on microplayer
 style: Reduce tracklist title font size on microplayer
 style: Shrink microplayer tracklist for expanded sidebars
 fix mobile sidebar overflow
+style: Reduce corner rounding and padding for microplayer view
