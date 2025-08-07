@@ -479,3 +479,4 @@ set explicit port and single worker
 feat: center the selected song better in the mini view
 feat: can now configure how many workers hypnotoad uses
 bump
+refactor: moved search and pagination to the server
