@@ -475,3 +475,4 @@ fix mobile context menu position
 update cover art on song change
 docs: Clarify single file app in README with emojis
 docs: Add surf browser alternative with bug warning
+set explicit port and single worker
