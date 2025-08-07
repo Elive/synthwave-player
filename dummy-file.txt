@@ -491,3 +491,4 @@ refactor: Add comment for song row vertical alignment
 refactor: Extract song row alignment to global config
 refactor: Make song list scroll alignment values configurable
 ignore playback errors on fast switching
+refactor: Extract more hardcoded values into global variables
