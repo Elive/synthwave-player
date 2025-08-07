@@ -459,3 +459,4 @@ context menu scrolls with page
 feat: Improve proxy support and add online server setup guide
 desktop context menu scrolls with list
 use request protocol in index
+feat: added an optional "by Elive" link to the footer
