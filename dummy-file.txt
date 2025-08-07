@@ -439,3 +439,4 @@ process search from url on init
 feat: added 'Show Cover' to the right-click menu
 client-side sorting for search results
 fix: "Show Cover" checks server for art, aborts silently if none
+refactor: Reorder song contextual menu items
