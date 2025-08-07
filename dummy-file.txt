@@ -396,3 +396,4 @@ style: Reduce sidebar item padding on small screens
 feat: Always show mobile cover art and remove fullscreen margins
 style: Compact sidebar titles for microplayer collapsed view
 feat: show stars for rating filters on mobile
+fix active song scroll on mobile
