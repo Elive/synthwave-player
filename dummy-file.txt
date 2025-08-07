@@ -390,3 +390,4 @@ feat: tracklist title now shows the genre or playlist
 feat: renamed 'Select Rating' to 'Ratings' on mobile
 pbump
 shuffle/repeat tooltips show state
+feat: added a mini-player for small screens
