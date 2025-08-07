@@ -421,3 +421,4 @@ feat: sidebars now close automatically on mobile after picking a genre
 fix: Expand tracklist to bottom on mobile devices
 style: Update WhatsApp icon with gradient
 fix: Suppress playback error when quickly changing songs
+style: Adopt theme color for WhatsApp icons
