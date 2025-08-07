@@ -463,3 +463,4 @@ feat: added an optional "by Elive" link to the footer
 docs: Add live demo website link to README
 docs: Add commented video link for GitHub social preview
 style: Update footer branding link text and attributes
+hide player credit on mobile
