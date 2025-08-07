@@ -469,3 +469,4 @@ docs: Update run instructions, add desktop app & cron persistence
 feat: use a PID file to stop multiple instances from running
 docs: Clarify local access and desktop app URLs in README
 added youtube link to readme
+docs: Replace video links with YouTube embed in README
