@@ -437,3 +437,4 @@ style: Enhance filter buttons with pink border, glow, and hover effect
 no column sorting during search
 process search from url on init
 feat: added 'Show Cover' to the right-click menu
+client-side sorting for search results
