@@ -454,3 +454,4 @@ hide the 'show cover' option if there's no art
 docs: Add initial README.md with project overview and features
 feat: can now share a song at the current timestamp
 feat: custom context menu (except for text inputs)
+docs: Add Debian 12 alternative dependency installation instructions
