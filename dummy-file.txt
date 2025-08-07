@@ -445,3 +445,4 @@ hide cover art if missing
 esc key exits fullscreen cover
 better 'show cover' menu
 feat: added sharing with a timestamp
+disable 'show cover' if art is missing
