@@ -386,3 +386,4 @@ enabled mobile tracklist scrolling
 fix sidebars and tracklist layout
 bump
 mobile song scroll set to 20%
+feat: tracklist title now shows the genre or playlist
