@@ -422,3 +422,4 @@ fix: Expand tracklist to bottom on mobile devices
 style: Update WhatsApp icon with gradient
 fix: Suppress playback error when quickly changing songs
 style: Adopt theme color for WhatsApp icons
+feat: tap the playing song in mini-view to see the menu
