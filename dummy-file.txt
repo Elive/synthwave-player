@@ -452,3 +452,4 @@ feat: Add share at current position to song context menu
 feat: can now see covers for songs that aren't playing
 hide the 'show cover' option if there's no art
 docs: Add initial README.md with project overview and features
+feat: can now share a song at the current timestamp
