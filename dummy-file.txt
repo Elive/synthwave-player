@@ -461,3 +461,4 @@ desktop context menu scrolls with list
 use request protocol in index
 feat: added an optional "by Elive" link to the footer
 docs: Add live demo website link to README
+docs: Add commented video link for GitHub social preview
