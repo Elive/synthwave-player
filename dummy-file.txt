@@ -464,3 +464,4 @@ docs: Add live demo website link to README
 docs: Add commented video link for GitHub social preview
 style: Update footer branding link text and attributes
 hide player credit on mobile
+docs: Update advanced setup with robust Nginx/Certbot SSL
