@@ -444,3 +444,4 @@ better 'show cover' accuracy
 hide cover art if missing
 esc key exits fullscreen cover
 better 'show cover' menu
+feat: added sharing with a timestamp
