@@ -476,3 +476,4 @@ update cover art on song change
 docs: Clarify single file app in README with emojis
 docs: Add surf browser alternative with bug warning
 set explicit port and single worker
+feat: center the selected song better in the mini view
