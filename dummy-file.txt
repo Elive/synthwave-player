@@ -394,3 +394,4 @@ feat: added a mini-player for small screens
 feat: playlist and genre sidebars now open together on mobile
 style: Reduce sidebar item padding on small screens
 feat: Always show mobile cover art and remove fullscreen margins
+style: Compact sidebar titles for microplayer collapsed view
