@@ -429,3 +429,4 @@ better 'no tracks found' message
 consistent 'songs found' text
 feat: normalize search text for better fuzzy matches
 feat: better fuzzy search for multiple words and symbols
+style: Replace header button browser tooltips with custom ones
