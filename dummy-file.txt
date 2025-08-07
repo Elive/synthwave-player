@@ -417,3 +417,4 @@ style: Reduce sidebar horizontal padding
 bump
 scroll to song on autoplay
 REFACTORING to ON-DEMAND tracklists
+feat: sidebars now close automatically on mobile after picking a genre
