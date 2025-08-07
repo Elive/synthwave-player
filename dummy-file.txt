@@ -488,3 +488,4 @@ feat: shuffle state is now saved in the URL
 better scroll position for song list
 feat: added a global setting for default sorting
 refactor: Add comment for song row vertical alignment
+refactor: Extract song row alignment to global config
