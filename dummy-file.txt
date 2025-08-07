@@ -435,3 +435,4 @@ show clear buttons when no tracks found
 style: Style no results filter buttons with pink borders and transparent fill
 style: Enhance filter buttons with pink border, glow, and hover effect
 no column sorting during search
+process search from url on init
