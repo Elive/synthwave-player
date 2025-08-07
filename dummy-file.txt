@@ -448,3 +448,4 @@ feat: added sharing with a timestamp
 disable 'show cover' if art is missing
 show cover for non-playing songs in fullscreen
 feat: downloaded songs are now named "Title - Artist - Album"
+feat: Add share at current position to song context menu
