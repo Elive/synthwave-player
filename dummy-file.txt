@@ -411,3 +411,4 @@ style: Refine library item active background and font size
 style: Adjust tracklist title size on microplayer
 style: Reduce tracklist title font size on microplayer
 style: Shrink microplayer tracklist for expanded sidebars
+fix mobile sidebar overflow
