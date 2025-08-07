@@ -489,3 +489,4 @@ better scroll position for song list
 feat: added a global setting for default sorting
 refactor: Add comment for song row vertical alignment
 refactor: Extract song row alignment to global config
+refactor: Make song list scroll alignment values configurable
