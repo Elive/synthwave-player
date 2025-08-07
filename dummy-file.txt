@@ -494,3 +494,4 @@ ignore playback errors on fast switching
 refactor: Extract more hardcoded values into global variables
 refactor: Extract song display limits and increments to global config
 bump
+feat: added 3 shuffle modes: off, list, and random
