@@ -484,3 +484,4 @@ feat: added a clear button when no search results are found
 single character search allowed
 feat: moved shuffle to the server and improved scrolling
 Refactor: Streamline scroll loading and update playlist shuffle logic
+feat: shuffle state is now saved in the URL
