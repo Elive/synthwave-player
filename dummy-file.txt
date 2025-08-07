@@ -450,3 +450,4 @@ show cover for non-playing songs in fullscreen
 feat: downloaded songs are now named "Title - Artist - Album"
 feat: Add share at current position to song context menu
 feat: can now see covers for songs that aren't playing
+hide the 'show cover' option if there's no art
