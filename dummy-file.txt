@@ -402,3 +402,4 @@ smaller ready to rock modal on mobile
 fix: Adjust scroll position for better visibility on mobile
 refactor: Compact micro-player interface vertical spacing
 style: Reduce 'All Tracks' title size in microplayer
+fix mobile scroll position
