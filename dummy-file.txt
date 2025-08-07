@@ -446,3 +446,4 @@ esc key exits fullscreen cover
 better 'show cover' menu
 feat: added sharing with a timestamp
 disable 'show cover' if art is missing
+show cover for non-playing songs in fullscreen
