@@ -481,3 +481,4 @@ feat: can now configure how many workers hypnotoad uses
 bump
 refactor: moved search and pagination to the server
 feat: added a clear button when no search results are found
+single character search allowed
