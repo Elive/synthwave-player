@@ -408,3 +408,4 @@ style: Make all tracks title smaller on mobile
 style: Adjust font size for small screens
 style: Increase font size for small screens
 style: Refine library item active background and font size
+style: Adjust tracklist title size on microplayer
