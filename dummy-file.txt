@@ -432,3 +432,4 @@ feat: better fuzzy search for multiple words and symbols
 style: Replace header button browser tooltips with custom ones
 feat: better "no results" page with clear buttons
 show clear buttons when no tracks found
+style: Style no results filter buttons with pink borders and transparent fill
