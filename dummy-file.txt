@@ -522,3 +522,4 @@ bump
 feat: added "Share this list" to the context menu
 fix tooltip overflow
 docs: Add personal Spotify feature to README
+fix progress bar flicker
