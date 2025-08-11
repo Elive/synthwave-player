@@ -520,3 +520,4 @@ wording
 feat: right-click sidebar links to open in a new tab
 bump
 feat: added "Share this list" to the context menu
+fix tooltip overflow
