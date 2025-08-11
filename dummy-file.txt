@@ -515,3 +515,4 @@ include all params for timestamp shares
 hide context menu on scroll
 include all url params in share links
 fix: Set UPnP discovery timeout to 20s
+refactor: Unify menu management with generic Alpine.js functions
