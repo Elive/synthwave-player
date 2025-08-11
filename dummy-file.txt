@@ -500,3 +500,4 @@ refactor: Update branding and refine UI elements
 multiple features:
 small improvements
 fixes
+tooltip system moved to a single structure
