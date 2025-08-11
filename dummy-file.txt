@@ -504,3 +504,4 @@ tooltip system moved to a single structure
 added comments in elements
 fix: Prevent tooltips from overflowing screen boundaries
 removed orange background in share menu
+style: Unify context menu with share menu styling
