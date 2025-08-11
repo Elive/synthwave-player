@@ -521,3 +521,4 @@ feat: right-click sidebar links to open in a new tab
 bump
 feat: added "Share this list" to the context menu
 fix tooltip overflow
+docs: Add personal Spotify feature to README
