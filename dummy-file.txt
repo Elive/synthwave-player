@@ -518,3 +518,4 @@ fix: Set UPnP discovery timeout to 20s
 refactor: Unify menu management with generic Alpine.js functions
 wording
 feat: right-click sidebar links to open in a new tab
+bump
