@@ -502,3 +502,4 @@ small improvements
 fixes
 tooltip system moved to a single structure
 added comments in elements
+fix: Prevent tooltips from overflowing screen boundaries
