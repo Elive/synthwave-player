@@ -509,3 +509,4 @@ feat: player title now shows the user's name
 refactor: Centralize icons and standardize menu structure
 context menu has blur effect
 sort songs alphabetically
+feat: share menu now includes the current timestamp
