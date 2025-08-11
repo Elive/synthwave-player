@@ -506,3 +506,4 @@ fix: Prevent tooltips from overflowing screen boundaries
 removed orange background in share menu
 style: Unify context menu with share menu styling
 feat: player title now shows the user's name
+refactor: Centralize icons and standardize menu structure
