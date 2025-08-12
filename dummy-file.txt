@@ -569,3 +569,4 @@ secure path validation and fix mobile menu
 looser mime check for mp3s
 fix path prefix validation
 play/pause works during disc animation
+fix stoptimeout in stopsong
