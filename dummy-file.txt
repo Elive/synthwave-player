@@ -573,3 +573,4 @@ fix stoptimeout in stopsong
 bump
 fix ip handling and playlist parsing
 allow hpgl mime for mp3 false positives
+fix shuffle with seed 0
