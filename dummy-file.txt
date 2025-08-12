@@ -524,3 +524,4 @@ fix tooltip overflow
 docs: Add personal Spotify feature to README
 fix progress bar flicker
 feat: can now select multiple genres and playlists
+feat: selected playlists and genres now jump to the top
