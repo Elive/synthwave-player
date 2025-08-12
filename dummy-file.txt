@@ -554,3 +554,4 @@ fix: prevent path traversal in audio and cover art endpoints by validating file 
 use abs_path to stop directory traversal
 put all path validation in one spot
 block path traversal and check extensions strictly
+even more hardening for file paths
