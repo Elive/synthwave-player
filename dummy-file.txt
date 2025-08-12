@@ -529,3 +529,4 @@ fix: center range progress bar within circular widget
 docs: Update README with new filtering, sharing, and shuffle features
 feat: added a mute button with a speaker icon
 added tooltips for volume
+feat: can now use the mouse wheel on progress and volume
