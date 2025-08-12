@@ -563,3 +563,4 @@ bump
 feat: added rate limits to the API to stop abuse
 fix path validation
 better mp3 extension validation
+feat: added rate limiting to stop brute force and DoS
