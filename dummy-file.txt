@@ -576,3 +576,4 @@ allow hpgl mime for mp3 false positives
 fix shuffle with seed 0
 fix shuffle with seed 0
 docs: update changelog with v2.7 security and feature improvements
+fix: correct html for friends button
