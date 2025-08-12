@@ -565,3 +565,4 @@ fix path validation
 better mp3 extension validation
 feat: added rate limiting to stop brute force and DoS
 feat: Make crossfaded songs start at full volume instantly
+secure path validation and fix mobile menu
