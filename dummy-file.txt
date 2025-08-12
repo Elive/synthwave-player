@@ -561,3 +561,4 @@ better path traversal security
 fix mp3 double extensions
 bump
 feat: added rate limits to the API to stop abuse
+fix path validation
