@@ -556,3 +556,4 @@ put all path validation in one spot
 block path traversal and check extensions strictly
 even more hardening for file paths
 more security checks for mp3 paths
+security fix for path traversal and file types
