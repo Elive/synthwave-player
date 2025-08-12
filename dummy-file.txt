@@ -550,3 +550,4 @@ feat: added a viral banner for public servers
 style: update viral banner text to "Your Personal Spotify" and adjust description wording
 fix: ensure viral discovery banner shows only once using localStorage persistence
 feat: add friends music icon before settings icon
+fix: prevent path traversal in audio and cover art endpoints by validating file paths are within user's home directory
