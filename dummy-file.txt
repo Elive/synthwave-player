@@ -559,3 +559,4 @@ more security checks for mp3 paths
 security fix for path traversal and file types
 better path traversal security
 fix mp3 double extensions
+bump
