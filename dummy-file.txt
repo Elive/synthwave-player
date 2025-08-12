@@ -546,3 +546,4 @@ feat: can now blacklist playlists, genres, and artists
 feat: crossfade duration is now configurable in settings
 added changelog
 bump
+feat: added a viral banner for public servers
