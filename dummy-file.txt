@@ -528,3 +528,4 @@ feat: selected playlists and genres now jump to the top
 fix: center range progress bar within circular widget
 docs: Update README with new filtering, sharing, and shuffle features
 feat: added a mute button with a speaker icon
+added tooltips for volume
