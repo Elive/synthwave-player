@@ -578,3 +578,4 @@ fix shuffle with seed 0
 docs: update changelog with v2.7 security and feature improvements
 fix: correct html for friends button
 wording
+feat: display crossfade checkbox and value on same line with proper disabled state styling
