@@ -540,3 +540,4 @@ feat: added a config menu gear next to the stop button
 feat: add modal explaining how to add music when selecting "Add Music" in config menu
 feat: rephrase "Add Music" menu option to "Manage Music Library" for better clarity
 feat: show an error if you try to share from a local domain
+feat: added a crossfade toggle to the config menu
