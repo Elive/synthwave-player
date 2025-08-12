@@ -533,3 +533,4 @@ feat: can now use the mouse wheel on progress and volume
 bump
 style: add cyan border and glow shadow to menus excluding modals
 fix context menu css and share menu
+fix css typo and audio errors
