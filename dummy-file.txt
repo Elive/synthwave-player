@@ -543,3 +543,4 @@ feat: show an error if you try to share from a local domain
 feat: added a crossfade toggle to the config menu
 feat: added audio crossfading with settings
 feat: can now blacklist playlists, genres, and artists
+feat: crossfade duration is now configurable in settings
