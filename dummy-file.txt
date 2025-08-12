@@ -568,3 +568,4 @@ feat: Make crossfaded songs start at full volume instantly
 secure path validation and fix mobile menu
 looser mime check for mp3s
 fix path prefix validation
+play/pause works during disc animation
