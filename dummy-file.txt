@@ -584,3 +584,4 @@ feat: added music folder whitelist and error popups
 use xdg for music directory path
 feat: added a loading bar for songs in the list
 allow octet-stream mime for mp3
+feat: added a speed button that keeps the pitch
