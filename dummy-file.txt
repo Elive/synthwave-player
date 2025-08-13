@@ -581,3 +581,4 @@ wording
 feat: display crossfade checkbox and value on same line with proper disabled state styling
 fix: populate genres sidebar from rhythmbox database instead of playlists only
 feat: added music folder whitelist and error popups
+use xdg for music directory path
