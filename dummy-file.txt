@@ -583,3 +583,4 @@ fix: populate genres sidebar from rhythmbox database instead of playlists only
 feat: added music folder whitelist and error popups
 use xdg for music directory path
 feat: added a loading bar for songs in the list
+allow octet-stream mime for mp3
