@@ -594,3 +594,4 @@ better playlist encoding detection
 chore: remove unnecessary blank lines in _parse_playlists subroutine
 handle binary encoding as iso-8859-15
 bump
+docs: Update changelog for v2.8
