@@ -592,3 +592,4 @@ handle iso-encoded pls files
 fix special chars in playlist paths
 better playlist encoding detection
 chore: remove unnecessary blank lines in _parse_playlists subroutine
+handle binary encoding as iso-8859-15
