@@ -591,3 +591,4 @@ refactor: Generalize XDG directory retrieval function
 handle iso-encoded pls files
 fix special chars in playlist paths
 better playlist encoding detection
+chore: remove unnecessary blank lines in _parse_playlists subroutine
