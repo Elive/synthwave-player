@@ -587,3 +587,4 @@ allow octet-stream mime for mp3
 feat: added a speed button that keeps the pitch
 chore: Add note for XDG music directory function
 docs: Refine internal comment about XDG music dir
+refactor: Generalize XDG directory retrieval function
