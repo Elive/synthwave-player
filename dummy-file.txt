@@ -600,3 +600,4 @@ bump
 removed redundant mime check
 fix mobile fullscreen cover
 better path traversal check
+client-side playback error notices
