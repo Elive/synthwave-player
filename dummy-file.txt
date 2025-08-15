@@ -608,3 +608,4 @@ feat: can now configure when the speed widget shows up
 style: Reduce font size for tracklist title and song count on mobile
 less vertical spacing on mobile
 feat: can now click to collapse sidebars on desktop
+removed extra div in mobile player
