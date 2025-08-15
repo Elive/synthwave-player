@@ -614,3 +614,4 @@ better audio error handling for crossfade
 refactor: Simplify MIME type check regex
 align mobile cover art to top
 feat: added a context menu to the cover art
+allow audio/mpeg mime type
