@@ -599,3 +599,4 @@ docs: Update README with new features and config options
 bump
 removed redundant mime check
 fix mobile fullscreen cover
+better path traversal check
