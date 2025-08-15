@@ -612,3 +612,4 @@ removed extra div in mobile player
 allow image/jxl mime type
 better audio error handling for crossfade
 refactor: Simplify MIME type check regex
+align mobile cover art to top
