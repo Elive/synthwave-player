@@ -602,3 +602,4 @@ fix mobile fullscreen cover
 better path traversal check
 client-side playback error notices
 refactor: Stash error notifications instead of sending directly
+reshow mobile cover art automatically
