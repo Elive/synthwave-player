@@ -605,3 +605,4 @@ refactor: Stash error notifications instead of sending directly
 reshow mobile cover art automatically
 style: Reduce header icon spacing on mobile
 feat: can now configure when the speed widget shows up
+style: Reduce font size for tracklist title and song count on mobile
