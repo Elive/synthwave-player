@@ -610,3 +610,4 @@ less vertical spacing on mobile
 feat: can now click to collapse sidebars on desktop
 removed extra div in mobile player
 allow image/jxl mime type
+better audio error handling for crossfade
