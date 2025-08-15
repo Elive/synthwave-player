@@ -598,3 +598,4 @@ docs: Update changelog for v2.8
 docs: Update README with new features and config options
 bump
 removed redundant mime check
+fix mobile fullscreen cover
