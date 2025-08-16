@@ -619,3 +619,4 @@ feat: can now toggle fullscreen cover from the context menu
 docs: Add image placeholder comment to README
 docs: Add screenshot placeholder to README
 doc
+docs: Add project description to README
