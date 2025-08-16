@@ -641,3 +641,4 @@ feat: moved and made the speed control bigger
 escape quotes in file paths
 feat: added Nightride FM to friends' music
 style: Reduce playback speed font size
+clear cover art variable when hidden
