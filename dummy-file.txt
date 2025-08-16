@@ -618,3 +618,4 @@ allow audio/mpeg mime type
 feat: can now toggle fullscreen cover from the context menu
 docs: Add image placeholder comment to README
 docs: Add screenshot placeholder to README
+doc
