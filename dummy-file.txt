@@ -626,3 +626,4 @@ docs: Add SEO keywords to README
 allow empty mime types in audio check
 docs: Add TODO note for planned video support
 docs: Clarify planned video support
+docs: Add "outrun" keyword to README for SEO
