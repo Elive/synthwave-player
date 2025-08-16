@@ -639,3 +639,4 @@ fix: wait for playback before autoscrolling
 feat: added a limit for total connections
 feat: moved and made the speed control bigger
 escape quotes in file paths
+feat: added Nightride FM to friends' music
