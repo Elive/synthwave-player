@@ -642,3 +642,4 @@ escape quotes in file paths
 feat: added Nightride FM to friends' music
 style: Reduce playback speed font size
 clear cover art variable when hidden
+fix cover art check during crossfade
