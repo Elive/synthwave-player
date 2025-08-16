@@ -646,3 +646,4 @@ fix cover art check during crossfade
 delay clearing cover art for transitions
 fix mobile cover art on song change
 docs: Improve SEO and add Raspberry Pi setup guide
+docs: Rephrase self-hosting guide title
