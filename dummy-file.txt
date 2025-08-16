@@ -622,3 +622,4 @@ doc
 docs: Add project description to README
 shorter project name for seo
 feat: playlist now scrolls to the current song automatically
+docs: Add SEO keywords to README
