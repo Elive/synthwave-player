@@ -644,3 +644,4 @@ style: Reduce playback speed font size
 clear cover art variable when hidden
 fix cover art check during crossfade
 delay clearing cover art for transitions
+fix mobile cover art on song change
