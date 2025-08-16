@@ -632,3 +632,4 @@ fix context menu positioning
 fix playback from url and param flicker
 feat: higher rate limits and better notifications
 refactor: use a custom header for song fetch errors
+no rate limit for localhost
