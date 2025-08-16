@@ -635,3 +635,4 @@ refactor: use a custom header for song fetch errors
 no rate limit for localhost
 no rate limit for private networks
 feat: added private IP check and Net::IP dependency
+fix: wait for playback before autoscrolling
