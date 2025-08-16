@@ -637,3 +637,4 @@ no rate limit for private networks
 feat: added private IP check and Net::IP dependency
 fix: wait for playback before autoscrolling
 feat: added a limit for total connections
+feat: moved and made the speed control bigger
