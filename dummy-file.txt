@@ -625,3 +625,4 @@ feat: playlist now scrolls to the current song automatically
 docs: Add SEO keywords to README
 allow empty mime types in audio check
 docs: Add TODO note for planned video support
+docs: Clarify planned video support
