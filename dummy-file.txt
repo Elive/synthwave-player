@@ -740,3 +740,4 @@ boolean settings saved as 1/0
 fix settings form padding
 better settings form and notifications
 apply settings immediately
+refactor: Reformat CONFIG_VARS for improved readability
