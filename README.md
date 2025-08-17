@@ -1,24 +1,5 @@
 # Synthwave Player
 
-[![Watch the video](https://raw.githubusercontent.com/Elive/synthwave-player/main/media/network-sharing.png)](https://raw.githubusercontent.com/Elive/synthwave-player/main/media/synthwave-player-disc-spinning.mp4)
-
-
-<video src="https://raw.githubusercontent.com/Elive/synthwave-player/main/media/synthwave-player-disc-spinning.mp4" width="320" height="240" controls></video>
-
-<video src="https://githubusercontent.com/Elive/synthwave-player/main/media/synthwave-player-disc-spinning.mp4" width="320" height="240" controls></video>
-
-<video src="https://user-images.githubusercontent.com/c422dc7f-b973-452b-8cc1-ce991e1a2b6a.mp4" width="180" autoplay loop muted playsinline></video>
-
-
-<video width="230" height="100" src="https://user-images.githubusercontent.com/c422dc7f-b973-452b-8cc1-ce991e1a2b6a.mp4" autoplay loop muted playsinline></video>
-
-
-
-
-
-https://github.com/user-attachments/assets/c422dc7f-b973-452b-8cc1-ce991e1a2b6a
-
-
 
 Synthwave Player is a self-hosted, open-source, web-based music player application that streams your local music library with a beautiful synthwave / retrowave / outrun / neon-style aesthetic. Using your music collection to be a private streaming service or just a personal player, giving you complete control over your listening experience without distractions.
 
@@ -104,18 +85,9 @@ _when you remember that the song contains "summer" as title and the artist is tr
 ### 🎨 Stunning Synthwave & Retrowave UI
 -   A beautiful, responsive and adjustable interface with a neon-style, retro-futuristic aesthetic, so enjoyable that it should be forbidden in every country.
 -   **Dynamic Visualizer:** When a song with cover art plays, the album cover slides out to reveal a spinning vinyl disc with a subtle, cycling neon glow.
-<p align="center">
-  <video src="https://raw.githubusercontent.com/Elive/synthwave-player/main/media/synthwave-player-disc-spinning.mp4" width="180" autoplay loop muted playsinline></video>
-</p>
 
-  <video src="https://raw.githubusercontent.com/Elive/synthwave-player/main/media/synthwave-player-disc-spinning.mp4"></video>
+https://github.com/user-attachments/assets/c422dc7f-b973-452b-8cc1-ce991e1a2b6a
 
-  <video src="https://raw.githubusercontent.com/Elive/synthwave-player/main/media/synthwave-player-disc-spinning.mp4" width="180" autoplay loop muted playsinline></video>
-
-  <!-- <video src=""></video> -->
-<video src="media/synthwave-player-disc-spinning.mp4" controls width="400">
-  Your browser does not support the video tag.
-</video>
 
 [▶️ Watch the spinning disc video](media/synthwave-player-disc-spinning.mp4)
 
