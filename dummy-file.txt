@@ -679,3 +679,4 @@ readme
 docs: Add high-performance streaming details to README
 feat: warn about RAM usage if the library is huge
 docs: Update README descriptions for clarity and privacy
+docs: Add RAM usage and concurrent stream details to README
