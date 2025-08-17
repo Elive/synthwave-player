@@ -211,7 +211,7 @@ Replace the URL with your player's actual address. For local use, this is `http:
 <br>
 While you can access the player by its IP address on your local network, setting it up with a domain name, a reverse proxy, and SSL encryption provides a more professional, secure, and convenient experience. Here’s a complete guide for setting this up on a Debian 13 (Trixie) server.
 
-> **🚀 Pro Tip for Servers:** If you're setting this up on a dedicated server, consider using **[Elive for Servers](https://www.elivecd.org/premium/elive-for-servers/)**. It's a tool that enhances your existing Debian/Ubuntu server with the amazing Elive shell, automated TMUX sessions, and optional installers for a highly optimized Nginx, security tools (like Fail2ban), and more. It can automate much of the setup below in just a few minutes.
+> **🚀 Pro Tip for Servers:** If you're setting this up on a dedicated server, consider using **[Elive for Servers](https://www.elivecd.org/premium/elive-for-servers/)**. It's a tool for Debian/Ubuntu servers that provides optional installers for a highly optimized Nginx, security tools (like Fail2ban), and more, which can automate much of the setup below in just a few minutes.
 
 ---
 
@@ -373,34 +373,9 @@ Your server is now fully configured! You can access your music securely at `http
 <details>
 <summary><strong>🍓 How to build a synthwave music server on Raspberry Pi</strong></summary>
 <br>
-A Raspberry Pi is an excellent choice for a low-power, energy-efficient, and always-on music server. The setup is very similar to a standard Debian server, making it an easy and affordable way to create your own music cloud.
+A Raspberry Pi is an excellent choice for a low-power, energy-efficient, and always-on music server. Since Raspberry Pi OS is based on Debian, you can follow the main installation instructions.
 
-#### Prerequisites
-- A Raspberry Pi (Model 3B+ or newer recommended for best performance).
-- Raspberry Pi OS (formerly Raspbian), which is based on Debian.
-- Your music library stored on the Pi's SD card or an external USB drive.
-
-#### Step 1: Install Dependencies
-The installation process is nearly identical to the one for Debian. Open a terminal on your Raspberry Pi and run:
-```bash
-sudo apt-get update
-sudo apt-get install libmojolicious-perl libnet-upnp-perl libxml-libxml-perl libmp3-tag-perl libfile-homedir-perl libdigest-sha-perl libtry-tiny-perl
-```
-If you prefer, you can also use `cpanm` as described in the main installation section.
-
-#### Step 2: Configure and Run the Player
-1.  Clone the repository or download `web_music-player.pl` to your Raspberry Pi.
-2.  Make it executable: `chmod +x web_music-player.pl`.
-3.  If your music is on an external drive, make sure to edit `@MUSIC_DIRECTORIES` at the top of the script to include the path to your drive (e.g., `/media/pi/MyMusicDrive`).
-4.  Run the server in the background:
-    ```bash
-    hypnotoad web_music-player.pl
-    ```
-
-Your Raspberry Pi is now a dedicated synthwave music server! You can access it from any device on your local network by navigating to `http://<your-pi-ip-address>:8160`. To make it accessible from the internet and set up your own streaming service, you can follow the detailed steps in the "How to Self-Host your music library for Online Access" section above.
-
-> **Performance Tip:** For large music libraries on older Raspberry Pi models (like the 3B+ or earlier), the initial library scan might take a few minutes. Once scanned, the player will be fast and responsive. For the best experience with tens of thousands of songs, a Raspberry Pi 4 or newer is recommended.
-
+The only specific consideration for a Raspberry Pi is the location of your music library. If you store your music on an external USB drive, you will need to edit the `@MUSIC_DIRECTORIES` variable at the top of the `web_music-player.pl` script to include the path to your drive (e.g., `/media/pi/MyMusicDrive`).
 </details>
 
 ---
