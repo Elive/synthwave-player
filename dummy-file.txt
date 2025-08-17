@@ -787,3 +787,4 @@ feat: Make slider glow shinier and faster
 style: Adjust slider glow for faster appear, slower disappear
 refactor: Remove reverb and punch features from equalizer
 feat: added preamp gain to EQ presets to stop clipping
+feat: active EQ values now glow cyan
