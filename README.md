@@ -158,7 +158,7 @@ You host it yourself. There is no tracking, no data collection, and no third-par
 
 3.  **Make the script executable:**
     ```bash
-    chmod +x web_music-player.pl
+    chmod +x synthwave-player
     ```
 
 ### Running the Server
@@ -167,17 +167,17 @@ There are several ways to run the player. For initial testing, it's best to run 
 **1. Foreground Mode (for testing)**
 To see live log output, run the server in the foreground. It will run until you stop it with `Ctrl+C`.
 ```bash
-hypnotoad --foreground web_music-player.pl
+hypnotoad --foreground synthwave-player
 ```
 
 **2. Background Daemon Mode**
 To start the player and have it run in the background, detached from your terminal:
 ```bash
-hypnotoad web_music-player.pl
+hypnotoad synthwave-player
 ```
 To stop the background server:
 ```bash
-hypnotoad --stop web_music-player.pl
+hypnotoad --stop synthwave-player
 ```
 
 ### Accessing the Player
@@ -326,7 +326,7 @@ A cron job can start the player at boot. This is easy to set up but won't restar
 
 2.  Add the following line, making sure to use the absolute path to the script.
     ```bash
-    @reboot hypnotoad /home/your_username/path/to/music-player/web_music-player.pl
+    @reboot hypnotoad /home/your_username/path/to/music-player/synthwave-player
     ```
 
 **Option B: Run as a Systemd Service (Recommended)**
@@ -338,7 +338,7 @@ This is the most reliable way to run the player as a long-term service.
     sudo nano /etc/systemd/system/music-player.service
     ```
 
-2.  **Paste the following configuration.** Be sure to change `User` to your username and `WorkingDirectory` to the correct path where `web_music-player.pl` is located.
+2.  **Paste the following configuration.** Be sure to change `User` to your username and `WorkingDirectory` to the correct path where `synthwave-player` is located.
     ```ini
     [Unit]
     Description=Synthwave Player
@@ -349,7 +349,7 @@ This is the most reliable way to run the player as a long-term service.
     User=your_username
     Group=your_username
     WorkingDirectory=/home/your_username/path/to/music-player
-    ExecStart=hypnotoad /home/your_username/path/to/music-player/web_music-player.pl
+    ExecStart=hypnotoad /home/your_username/path/to/music-player/synthwave-player
     Restart=on-failure
     RestartSec=5s
 
@@ -375,14 +375,14 @@ Your server is now fully configured! You can access your music securely at `http
 <br>
 A Raspberry Pi is an excellent choice for a low-power, energy-efficient, and always-on music server. Since Raspberry Pi OS is based on Debian, you can follow the main installation instructions.
 
-The only specific consideration for a Raspberry Pi is the location of your music library. If you store your music on an external USB drive, you will need to edit the `@MUSIC_DIRECTORIES` variable at the top of the `web_music-player.pl` script to include the path to your drive (e.g., `/media/pi/MyMusicDrive`).
+The only specific consideration for a Raspberry Pi is the location of your music library. If you store your music on an external USB drive, you will need to edit the `@MUSIC_DIRECTORIES` variable from the tool, personal configurations, or interface configurations to include the path to your drive (e.g., `/media/pi/MyMusicDrive`).
 </details>
 
 ---
 
 ## Configuration
 
-All configuration is done by editing the variables at the top of the `web_music-player.pl` script.
+All configuration is done by editing the variables at the top of the `synthwave-player` script.
 
 -   `$WEBSITE_TITLE`: The title for the website. By default, it's dynamically generated from the user's full name (e.g., "John Doe's Music"), but can be set to any static string.
 -   `$APP_PORT`: The network port the application will run on.
