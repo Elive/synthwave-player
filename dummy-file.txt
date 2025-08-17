@@ -672,3 +672,4 @@ readme
 readme
 readme
 docs: Refine README content and benefits
+docs: Add music creator benefits to README
