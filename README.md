@@ -85,10 +85,10 @@ _when you remember that the song contains "summer" as title and the artist is tr
 -   A beautiful, responsive and adjustable interface with a neon-style, retro-futuristic aesthetic, so enjoyable that it should be forbidden in every country.
 -   **Dynamic Visualizer:** When a song with cover art plays, the album cover slides out to reveal a spinning vinyl disc with a subtle, cycling neon glow.
 <p align="center">
-  <video src="https://github.com/Elive-Premium/synthwave-player/raw/refs/heads/master/media/synthwave-player-disc-spinning.mp4" width="180" autoplay loop muted playsinline></video>
+  <video src="https://github.com/Elive/synthwave-player/raw/refs/heads/master/media/synthwave-player-disc-spinning.mp4" width="180" autoplay loop muted playsinline></video>
 </p>
-  <video src="https://github.com/Elive-Premium/synthwave-player/raw/refs/heads/master/media/synthwave-player-disc-spinning.mp4"></video>
-  <video src="https://raw.github.com/Elive-Premium/synthwave-player/master/media/synthwave-player-disc-spinning.mp4"></video>
+  <video src="https://github.com/Elive/synthwave-player/raw/refs/heads/master/media/synthwave-player-disc-spinning.mp4"></video>
+  <video src="https://raw.github.com/Elive/synthwave-player/master/media/synthwave-player-disc-spinning.mp4"></video>
   <!-- <video src=""></video> -->
 
 -   View fullscreen cover art for any song with a single click or from the menu, in order to leave the player running on your device.
