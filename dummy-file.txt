@@ -743,3 +743,4 @@ apply settings immediately
 refactor: Reformat CONFIG_VARS for improved readability
 debug logs are now conditional
 feat: separate font size settings for desktop and mobile
+style: Increase font size and top margin of settings section titles
