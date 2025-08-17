@@ -763,3 +763,4 @@ bump
 feat: disc glow now changes every 30s
 doc
 feat: added a proper audio equalizer that saves your settings
+style: Add cyan border and shadow to equalizer modal
