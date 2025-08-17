@@ -736,3 +736,4 @@ fix: Append missing config settings on save to prevent data loss
 added security section and rate limits
 fix neon glow on settings titles
 more padding for settings titles
+boolean settings saved as 1/0
