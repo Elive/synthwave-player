@@ -1,5 +1,25 @@
 # Synthwave Player
 
+[![Watch the video](https://raw.githubusercontent.com/Elive/synthwave-player/main/media/network-sharing.png)](https://raw.githubusercontent.com/Elive/synthwave-player/main/media/synthwave-player-disc-spinning.mp4)
+
+
+<video src="https://raw.githubusercontent.com/Elive/synthwave-player/main/media/synthwave-player-disc-spinning.mp4" width="320" height="240" controls></video>
+
+<video src="https://githubusercontent.com/Elive/synthwave-player/main/media/synthwave-player-disc-spinning.mp4" width="320" height="240" controls></video>
+
+<video src="https://user-images.githubusercontent.com/c422dc7f-b973-452b-8cc1-ce991e1a2b6a.mp4" width="180" autoplay loop muted playsinline></video>
+
+
+<video width="230" height="100" src="https://user-images.githubusercontent.com/c422dc7f-b973-452b-8cc1-ce991e1a2b6a.mp4" autoplay loop muted playsinline></video>
+
+
+
+
+
+https://github.com/user-attachments/assets/c422dc7f-b973-452b-8cc1-ce991e1a2b6a
+
+
+
 Synthwave Player is a self-hosted, open-source, web-based music player application that streams your local music library with a beautiful synthwave / retrowave / outrun / neon-style aesthetic. Using your music collection to be a private streaming service or just a personal player, giving you complete control over your listening experience without distractions.
 
 __Note: Video player support implementation planned__
