@@ -692,3 +692,4 @@ docs: Add Future Plans section to README
 bump
 docs: Fix typos and link syntax in README
 docs: Improve README grammar, clarity, and installation commands
+docs: Embed disc spinning visualizer video in README
