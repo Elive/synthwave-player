@@ -767,3 +767,4 @@ style: Add cyan border and shadow to equalizer modal
 feat: added stereo balance and reverb to the EQ
 doc
 use 'center' for neutral balance
+feat: Add vertical separator to equalizer controls
