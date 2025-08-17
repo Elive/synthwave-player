@@ -762,3 +762,4 @@ fix github tag selector and version prefix
 bump
 feat: disc glow now changes every 30s
 doc
+feat: added a proper audio equalizer that saves your settings
