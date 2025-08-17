@@ -749,3 +749,4 @@ feat: added fuzzy search and updated defaults
 refactor: Reorder settings sections and add Fuzzy Search
 fix fuzzy search regex
 style: Add top margin to settings group headers
+escape special chars in search highlights
