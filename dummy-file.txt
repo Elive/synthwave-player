@@ -771,3 +771,4 @@ feat: Add vertical separator to equalizer controls
 style: Elevate equalizer panel for floating effect
 feat: added bass boost to the EQ modal
 feat: Add more equalizer presets
+style: Add vertical separator after preamp slider
