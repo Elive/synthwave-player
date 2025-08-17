@@ -705,3 +705,4 @@ feat: auto-fill user config with defaults
 feat: show more info when creating or updating user config
 refactor: Centralize config loading, defaults, and user config management
 load config earlier
+feat: added a settings option to the config menu
