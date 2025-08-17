@@ -799,3 +799,4 @@ secure playlist parsing and fix speed reset
 improved pressets
 disabled debug logs and fixed race condition
 improved pressets
+feat: added Reggae and Synthwave EQ presets
