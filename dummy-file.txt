@@ -711,3 +711,4 @@ doc
 fix empty config path in api
 refactor: Improve configuration variable names and descriptions
 refactor: Rename EXTRA_DEBUG to ENABLE_DEBUG_LOGGING
+refactor: Format large music library info as visual block
