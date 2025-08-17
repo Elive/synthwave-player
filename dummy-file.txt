@@ -773,3 +773,4 @@ feat: added bass boost to the EQ modal
 feat: Add more equalizer presets
 style: Add vertical separator after preamp slider
 feat: can now use the mouse wheel on EQ sliders
+eq modal shows above cover art
