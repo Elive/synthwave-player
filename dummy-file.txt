@@ -785,3 +785,4 @@ feat: added a punch effect using a compressor
 feat: added a punch slider for audio effects
 feat: Make slider glow shinier and faster
 style: Adjust slider glow for faster appear, slower disappear
+refactor: Remove reverb and punch features from equalizer
