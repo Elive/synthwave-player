@@ -723,3 +723,4 @@ fix settings modal scrolling and closing
 feat: Reload page after saving user settings
 refactor: Relocate settings save path message
 refactor: Convert playback speed min duration config to minutes
+style: Reorder settings modal messages for clarity
