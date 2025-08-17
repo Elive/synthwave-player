@@ -755,3 +755,4 @@ removed duplicate search config vars
 refactor: Remove 'Configure Friends' Music' menu item
 feat: show instructions for setting up an online server
 feat: added version v2.7 and an update checker
+feat: added 'Report a Bug' (premium only)
