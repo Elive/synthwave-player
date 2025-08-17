@@ -739,3 +739,4 @@ more padding for settings titles
 boolean settings saved as 1/0
 fix settings form padding
 better settings form and notifications
+apply settings immediately
