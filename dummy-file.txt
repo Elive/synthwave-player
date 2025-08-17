@@ -687,3 +687,4 @@ docs: Update README for hypnotoad commands and installation clarity
 docs: Add Elive Retrowave CTA to getting started guide
 bump
 doc
+docs: Clarify power-user shortcuts for mouse wheel and right-click
