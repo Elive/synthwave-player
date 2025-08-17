@@ -721,3 +721,4 @@ ensure config dir exists
 fix user config path
 fix settings modal scrolling and closing
 feat: Reload page after saving user settings
+refactor: Relocate settings save path message
