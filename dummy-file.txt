@@ -676,3 +676,4 @@ docs: Add music creator benefits to README
 docs: Refine README descriptions and examples
 docs: Add view-based tracklist description to README
 readme
+docs: Add high-performance streaming details to README
