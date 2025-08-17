@@ -719,3 +719,4 @@ check if file exists before mime check
 fix user config errors
 ensure config dir exists
 fix user config path
+fix settings modal scrolling and closing
