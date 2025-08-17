@@ -662,3 +662,4 @@ readme
 readme
 docs: Refine README content and image dimensions
 docs: Enhance README with music freedom concept
+docs: Enhance README's description of user freedom
