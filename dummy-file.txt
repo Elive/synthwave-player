@@ -753,3 +753,4 @@ escape special chars in search highlights
 refactor: Rename 'Social' settings group to 'Friends'
 removed duplicate search config vars
 refactor: Remove 'Configure Friends' Music' menu item
+feat: show instructions for setting up an online server
