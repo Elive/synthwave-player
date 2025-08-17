@@ -796,3 +796,4 @@ feat: EQ presets now include Bass and Stereo+
 feat: Zero bass/stereo on EQ presets (except spiritual/acoustic)
 improved pressets
 secure playlist parsing and fix speed reset
+improved pressets
