@@ -777,3 +777,4 @@ eq modal shows above cover art
 style: Move Reset button to start of EQ presets
 style: Increase equalizer vertical separator height
 feat: added Psytrance and Spiritual EQ presets
+feat: sliders now glow when you move them
