@@ -733,3 +733,4 @@ fix api response after saving config
 refactor: Update friends music config and remove old modal
 better settings ui with grouping
 fix: Append missing config settings on save to prevent data loss
+added security section and rate limits
