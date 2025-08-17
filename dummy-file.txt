@@ -683,3 +683,4 @@ docs: Add RAM usage and concurrent stream details to README
 refactor: Consolidate README features into network and performance sections
 docs: Reorganize and refine feature descriptions in README
 docs: Consolidate performance, lightweight, and smart loading features
+docs: Update README for hypnotoad commands and installation clarity
