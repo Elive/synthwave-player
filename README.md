@@ -90,6 +90,10 @@ _when you remember that the song contains "summer" as title and the artist is tr
   <video src="https://github.com/Elive/synthwave-player/raw/refs/heads/main/media/synthwave-player-disc-spinning.mp4"></video>
   <video src="https://raw.github.com/Elive/synthwave-player/main/media/synthwave-player-disc-spinning.mp4"></video>
   <!-- <video src=""></video> -->
+[▶️ Watch the spinning disc video](media/synthwave-player-disc-spinning.mp4)
+<video src="media/synthwave-player-disc-spinning.mp4" controls width="400">
+  Your browser does not support the video tag.
+</video>
 
 -   View fullscreen cover art for any song with a single click or from the menu, in order to leave the player running on your device.
 
