@@ -759,3 +759,4 @@ feat: added 'Report a Bug' (premium only)
 refactor: Make IS_PREMIUM configurable as boolean
 refactor: Remove IS_PREMIUM from user configuration options
 fix github tag selector and version prefix
+bump
