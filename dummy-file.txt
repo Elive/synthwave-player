@@ -666,3 +666,4 @@ docs: Enhance README's description of user freedom
 docs: Make 'Why Self-Hosted' section collapsible in README
 play the first song if no ID is provided in the URL
 readme
+readme
