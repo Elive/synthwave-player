@@ -78,7 +78,7 @@ Stream your entire music library to any device with a web browser, whether you'r
 
 ### ⚡️ Blazing-Fast Fuzzy Search
 _when you remember that the song contains "summer" as title and the artist is trevor-something, but you can't remember the rest?_
--   The smart fuzzy matching finds what you're looking for, even with typos or partial words.
+-   The builtin smart fuzzy matching finds what you're looking for, even with typos or partial words.
 -   Find any track, artist, or album in milliseconds with an as-you-type search.
 -   Search results can be further filtered and sorted just like any other view.
 
