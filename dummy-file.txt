@@ -707,3 +707,4 @@ refactor: Centralize config loading, defaults, and user config management
 load config earlier
 feat: added a settings option to the config menu
 feat: added UI and API for user settings
+doc
