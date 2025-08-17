@@ -779,3 +779,4 @@ style: Increase equalizer vertical separator height
 feat: added Psytrance and Spiritual EQ presets
 feat: sliders now glow when you move them
 feat: made the EQ modal taller for bigger controls
+style: made sliders bigger and easier to use
