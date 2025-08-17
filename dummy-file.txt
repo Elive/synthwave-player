@@ -702,3 +702,4 @@ feat: added support for custom user config files
 bump
 renamed app
 feat: auto-fill user config with defaults
+feat: show more info when creating or updating user config
