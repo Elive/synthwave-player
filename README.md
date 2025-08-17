@@ -434,3 +434,4 @@ Some ideas / TODO to implement:
 -   **New Version Notifier:** An in-app notification when a new version of the player is available.
 -   **User Statistics:** Track listening habits and see stats on a per-user basis.
 -   **Notifications of different types:** To differentiate between info, debug, error, or warning messages.
+-   **User-based liked system**: Allow users to like (hearth) the songs, saving them in ther username login, and display the total ratings average too.
