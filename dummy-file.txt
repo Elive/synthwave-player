@@ -783,3 +783,4 @@ style: made sliders bigger and easier to use
 feat: better slider glow and mouse wheel support
 feat: added a punch effect using a compressor
 feat: added a punch slider for audio effects
+feat: Make slider glow shinier and faster
