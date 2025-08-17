@@ -650,3 +650,4 @@ docs: Rephrase self-hosting guide title
 docs: Add online server setup reference in Raspberry Pi section
 docs: Add section on self-hosted players for retro collections
 style: Refine OG description text
+Update README.md
