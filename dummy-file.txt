@@ -685,3 +685,4 @@ docs: Reorganize and refine feature descriptions in README
 docs: Consolidate performance, lightweight, and smart loading features
 docs: Update README for hypnotoad commands and installation clarity
 docs: Add Elive Retrowave CTA to getting started guide
+bump
