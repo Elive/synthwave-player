@@ -700,3 +700,4 @@ bump
 bump
 feat: added support for custom user config files
 bump
+renamed app
