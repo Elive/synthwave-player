@@ -789,3 +789,4 @@ refactor: Remove reverb and punch features from equalizer
 feat: added preamp gain to EQ presets to stop clipping
 feat: active EQ values now glow cyan
 fix: Reduce treble in Psytrance equalizer preset
+psytrance preset updated
