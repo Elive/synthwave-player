@@ -88,7 +88,7 @@ _when you remember that the song contains "summer" as title and the artist is tr
   <video src="https://github.com/Elive/synthwave-player/raw/refs/heads/main/media/synthwave-player-disc-spinning.mp4" width="180" autoplay loop muted playsinline></video>
 </p>
   <video src="https://github.com/Elive/synthwave-player/raw/refs/heads/main/media/synthwave-player-disc-spinning.mp4"></video>
-  <video src="https://raw.github.com/Elive/synthwave-player/main/media/synthwave-player-disc-spinning.mp4"></video>
+  <video src="https://raw.githubusercontent.com/Elive/synthwave-player/main/media/synthwave-player-disc-spinning.mp4"></video>
   <!-- <video src=""></video> -->
 <video src="media/synthwave-player-disc-spinning.mp4" controls width="400">
   Your browser does not support the video tag.
