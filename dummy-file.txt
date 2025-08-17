@@ -729,3 +729,4 @@ fix friends music config corruption
 chore: Remove unnecessary config save success message
 edit friends music in settings
 refactor: Reorder settings menu items for better access
+fix api response after saving config
