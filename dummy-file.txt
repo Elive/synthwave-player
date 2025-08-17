@@ -746,3 +746,4 @@ feat: separate font size settings for desktop and mobile
 style: Increase font size and top margin of settings section titles
 feat: added settings for fuzzy search
 feat: added fuzzy search and updated defaults
+refactor: Reorder settings sections and add Fuzzy Search
