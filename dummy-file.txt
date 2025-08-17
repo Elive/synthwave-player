@@ -752,3 +752,4 @@ style: Add top margin to settings group headers
 escape special chars in search highlights
 refactor: Rename 'Social' settings group to 'Friends'
 removed duplicate search config vars
+refactor: Remove 'Configure Friends' Music' menu item
