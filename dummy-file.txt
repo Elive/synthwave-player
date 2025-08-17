@@ -681,3 +681,4 @@ feat: warn about RAM usage if the library is huge
 docs: Update README descriptions for clarity and privacy
 docs: Add RAM usage and concurrent stream details to README
 refactor: Consolidate README features into network and performance sections
+docs: Reorganize and refine feature descriptions in README
