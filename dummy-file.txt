@@ -797,3 +797,4 @@ feat: Zero bass/stereo on EQ presets (except spiritual/acoustic)
 improved pressets
 secure playlist parsing and fix speed reset
 improved pressets
+disabled debug logs and fixed race condition
