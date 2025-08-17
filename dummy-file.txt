@@ -690,3 +690,4 @@ doc
 docs: Clarify power-user shortcuts for mouse wheel and right-click
 docs: Add Future Plans section to README
 bump
+docs: Fix typos and link syntax in README
