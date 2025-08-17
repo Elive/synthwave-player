@@ -741,3 +741,4 @@ fix settings form padding
 better settings form and notifications
 apply settings immediately
 refactor: Reformat CONFIG_VARS for improved readability
+debug logs are now conditional
