@@ -709,3 +709,4 @@ feat: added a settings option to the config menu
 feat: added UI and API for user settings
 doc
 fix empty config path in api
+refactor: Improve configuration variable names and descriptions
