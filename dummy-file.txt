@@ -731,3 +731,4 @@ edit friends music in settings
 refactor: Reorder settings menu items for better access
 fix api response after saving config
 refactor: Update friends music config and remove old modal
+better settings ui with grouping
