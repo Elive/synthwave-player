@@ -792,3 +792,4 @@ fix: Reduce treble in Psytrance equalizer preset
 psytrance preset updated
 feat: added stereo width to the equalizer
 style: Update stereo control label to Stereo+
+feat: EQ presets now include Bass and Stereo+
