@@ -802,3 +802,4 @@ improved pressets
 feat: added Reggae and Synthwave EQ presets
 improved pressets
 no column sorting for search results
+sort search by relevance
