@@ -88,9 +88,6 @@ _when you remember that the song contains "summer" as title and the artist is tr
 
 https://github.com/user-attachments/assets/c422dc7f-b973-452b-8cc1-ce991e1a2b6a
 
-
-[▶️ Watch the spinning disc video](media/synthwave-player-disc-spinning.mp4)
-
 -   View fullscreen cover art for any song with a single click or from the menu, in order to leave the player running on your device.
 
 ### 🎛️ Powerful Filtering & Sorting
