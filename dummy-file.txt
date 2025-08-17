@@ -761,3 +761,4 @@ refactor: Remove IS_PREMIUM from user configuration options
 fix github tag selector and version prefix
 bump
 feat: disc glow now changes every 30s
+doc
