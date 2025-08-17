@@ -800,3 +800,4 @@ improved pressets
 disabled debug logs and fixed race condition
 improved pressets
 feat: added Reggae and Synthwave EQ presets
+improved pressets
