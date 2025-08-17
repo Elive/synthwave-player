@@ -728,3 +728,4 @@ feat: Set reload delay to 3 seconds after saving settings
 fix friends music config corruption
 chore: Remove unnecessary config save success message
 edit friends music in settings
+refactor: Reorder settings menu items for better access
