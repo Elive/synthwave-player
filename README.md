@@ -1,7 +1,7 @@
 # Synthwave Player
 
 
-Synthwave Player is simply put, the most enjoyable music player out there.
+Simply put, this is the **most enjoyable** music player ever made.
 
 It is a self-hosted, open-source, web-based music _(and video?)_ player application that streams your local music library with a beautiful synthwave / retrowave / outrun / neon-style aesthetic. Using your music collection to be a private streaming service or just a personal player, giving you complete control over your listening experience without distractions.
 
