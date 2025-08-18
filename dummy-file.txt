@@ -804,3 +804,4 @@ improved pressets
 no column sorting for search results
 sort search by relevance
 feat: can now manually sort search results
+adjusted eq presets
