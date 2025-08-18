@@ -813,3 +813,4 @@ improved presets
 feat: added a setting to turn the equalizer on or off
 feat: added Metal, Stage, Live, Clarity, and Reggae EQ presets
 improved pressets
+bump
