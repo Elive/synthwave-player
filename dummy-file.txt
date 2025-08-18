@@ -810,3 +810,4 @@ more precise stereo width adjustment
 feat: bass boost slider now goes from 0 to 8dB
 improved presets
 improved presets
+feat: added a setting to turn the equalizer on or off
