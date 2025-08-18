@@ -373,7 +373,7 @@ Your server is now fully configured! You can access your music securely at `http
 </details>
 
 <details>
-<summary><strong>🍓 How to build a synthwave music server on Raspberry Pi</strong></summary>
+<summary><strong>🍓 How to build a music server on a Raspberry Pi</strong></summary>
 <br>
 A Raspberry Pi is an excellent choice for a low-power, energy-efficient, and always-on music server. Since Raspberry Pi OS is based on Debian, you can follow the main installation instructions.
 
@@ -412,3 +412,5 @@ Some ideas / TODO to implement:
 -   **User Statistics:** Track listening habits and see stats on a per-user basis.
 -   **Notifications of different types:** To differentiate between info, debug, error, or warning messages.
 -   **User-based liked system**: Allow users to like (hearth) the songs, saving them in ther username login, and display the total ratings average too.
+-   **Windows / MacOS / Docker Support:** Set up this player running it from a docker so you can install it on windows or mac too.
+- The disc should not spin, but instead it should remain in place and rotate a few pixels back and forth to simulate the record spinning. This will require to separate the reflection with the disc image (2 images), the disc should spin and the reflection should whobble back-and-forth
