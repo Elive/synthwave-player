@@ -805,3 +805,4 @@ no column sorting for search results
 sort search by relevance
 feat: can now manually sort search results
 adjusted eq presets
+feat: stereo width now goes up to 20ms
