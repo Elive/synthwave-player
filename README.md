@@ -1,7 +1,9 @@
 # Synthwave Player
 
 
-Synthwave Player is a self-hosted, open-source, web-based music player application that streams your local music library with a beautiful synthwave / retrowave / outrun / neon-style aesthetic. Using your music collection to be a private streaming service or just a personal player, giving you complete control over your listening experience without distractions.
+Synthwave Player is simply put, the most enjoyable music player out there.
+
+It is a self-hosted, open-source, web-based music _(and video?)_ player application that streams your local music library with a beautiful synthwave / retrowave / outrun / neon-style aesthetic. Using your music collection to be a private streaming service or just a personal player, giving you complete control over your listening experience without distractions.
 
 __Note: Video player support implementation planned__
 
@@ -211,7 +213,7 @@ Replace the URL with your player's actual address. For local use, this is `http:
 <br>
 While you can access the player by its IP address on your local network, setting it up with a domain name, a reverse proxy, and SSL encryption provides a more professional, secure, and convenient experience. Here’s a complete guide for setting this up on a Debian 13 (Trixie) server.
 
-> **🚀 Pro Tip for Servers:** If you're setting this up on a dedicated server, consider using **[Elive for Servers](https://www.elivecd.org/premium/elive-for-servers/)**. It's a tool for Debian/Ubuntu servers that provides optional installers for a highly optimized Nginx, security tools (like Fail2ban), and more, which can automate much of the setup below in just a few minutes.
+> **🚀 Pro Tip for Servers:** If you're setting this up on a dedicated server, consider using **[Elive for Servers](https://www.elivecd.org/premium/elive-for-servers/)**. It's a tool that enhances your existing Debian/Ubuntu server with the amazing Elive shell, automated TMUX sessions, and optional installers for a highly optimized Nginx, security tools (like Fail2ban), and more. It can automate much of the setup below in just a few minutes.
 
 ---
 
