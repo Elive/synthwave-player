@@ -809,3 +809,4 @@ feat: stereo width now goes up to 20ms
 more precise stereo width adjustment
 feat: bass boost slider now goes from 0 to 8dB
 improved presets
+improved presets
