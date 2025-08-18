@@ -815,3 +815,4 @@ feat: added Metal, Stage, Live, Clarity, and Reggae EQ presets
 improved pressets
 bump
 feat: added a setting for detailed user action logs
+feat: log when songs are played
