@@ -817,3 +817,4 @@ bump
 feat: added a setting for detailed user action logs
 feat: log when songs are played
 wording
+fix eq toggle and playback
