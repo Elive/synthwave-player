@@ -822,3 +822,4 @@ feat: Hide equalizer option if disabled by server
 use public repo for updates
 fix double popup on eq toggle
 improved presets
+fix: Disable equalizer state change notification
