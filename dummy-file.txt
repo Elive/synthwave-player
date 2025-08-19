@@ -824,3 +824,4 @@ fix double popup on eq toggle
 improved presets
 fix: Disable equalizer state change notification
 refactor: Remove fuzzy search and settings; use non-fuzzy relevance
+style: Remove trailing whitespace in search API
