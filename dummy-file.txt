@@ -819,3 +819,4 @@ feat: log when songs are played
 wording
 fix eq toggle and playback
 feat: Hide equalizer option if disabled by server
+use public repo for updates
