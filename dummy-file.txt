@@ -826,3 +826,4 @@ fix: Disable equalizer state change notification
 refactor: Remove fuzzy search and settings; use non-fuzzy relevance
 style: Remove trailing whitespace in search API
 feat: support more audio formats for play and download
+feat: animate the speed widget when it appears
