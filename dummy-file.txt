@@ -820,3 +820,4 @@ wording
 fix eq toggle and playback
 feat: Hide equalizer option if disabled by server
 use public repo for updates
+fix double popup on eq toggle
