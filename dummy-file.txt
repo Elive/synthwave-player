@@ -870,3 +870,4 @@ feat: playlist folder is now editable and supports multiple paths
 playlists_directory is now an array
 feat: can now edit genre and playlist ignore lists
 set back passport example
+refactor: Remove default values from %CONFIG_VARS and centralize defaults
