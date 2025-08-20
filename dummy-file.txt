@@ -839,3 +839,4 @@ feat: added playback speed to the player menu
 chore: Add comments to improve HTML structure clarity
 fix: Remove glow effect from playback speed widget disappear animation
 feat: show autoplay prompt on mobile when loading from a URL
+feat: search box keeps glowing while you're typing
