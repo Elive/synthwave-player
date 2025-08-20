@@ -828,3 +828,4 @@ style: Remove trailing whitespace in search API
 feat: support more audio formats for play and download
 feat: animate the speed widget when it appears
 feat: added orange glow to the speed widget
+fix invalid rhythmbox db path
