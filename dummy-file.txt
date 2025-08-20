@@ -843,3 +843,4 @@ feat: search box keeps glowing while you're typing
 fix: Prevent autoplay when dismissing modal via click or escape
 fix: Correct preloading progress bar display in tracklist
 fix: Add delay to autoplay to prevent browser blocking
+fix: Suppress 'playback blocked' notification during autoplay attempt
