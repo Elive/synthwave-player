@@ -858,3 +858,4 @@ feat: wait 3s before showing queued popups
 feat: music folders are now editable in settings
 fix: move music directories config to friends section and update order
 feat: added MUSIC_DIRECTORIES to config
+feat: added a bug emoji to the report menu
