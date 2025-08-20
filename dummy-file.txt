@@ -837,3 +837,4 @@ fix config lookup for hypnotoad
 refactor: Rename "User Settings" to "Server Settings" in UI and messages
 feat: added playback speed to the player menu
 chore: Add comments to improve HTML structure clarity
+fix: Remove glow effect from playback speed widget disappear animation
