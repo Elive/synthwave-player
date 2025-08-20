@@ -851,3 +851,4 @@ style: Increase horizontal spacing around play/pause button
 design
 dynamic notifications, upnp configurable
 refactor: fetch user full name only when creating new server config or entry is empty
+refactor: rename configuration file from config.pl to server-config.pl
