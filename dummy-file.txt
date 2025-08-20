@@ -849,3 +849,4 @@ fix: Prevent premature autoplay modal on mobile
 style: Realign player controls to center play/pause button
 style: Increase horizontal spacing around play/pause button
 design
+dynamic notifications, upnp configurable
