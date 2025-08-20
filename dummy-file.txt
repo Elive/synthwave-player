@@ -866,3 +866,4 @@ feat: settings modal now supports lists/arrays
 bump
 fix trim on directory string
 feat: auto-fill and save music folders in settings
+feat: playlist folder is now editable and supports multiple paths
