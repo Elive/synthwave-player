@@ -833,3 +833,4 @@ feat: speed widget now has a faster neon glow animation
 refactor: Use Mojo::File->remove for file deletion
 load config per worker
 load config in master to avoid crash
+fix config lookup for hypnotoad
