@@ -831,3 +831,4 @@ feat: added orange glow to the speed widget
 fix invalid rhythmbox db path
 feat: speed widget now has a faster neon glow animation
 refactor: Use Mojo::File->remove for file deletion
+load config per worker
