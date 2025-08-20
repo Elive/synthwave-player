@@ -871,3 +871,4 @@ playlists_directory is now an array
 feat: can now edit genre and playlist ignore lists
 set back passport example
 refactor: Remove default values from %CONFIG_VARS and centralize defaults
+refactor: Improve server settings configuration and persistence
