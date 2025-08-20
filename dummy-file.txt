@@ -836,3 +836,4 @@ load config in master to avoid crash
 fix config lookup for hypnotoad
 refactor: Rename "User Settings" to "Server Settings" in UI and messages
 feat: added playback speed to the player menu
+chore: Add comments to improve HTML structure clarity
