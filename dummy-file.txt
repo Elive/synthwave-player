@@ -847,3 +847,4 @@ fix: Suppress 'playback blocked' notification during autoplay attempt
 fix
 fix: Prevent premature autoplay modal on mobile
 style: Realign player controls to center play/pause button
+style: Increase horizontal spacing around play/pause button
