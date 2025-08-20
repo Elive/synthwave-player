@@ -864,3 +864,4 @@ chore: update music directory comments and bug report emoji
 default value for music_directories
 feat: settings modal now supports lists/arrays
 bump
+fix trim on directory string
