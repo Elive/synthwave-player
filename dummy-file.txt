@@ -845,3 +845,4 @@ fix: Correct preloading progress bar display in tracklist
 fix: Add delay to autoplay to prevent browser blocking
 fix: Suppress 'playback blocked' notification during autoplay attempt
 fix
+fix: Prevent premature autoplay modal on mobile
