@@ -860,3 +860,4 @@ fix: move music directories config to friends section and update order
 feat: added MUSIC_DIRECTORIES to config
 feat: added a bug emoji to the report menu
 music_directories in settings modal
+chore: update music directory comments and bug report emoji
