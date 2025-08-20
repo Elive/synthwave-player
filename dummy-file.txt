@@ -855,3 +855,4 @@ refactor: rename configuration file from config.pl to server-config.pl
 refactor: extract user full name retrieval to dedicated subroutine and update config file when needed
 configurable default sort and order
 feat: wait 3s before showing queued popups
+feat: music folders are now editable in settings
