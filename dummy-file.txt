@@ -856,3 +856,4 @@ refactor: extract user full name retrieval to dedicated subroutine and update co
 configurable default sort and order
 feat: wait 3s before showing queued popups
 feat: music folders are now editable in settings
+fix: move music directories config to friends section and update order
