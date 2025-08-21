@@ -886,3 +886,4 @@ docs: Update viral banner button text
 keep song param in url after autoplay
 fix: Show intro modal only on desktop
 style: Change playback speed widget animation color to cyan
+feat: Redesign popup system with types and close button
