@@ -884,3 +884,4 @@ use toggleplay for mobile autoplay
 bypass mobile autoplay blocks
 docs: Update viral banner button text
 keep song param in url after autoplay
+fix: Show intro modal only on desktop
