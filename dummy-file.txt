@@ -883,3 +883,4 @@ show ready to rock modal on mobile
 use toggleplay for mobile autoplay
 bypass mobile autoplay blocks
 docs: Update viral banner button text
+keep song param in url after autoplay
