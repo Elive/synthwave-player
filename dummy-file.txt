@@ -876,3 +876,4 @@ check if music and playlist dirs exist
 feat: show Rhythmbox errors when running locally
 enforce the use of utf8 and also in the config file which is required
 refactor: better handling for autoplay and timestamps
+keep the EQ icon when it has an equalization set
