@@ -878,3 +878,4 @@ enforce the use of utf8 and also in the config file which is required
 refactor: better handling for autoplay and timestamps
 keep the EQ icon when it has an equalization set
 better mobile cover art logic
+fix empty cover on autoplay
