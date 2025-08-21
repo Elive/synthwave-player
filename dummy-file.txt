@@ -874,3 +874,4 @@ refactor: Remove default values from %CONFIG_VARS and centralize defaults
 refactor: Improve server settings configuration and persistence
 check if music and playlist dirs exist
 feat: show Rhythmbox errors when running locally
+enforce the use of utf8 and also in the config file which is required
