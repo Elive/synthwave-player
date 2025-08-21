@@ -879,3 +879,4 @@ refactor: better handling for autoplay and timestamps
 keep the EQ icon when it has an equalization set
 better mobile cover art logic
 fix empty cover on autoplay
+show ready to rock modal on mobile
