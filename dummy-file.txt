@@ -888,3 +888,4 @@ fix: Show intro modal only on desktop
 style: Change playback speed widget animation color to cyan
 feat: Redesign popup system with types and close button
 bump
+build: Update application version to v2.9
