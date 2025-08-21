@@ -7,8 +7,8 @@ It is a self-hosted, open-source, web-based music _(and video?)_ player applicat
 
 __Note: Video player support implementation planned__
 
-[![Synthwave Player - Video Demo](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/hqdefault.jpg)](https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE "Synthwave Player - Video Demo")
-![Player Screenshot](https://forum.elivelinux.org/uploads/default/original/2X/3/3ba57ea8f0731f8c10c7d93b4a6073459ff391a3.jpeg)
+<!-- [![Synthwave Player - Video Demo](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/hqdefault.jpg)](https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE "Synthwave Player - Video Demo") -->
+<!-- ![Player Screenshot](https://forum.elivelinux.org/uploads/default/original/2X/3/3ba57ea8f0731f8c10c7d93b4a6073459ff391a3.jpeg) -->
 
 <!-- **[➡️ Demo Website](https://music.home.thanatermesis.org/?genres=Synthwave%2CSynthwave+Vocal&song=2f0f940b8d019f2f2a2271317a01ae99efadb44e&sort=rating%3Adesc&t=54)** -->
 **[➡️ Demo Website](https://music.home.thanatermesis.org/?playlists=Royalty-Free&song=24350eb10ec99665d6444bb294983d2998e363a4&sort=rating%3Adesc&t=77)**
@@ -413,4 +413,6 @@ Some ideas / TODO to implement:
 -   **Notifications of different types:** To differentiate between info, debug, error, or warning messages.
 -   **User-based liked system**: Allow users to like (hearth) the songs, saving them in ther username login, and display the total ratings average too.
 -   **Windows / MacOS / Docker Support:** Set up this player running it from a docker so you can install it on windows or mac too.
-- The disc should not spin, but instead it should remain in place and rotate a few pixels back and forth to simulate the record spinning. This will require to separate the reflection with the disc image (2 images), the disc should spin and the reflection should whobble back-and-forth
+-   **UI**: The disc should not spin, but instead it should remain in place and rotate a few pixels back and forth to simulate the record spinning. This will require to separate the reflection with the disc image (2 images), the disc should spin and the reflection should whobble back-and-forth
+-   **Radio url support**: Include a special playlist file with radio URL's to add support for radios, if exist, the radios will be shown in the "playlists" sidebard with a special radio icon to identify it, when loaded, the tracklist will show the radios available on the list that can be clicked to stream the radio stream to the user player directly (without passing by the server side). 
+    - UPDATE: instead, configure radio stations from an array editable on the server settings modal
