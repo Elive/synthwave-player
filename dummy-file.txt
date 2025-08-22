@@ -893,3 +893,4 @@ main title is no longer clickable
 feat: better notifications with links and custom timers
 improved no-upnp error message
 feat: added "Upgrade to PRO" option and modal
+position
