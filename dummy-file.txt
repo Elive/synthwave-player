@@ -905,3 +905,4 @@ added local resources for offline working, faster load, and more coherente loadi
 renamed minified file
 fix: Prevent duplicate error/warning notifications
 feat: wait 3s before showing queued notifications
+show notifications for current request
