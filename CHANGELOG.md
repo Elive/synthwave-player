@@ -1,5 +1,27 @@
 # Synthwave Music Player Changelog
 
+## v2.9 - "The Terminator"
+🎛 **Configuration:** Introduced typed, dynamic, and saved user and server settings that reload instantly. Redesigned the interface into a “Server Settings” popup with grouped input fields and automatic creation of default settings, including logging options.
+
+🎚 **Equalizer & Audio:** Built a complete equalizer using the Web Audio API featuring a preamp, 9 frequency bands, bass boost, and enhanced stereo effects. Users can toggle it on/off during playback, save custom presets, enjoy glowing controls, layered popup windows, and separate control sections for each effect.
+
+🚨 **Error Handling:** Detected playback errors on the server side using HTTP headers. The client now shows clear, user-friendly alerts when files are missing or unsupported.
+
+🐞 **Logging & Debug:** Added detailed debug and verbose logging for playlist actions, blacklist filtering, and configuration changes to help track issues and improve troubleshooting.
+
+🔧 **Misc Fixes & Enhancements:** Renamed application and configuration files for clarity. Fixed typos, improved user interface and README, optimized URL handling, playback, playlists, fullscreen mode, and worker processes; centralized default settings and expanded options for user configuration overrides.
+
+📂 **Music & Playlist Paths:** Added editable whitelists allowing multiple music and playlist directories with checks to ensure paths exist. Fixed playlist loading problems across all directories. Enhanced shell command escaping, encoding detection, and improved blacklist regular expressions by adding string flags and error messages.
+
+▶ **Playback & UI:** Redesigned the playback speed control widget with configurable options, smooth animations, and saved preferences. Improved mobile autoplay bypass and error handling. Added automatic scrolling to the current song, fullscreen cover toggle, refined volume and mute controls with tooltips and layout improvements, better context menu positioning, support for multiple audio formats, and richer notifications including clickable links, timed fades, and adaptive display durations.
+
+🛡 **Rate Limiting & Security:** Implemented detailed IP and global rate limits with connection caps displayed in HTTP headers. Added whitelisting for local and private IP addresses and improved IPv4/IPv6 validation. Server provides warnings when rate limits are reached or large libraries are used. Strengthened security by whitelisting MIME types, validating file paths to prevent traversal attacks, and sanitizing shell commands.
+
+📊 **Rhythmbox DB Status:** Enabled live detection of Rhythmbox database and playlist updates through the server API (restricted to private IPs). The client regularly checks the status and shows popup warnings prompting users to update the database if playback errors occur.
+
+🎨 **UI/UX Upgrades:** Made sliders, buttons, and popup windows larger with neon glow effects and smooth fade animations. Adjusted fonts and margins differently for mobile and desktop views. Added sticky headers and compact vertical spacing on mobile devices. Improved sidebar collapse buttons and separated mouse events for playlists and genres. Introduced premium menus for “Upgrade to PRO” and “Report a Bug” linking to GitHub and Patreon. Fixed accidental clicks on the main title and polished notification styles and consistent widths.
+
+
 ## v2.8 - "The Decoder"
 - 🎶 **Playlist Prodigy**: Drastically improved `.pls` file parsing. The player now expertly handles various character encodings (ISO-8859-15, Windows-1252) and special characters in file paths, ensuring your curated lists load correctly.
 - 🚀 **Playback Power-Up**: Take control of your tempo with a new playback speed button, featuring pitch preservation for a natural sound at any speed. Especially useful for audiobooks and automatically loaded widget for them.

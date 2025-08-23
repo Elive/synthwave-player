@@ -32,7 +32,7 @@ Built for the discerning music lover who curates their own library, this player 
 Unlike desktop apps lacking a good experience or restrictive streaming platforms, this new music player is built with a different philosophy:
 
 -   **👑 Total Ownership:** Your music, your rules. No subscriptions, no ads, no internet dependency for your files. De-cloud yourself and own your best listening experience, exactly as you want it.
--   **🎧 Your Personal Spotify:** Transform your music library into a private streaming service. Get the Spotify experience with your own collection, no ads, no fees, no surprises, and complete privacy.
+-   **🎧 Your Personal Spotify:** Transform your music library into a private streaming service. Get the Spotify experience with your own collection, no ads, no fees, no surprises, and complete privacy. - Is time to cancel your Spotify billing!
 -   **🎨 Beautiful Design & Unique UX:** More than just a player, it offers a beautifully crafted synthwave-inspired interface and a unique user experience designed to immerse you in the music with the sole purpose to enjoy it.
 -   **🔭 View-Based Tracklists:** Features a powerful view-based tracklist selection. Any view you create—by filtering genres, combining playlists, or searching—becomes a unique, perfectly shareable tracklist.
 -   **🧩 Seamless Rhythmbox Sync:** It leverages your existing, meticulously curated Rhythmbox library out of the box. All your songs, ratings, and playlists are available instantly with zero configuration.
