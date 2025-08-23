@@ -912,3 +912,4 @@ remove notifications from cache when dismissed
 notification deduplication on client
 recovered size values
 RESTRUCTURED HIERACHY
+added desktop files
