@@ -913,3 +913,4 @@ notification deduplication on client
 recovered size values
 RESTRUCTURED HIERACHY
 added desktop files
+WIP moved html outside the embedding
