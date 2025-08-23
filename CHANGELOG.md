@@ -9,7 +9,7 @@
 - ✨ **UI & UX Elixirs**: Polished UI with better sliders, improved mobile layout, refined neon glows, and a more intuitive playback speed widget.
 
 <details>
-<summary>Click to SEE FULL CHANGELOG details</summary>
+<summary>FULL VERSION details</summary>
 
 - 🎛 **Configuration**: Introduced typed, dynamic, and saved user and server settings that reload instantly. Redesigned the interface into a “Server Settings” popup with grouped input fields and automatic creation of default settings, including logging options.
 - 🎚 **Equalizer & Audio**: Built a complete equalizer using the Web Audio API featuring a preamp, 9 frequency bands, bass boost, and enhanced stereo effects. Users can toggle it on/off during playback, save custom presets, enjoy glowing controls, layered popup windows, and separate control sections for each effect.
