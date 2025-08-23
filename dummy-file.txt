@@ -899,3 +899,4 @@ feat: Increase width of modals and notification toasts
 feat: Warn if Rhythmbox DB is out of date on song not found
 feat: added a toggle to show or hide cover art
 fix
+fix: Show DB out-of-date warning for broken files at init and on playback errors
