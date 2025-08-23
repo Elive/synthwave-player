@@ -903,3 +903,4 @@ fix: Show DB out-of-date warning for broken files at init and on playback errors
 refactor: Improve error and warning message clarity and dialog styling
 added local resources for offline working, faster load, and more coherente loading
 renamed minified file
+fix: Prevent duplicate error/warning notifications
