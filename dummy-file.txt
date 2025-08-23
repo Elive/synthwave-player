@@ -907,3 +907,4 @@ fix: Prevent duplicate error/warning notifications
 feat: wait 3s before showing queued notifications
 show notifications for current request
 unique song not found notifications
+better notification cleanup
