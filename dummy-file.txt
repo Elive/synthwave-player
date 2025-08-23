@@ -895,3 +895,4 @@ improved no-upnp error message
 feat: added "Upgrade to PRO" option and modal
 position
 position
+feat: Increase width of modals and notification toasts
