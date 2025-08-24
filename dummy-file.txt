@@ -927,3 +927,4 @@ switched back to premium
 if UPNP setup fails show a warning message in the interface to local_mode
 feat: better startup message with URLs and hostname
 small improvements
+docs: add tip about using Picard for automatic music tagging and cover art download
