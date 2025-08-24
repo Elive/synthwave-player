@@ -939,3 +939,4 @@ whitespaces fix
 updated changelog
 Release version 3.0
 feat: auto-generate source zips during release
+added releaser tool
