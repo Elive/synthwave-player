@@ -915,3 +915,4 @@ RESTRUCTURED HIERACHY
 added desktop files
 WIP moved html outside the embedding
 NEW STRUCTURE working
+WIP added debian directory to build packages
