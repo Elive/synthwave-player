@@ -945,3 +945,4 @@ changelog
 fix: Correct and add translations for desktop entries
 fix: Ensure playlists and genres update on page reload
 chore: Disable Ctrl+S browser save functionality
+feat: auto-reload when the config file changes
