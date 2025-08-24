@@ -924,3 +924,4 @@ restructured hierachy
 fixes
 small improvements
 switched back to premium
+if UPNP setup fails show a warning message in the interface to local_mode
