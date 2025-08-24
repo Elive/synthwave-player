@@ -937,3 +937,4 @@ much improved updater tool
 added CI for github build package releases
 whitespaces fix
 updated changelog
+Release version 3.0
