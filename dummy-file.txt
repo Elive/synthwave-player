@@ -942,3 +942,4 @@ feat: auto-generate source zips during release
 added releaser tool
 fix: Correct and add translations for Synthwave Player desktop files
 changelog
+fix: Correct and add translations for desktop entries
