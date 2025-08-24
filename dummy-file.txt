@@ -943,3 +943,4 @@ added releaser tool
 fix: Correct and add translations for Synthwave Player desktop files
 changelog
 fix: Correct and add translations for desktop entries
+fix: Ensure playlists and genres update on page reload
