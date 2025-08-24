@@ -932,3 +932,4 @@ feat: start the server in the foreground on the first run
 filter unsupported files from library
 pass has_playlists to template
 added dependency for inotify
+feat: auto-reload when Rhythmbox library updates
