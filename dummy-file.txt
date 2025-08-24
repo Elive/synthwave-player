@@ -931,3 +931,4 @@ docs: add tip about using Picard for automatic music tagging and cover art downl
 feat: start the server in the foreground on the first run
 filter unsupported files from library
 pass has_playlists to template
+added dependency for inotify
