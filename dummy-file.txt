@@ -929,3 +929,4 @@ feat: better startup message with URLs and hostname
 small improvements
 docs: add tip about using Picard for automatic music tagging and cover art download
 feat: start the server in the foreground on the first run
+filter unsupported files from library
