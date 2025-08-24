@@ -935,3 +935,4 @@ added dependency for inotify
 feat: auto-reload when Rhythmbox library updates
 much improved updater tool
 added CI for github build package releases
+whitespaces fix
