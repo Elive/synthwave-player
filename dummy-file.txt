@@ -926,3 +926,4 @@ small improvements
 switched back to premium
 if UPNP setup fails show a warning message in the interface to local_mode
 feat: better startup message with URLs and hostname
+small improvements
