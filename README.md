@@ -136,15 +136,15 @@ You host it yourself. There is no tracking, no data collection, and no third-par
 
 ## Getting Started
 
-> **NOTE:** If you just want to try the player 🚀 the quickest method is to simply download **[Elive Retrowave](https://www.elivecd.org/retrowave-os)** which ships with the player already pre-installed, configured, and ready to use out of the box.
+> **NOTE:** If you just want to try the player 🚀 the quickest method is to simply download **[Elive Retrowave](https://www.elivecd.org/download/retrowave)** which ships with the player already pre-installed, configured, and with music ready to use.
 
-### Prerequisites
-1.  A Linux-based system.
-2.  A populated **Rhythmbox** music library. The player reads its database (`~/.local/share/rhythmbox/rhythmdb.xml`).
-3.  **Perl** and the `cpanm` utility installed.
-4.  The needed **Perl** dependencies.
-
+<details>
+<summary>
+        <strong>Manual Installation</strong>
+        <img align="center" alt="advanced" src="https://img.shields.io/badge/Advanced-C73b3b">
+    </summary>
 ### Installation
+
 1.  **Clone the repository**:
 
 2.  **Install the required Perl modules.**
@@ -207,11 +207,12 @@ Replace the URL with your player's actual address. For local use, this is `http:
     ```bash
     surf "http://localhost:8160"
     ```
+</details>
 
 <details>
 <summary>
         <strong>🌐 How to Self-Host your music library for Online Access</strong>
-        <img align="center" alt="Easy" src="https://img.shields.io/badge/Advanced-C73b3b">
+        <img align="center" alt="advanced" src="https://img.shields.io/badge/Advanced-C73b3b">
     </summary>
 <br>
 While you can access the player by its IP address on your local network, setting it up with a domain name, a reverse proxy, and SSL encryption provides a more professional, secure, and convenient experience. Here’s a complete guide for setting this up on a Debian 13 (Trixie) server.
