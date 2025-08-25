@@ -3,9 +3,7 @@
 
 Simply put, this is the **most enjoyable** music player ever made.
 
-It is a self-hosted, open-source, web-based music _(and video?)_ player application that streams your local music library with a beautiful synthwave / retrowave / outrun / neon-style aesthetic. Using your music collection to be a private streaming service or just a personal player, giving you complete control over your listening experience without distractions.
-
-_Note: Video player support implementation planned_
+It is a self-hosted, open-source, web-based music _(WIP and video)_ player application that streams your local music library with a beautiful synthwave / retrowave / outrun / neon-style aesthetic. Using your music collection to be a private streaming service or just a personal player, giving you complete control over your listening experience without distractions.
 
 <!-- Intro Image -->
 <img src="media/synthwave-player-multiple-interfaces.webp" alt="Synthwave Player - Multiple Interfaces">
