@@ -1,5 +1,6 @@
 # Synthwave Player
 
+> Crafted with passion, day and night, over an entire non-stop month to create an unparalleled, feature-rich listening experience.
 
 Simply put, this is the **most enjoyable** music player ever made.
 
