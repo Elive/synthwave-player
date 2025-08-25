@@ -145,7 +145,9 @@ You host it yourself. There is no tracking, no data collection, and no third-par
 <summary>
         <strong>Easy Installation</strong>
     </summary>
-    Go to the **Releases** section and download the latest `.deb` package for your system.
+
+Go to the *Releases* section and download the latest `.deb` package for your system.
+
 <img src="media/page-releases.png" alt="Releases">
 
 </details>
