@@ -988,3 +988,4 @@ better shoutcast compatibility
 better radio stream parsing
 updated http headers for audio
 strip icy-metadata from radio
+feat: log a lot more info for radio proxy debugging
