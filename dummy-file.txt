@@ -978,3 +978,4 @@ feat: added a track number column you can toggle
 support for multiple playlist formats like m3u
 feat: support multiple playlist folders
 remote clients can't set db out of date
+feat: playlists and player now support radio streams
