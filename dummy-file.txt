@@ -975,3 +975,4 @@ feat: save playback position in local storage
 feat: remember where you left off and resume playback
 ignore zero-byte cover art
 feat: added a track number column you can toggle
+support for multiple playlist formats like m3u
