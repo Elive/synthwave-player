@@ -958,3 +958,4 @@ mask admin password and fix placeholder
 stop browser from saving admin password
 refactor: Move 'Exit Admin Mode' menu item to end of settings menu
 feat: can now configure private networks (Tailscale added by default)
+docs: Document default private network ranges
