@@ -1,6 +1,6 @@
 # Synthwave Player
 
-> Crafted with passion, day and night, over an entire non-stop month to create an unparalleled, feature-rich listening experience.
+> Crafted with a strong dedication and passion for more than 2 entire months, non-stop days until 4am with the aim to create an unparalleled, feature-rich listening experience.
 
 Simply put, this is the **most enjoyable** music player ever made.
 
@@ -140,6 +140,15 @@ You host it yourself. There is no tracking, no data collection, and no third-par
 ## Getting Started
 
 **NOTE:** If you just want to try the player 🚀 the quickest method is to simply download **[Elive Retrowave](https://www.elivecd.org/download/retrowave)** which ships with the player already pre-installed, configured, and with music ready to use.
+
+<details>
+<summary>
+        <strong>Easy Installation</strong>
+    </summary>
+    Go to the **Releases** section and download the latest `.deb` package for your system.
+<img src="media/page-releases.png" alt="Releases">
+
+</details>
 
 <details>
 <summary>
