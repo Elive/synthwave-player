@@ -80,7 +80,9 @@ For real collectors of good music, synthwave lovers, seekers or of original mast
 
 Stream your entire music library to any device with a web browser, whether you're at home or on the go. The responsive design works beautifully on desktops, laptops, tablets, and phones.
 
-<img src="media/synthwave-player-multiple-interfaces.webp" alt="Synthwave Player - Multiple Interfaces">
+<a href="https://raw.githubusercontent.com/Elive/synthwave-player/refs/heads/main/media/synthwave-player-multiple-interfaces.webp" target="_blank">
+    <img src="media/synthwave-player-multiple-interfaces.webp" alt="Synthwave Player - Multiple Interfaces"/>
+</a>
 
 
 ### 📦 Zero-Setup, and with Rhythmbox Integration
