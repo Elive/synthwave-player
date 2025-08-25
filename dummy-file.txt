@@ -963,3 +963,4 @@ fix config loading and log network type
 feat: add animation and delay to the viral banner
 cache IP remote vs local state
 fix: Remove client IP from cache on disconnect
+small improvements
