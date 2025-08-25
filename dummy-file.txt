@@ -980,3 +980,4 @@ feat: support multiple playlist folders
 remote clients can't set db out of date
 feat: playlists and player now support radio streams
 fix whitespace in playlist urls
+handle radio for audio and covers
