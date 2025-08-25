@@ -983,3 +983,4 @@ fix whitespace in playlist urls
 handle radio for audio and covers
 feat: song API now tells you if it's a radio stream
 proxy radio streams and fix time format
+feat: new synthwave-style radio icon
