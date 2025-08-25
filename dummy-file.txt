@@ -956,3 +956,4 @@ refactor: Tune admin login brute-force delay and clarify password logging
 refactor: Admin mode to use config password; add initial setup
 mask admin password and fix placeholder
 stop browser from saving admin password
+refactor: Move 'Exit Admin Mode' menu item to end of settings menu
