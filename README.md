@@ -16,7 +16,7 @@ It is a self-hosted, open-source, web-based music _(WIP and video)_ player appli
 
 
 
-## A Sonic Universe, Under Your Control
+## A Sonic Universe Under Your Control
 
 <!-- <img align="right" src="media/network-sharing.png" alt="Network sharing" width="270" height="220"> -->
 
@@ -136,7 +136,7 @@ You host it yourself. There is no tracking, no data collection, and no third-par
 
 ## Getting Started
 
-> **NOTE:** If you just want to try the player 🚀 the quickest method is to simply download **[Elive Retrowave](https://www.elivecd.org/download/retrowave)** which ships with the player already pre-installed, configured, and with music ready to use.
+**NOTE:** If you just want to try the player 🚀 the quickest method is to simply download **[Elive Retrowave](https://www.elivecd.org/download/retrowave)** which ships with the player already pre-installed, configured, and with music ready to use.
 
 <details>
 <summary>
@@ -374,31 +374,13 @@ This is the most reliable way to run the player as a long-term service.
     ```
 Your server is now fully configured! You can access your music securely at `https://music.yourdomain.com`.
 
-</details>
 
-<details>
-<summary><strong>🍓 How to build a music server on a Raspberry Pi</strong></summary>
+<strong>🍓 How to build a music server on a Raspberry Pi</strong>
 <br>
 A Raspberry Pi is an excellent choice for a low-power, energy-efficient, and always-on music server. Since Raspberry Pi OS is based on Debian, you can follow the main installation instructions.
 
 The only specific consideration for a Raspberry Pi is the location of your music library. If you store your music on an external USB drive, you will need to edit the `@MUSIC_DIRECTORIES` variable from the tool, personal configurations, or interface configurations to include the path to your drive (e.g., `/media/pi/MyMusicDrive`).
 </details>
-
----
-
-## Configuration
-
-All configuration is done by editing the variables at the top of the `synthwave-player` script.
-
--   `$WEBSITE_TITLE`: The title for the website. By default, it's dynamically generated from the user's full name (e.g., "John Doe's Music"), but can be set to any static string.
--   `$APP_PORT`: The network port the application will run on.
--   `$ENABLE_COVER_ART`: Set to `1` to enable all cover art features, or `0` to disable them.
--   `$RHYTHMDB_PATH`: The path to your Rhythmbox database file. The default should work for most users.
--   `$PLAYLISTS_DIR`: The directory where you store your `.pls` playlist files.
--   `@MUSIC_DIRECTORIES`: An array of whitelisted directories where your music files are stored. Defaults to the XDG Music directory. This is a security feature to prevent access to arbitrary files.
--   `@PLAYLIST_BLACKLIST`: A list of regular expressions to exclude certain playlists by name.
--   `@GENRE_BLACKLIST`: A list of regular expressions to exclude certain genres from the genre list.
--   `$CROSSFADE_DURATION_S`: The duration in seconds for crossfading between songs. Set to `0` to disable. This can also be configured from the UI.
 
 ---
 
