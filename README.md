@@ -400,4 +400,4 @@ Some ideas / TODO to implement:
 -   **Windows / MacOS / Docker Support:** Set up this player running it from a docker so you can install it on windows or mac too.
 -   **UI**: The disc should not spin, but instead it should remain in place and rotate a few pixels back and forth to simulate the record spinning. This will require to separate the reflection with the disc image (2 images), the disc should spin and the reflection should whobble back-and-forth
 -   **Radio url support**: Include a special playlist file with radio URL's to add support for radios, if exist, the radios will be shown in the "playlists" sidebard with a special radio icon to identify it, when loaded, the tracklist will show the radios available on the list that can be clicked to stream the radio stream to the user player directly (without passing by the server side). 
-    - UPDATE: instead, configure radio stations from an array editable on the server settings modal
+

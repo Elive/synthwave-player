@@ -1,5 +1,34 @@
 # Synthwave Music Player Changelog
 
+## v3.1 - The Guardian
+- 🔐 **Admin Mode**: Introduced a secure, local network-only admin mode for privileged settings, protected by configurable passwords, brute-force rate limiting, and debug logging.
+- 🌐 **Network Security**: Added configurable private IP network detection (including Tailscale support) to control admin access; client IP is now cached and cleared on disconnect for better privacy.
+- 🛡️ **Browser Hardening**: Implemented measures across login forms to prevent browsers from saving, suggesting, or auto-filling passwords, enhancing security.
+- 🖥️ **User Interface**: Masked admin password fields and cleared them on focus; moved the 'Exit Admin Mode' option to the end of the settings menu for a clearer workflow.
+- ⚙️ **Configuration Management**: The server now automatically watches for changes to its config file and reloads without a restart; ensured configs load reliably on startup.
+- 🎉 **Viral Banner UI**: Added a new animated viral banner that appears after 15 seconds, with smooth fade effects and remembers when users dismiss it. 
+- 📂 **Playlist & Genre Cache Fix**: Fixed issues where playlists and genres didn’t update properly by removing overly long cache-control headers. 
+- 📣 **UI Notification on Config Update**: Clients now show a notification and automatically reload the page when server configuration changes. 
+- 🖥️ **Server Connectivity Prompt**: Improved launcher so if connecting to default server IP/port fails, it prompts users for server details with helpful hostname tips and fallback warnings. 
+- 📶 **IP Address Caching & Private Network Detection**: Cached results of IP privacy checks to speed up detection and improved private network logging accuracy. 
+
+## v3.0 - "The Refactor"
+- 🐛 **Application Restructuring**: Changed the organization of files by separating executable programs, templates, and desktop configuration files; moved HTML templates out of embedded Perl code to make maintenance easier.
+- 📦 **Debian Packaging** & **Build System**: Made Debian packages from GitHub Actions to automatically build packages, upload build files, and create releases based on tags and changelogs.
+- 🎧 **Rhythmbox Integration**: Automated updates and reloads of the Rhythmbox music library to keep it in sync smoothly.
+- 🔄 **Updater Tool**: Made significant improvements to make the update process more reliable and stable.
+- 💎 **Premium Mode**: Turned premium mode back on to unlock exclusive features for users.
+- 💻 **Command-Line Interface**: Improved command-line help and option handling; added support for `--help`, `--foreground`, and `--debug`; now shows errors if unknown options are used.
+- 🚀 **Server Startup**: On first run, the server starts in the foreground to help with debugging; after that, it runs as a background service by default; added command-line options for foreground and debug modes.
+- 🖥 **Desktop Integration**: Updated player and server desktop shortcut launchers with descriptions.
+- 🎶 **File Filtering**: Limited the supported audio file types to only MP3, FLAC, OGG, WAV, M4A, and OPUS formats.
+
+- 🌐 **Network**: Improved server startup logs by showing clear URLs and hostnames; enabled local network mDNS access if the libnss-mdns package is installed.
+- 🔔 **Notification System**: Moved notification duplicate filtering to the client side to fix issues with multiple workers; improved popup delay and memory cleanup; ensured error notifications are unique per song; added an API to clear stored notifications.
+- 📄 **PID File Management**: Fixed the file paths where process ID (PID) files for Hypnotoad processes are stored to better manage running processes.
+- 🚪 **UPnP Error Handling**: Detects when UPnP port forwarding fails; shows users a warning with a modal dialog and instructions for manually setting up ports if necessary.
+- 🖼 **User Interface**: Added a user interface tip recommending Picard software for automatic music tagging and cover art downloads to help keep the music library organized.
+
 ## v2.9 - "The Alchemist"
 - 🎛️ **Audio Alchemy**: A brand new 10-band audio equalizer with preamp, bass boost, stereo controls, and savable presets to perfectly shape your sound.
 - ⚙️ **Server-Side Sorcery**: Take full control with a new server settings for deep customization.
