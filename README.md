@@ -13,6 +13,10 @@ __Note: Video player support implementation planned__
 <!-- **[➡️ Demo Website](https://music.home.thanatermesis.org/?genres=Synthwave%2CSynthwave+Vocal&song=2f0f940b8d019f2f2a2271317a01ae99efadb44e&sort=rating%3Adesc&t=54)** -->
 **[➡️ Demo Website](https://music.home.thanatermesis.org/?playlists=Royalty-Free&song=24350eb10ec99665d6444bb294983d2998e363a4&sort=rating%3Adesc&t=77)**
 
+
+<!-- Intro Image -->
+<img src="media/synthwave-player-multiple-interfaces.webp" alt="Synthwave Player - Multiple Interfaces">
+
 ## A Sonic Universe, Under Your Control
 
 <!-- <img align="right" src="media/network-sharing.png" alt="Network sharing" width="270" height="220"> -->
