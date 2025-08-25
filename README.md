@@ -5,7 +5,10 @@ Simply put, this is the **most enjoyable** music player ever made.
 
 It is a self-hosted, open-source, web-based music _(and video?)_ player application that streams your local music library with a beautiful synthwave / retrowave / outrun / neon-style aesthetic. Using your music collection to be a private streaming service or just a personal player, giving you complete control over your listening experience without distractions.
 
-__Note: Video player support implementation planned__
+_Note: Video player support implementation planned_
+
+<!-- Intro Image -->
+<img src="media/synthwave-player-multiple-interfaces.webp" alt="Synthwave Player - Multiple Interfaces">
 
 <!-- [![Synthwave Player - Video Demo](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/hqdefault.jpg)](https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE "Synthwave Player - Video Demo") -->
 <!-- ![Player Screenshot](https://forum.elivelinux.org/uploads/default/original/2X/3/3ba57ea8f0731f8c10c7d93b4a6073459ff391a3.jpeg) -->
@@ -14,8 +17,6 @@ __Note: Video player support implementation planned__
 **[➡️ Demo Website](https://music.home.thanatermesis.org/?playlists=Royalty-Free&song=24350eb10ec99665d6444bb294983d2998e363a4&sort=rating%3Adesc&t=77)**
 
 
-<!-- Intro Image -->
-<img src="media/synthwave-player-multiple-interfaces.webp" alt="Synthwave Player - Multiple Interfaces">
 
 ## A Sonic Universe, Under Your Control
 
