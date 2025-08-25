@@ -967,3 +967,4 @@ small improvements
 stop browser password suggestions on admin login
 set admin notification duration
 disable password suggestions
+include private networks in config api
