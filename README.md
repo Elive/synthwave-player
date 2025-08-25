@@ -20,24 +20,24 @@ It is a self-hosted, open-source, web-based music _(WIP and video)_ player appli
 
 <!-- <img align="right" src="media/network-sharing.png" alt="Network sharing" width="270" height="220"> -->
 
-Tired of streaming services that dictate your listening experience, inject ads, and rent you access to music you thought you owned? The **Synthwave Player** is a declaration of musical independence and your gateway to a real music freedom.
+Tired of streaming services that dictate your listening experience, inject ads, and rent you access to music you thought you owned? The **Synthwave Player** is a declaration of musical independence a real music freedom.
 
-It's not a service; it's ***your*** **open-source server**, it's your music and your curation, it's your unstoppable self-power.
+It's not a service; it's ***your*** **open-source server**, it's your music and your curation, it's your unstoppable own power.
 
 <img align="right" src="media/network-sharing.png" alt="Network sharing" width="40%" height="auto">
 
-Built for the discerning music lover who curates their own library, this player combines the convenience of a modern web interface with the power and privacy of hosting your own music. It streams your local music directly to any browser, on any device, wrapped in a gorgeous, retro-futuristic synthwave aesthetic.
+Built for the discerning music lover who curates their own library, this player combines the convenience of a web interface access with the power of hosting your own music. It streams your local music directly to any browser, on any device, wrapped in a gorgeous, retro-futuristic synthwave aesthetic.
 
 <br clear="right">
 
 ### Why is it Better?
 
-Unlike desktop apps lacking a good experience or restrictive streaming platforms, this new music player is built with a different philosophy:
+Unlike desktop apps lacking a good experience or restrictive streaming platforms, this player is built with a different philosophy:
 
 -   **👑 Total Ownership:** Your music, your rules. No subscriptions, no ads, no internet dependency for your files. De-cloud yourself and own your best listening experience, exactly as you want it.
 -   **🎧 Your Personal Spotify:** Transform your music library into a private streaming service. Get the Spotify experience with your own collection, no ads, no fees, no surprises, and complete privacy. - Is time to cancel your Spotify billing!
--   **🎨 Beautiful Design & Unique UX:** More than just a player, it offers a beautifully crafted synthwave-inspired interface and a unique user experience designed to immerse you in the music with the sole purpose to enjoy it.
--   **🔭 View-Based Tracklists:** Features a powerful view-based tracklist selection. Any view you create—by filtering genres, combining playlists, or searching—becomes a unique, perfectly shareable tracklist.
+-   **🎨 Beautiful Design & Unique UX:** Music is a sensorial experience, so this player offers a beautifully crafted synthwave-inspired interface and a unique user experience designed to immerse you in the music with the sole purpose to enjoy it.
+-   **🔭 View-Based Tracklists:** Features a powerful view-based tracklist selection. Any view you create by filtering genres, combining playlists, or search results becomes a unique, perfectly shareable tracklist.
 -   **🧩 Seamless Rhythmbox Sync:** It leverages your existing, meticulously curated Rhythmbox library out of the box. All your songs, ratings, and playlists are available instantly with zero configuration.
 -   **🚀 Access Anywhere:** With automatic **UPnP** configuration, your own music cloud is effortlessly available wherever you have an internet connection. No complex network setup required.
 -   **🔗 Unmatched Sharability:** Share not just songs, but *moments*. Send a link to a track that starts at the exact second you want, or share a link to your custom-filtered 5-star 80s rock playlist.
@@ -45,13 +45,15 @@ Unlike desktop apps lacking a good experience or restrictive streaming platforms
 
 <details>
     <summary>
-        <strong>Why this Self-Hosted Player Beats Spotify for Music Lovers</strong>
+        <strong>Why this Self-Hosted Player Beats Spotify for Music Lovers👈 </strong>
     </summary>
     <br>
 
-For real collectors of good music, for synthwave lovers, for your video game soundtracks, and for seekers of original masterpieces, a self-hosted player isn't just a preference, it's a necessity. Here’s why streaming services like Spotify often fall short for the dedicated music enthusiast:
+For real collectors of good music, synthwave lovers, seekers or of original masterpieces, a self-hosted player isn't just a preference, it's a necessity. Here’s why streaming services like Spotify fall short for the dedicated music enthusiast:
 
 -   **🎵 The Unfindable Tracks:** Mainstream services lack the deep cuts. Obscure B-sides, rare Japanese imports, fan-made remixes, and entire video game OSTs are very often missing from their libraries. With a self-hosted player, if you have the file, you can play it. Your collection is limited only by what you can find, not by what a corporation dictates.
+
+-   **🎤 For Music Creators:** Are you a musician or composer? This platform can become your own record label. Publish your works-in-progress or finished masterpieces directly to your server, share them with fans, and bypass the corporate gatekeepers of the music industry dictatorship. You control the distribution, you own the rights, and you're not bound by any platform's rules.
 
 -   **💿 The Original Masters:** Streaming platforms frequently replace original album versions with modern "remasters", which can alter the classic sound you fell in love with. Self-hosting your music gives you full control over the specific version and mastering of each track, preserving the authentic experience you want to have.
 
@@ -60,8 +62,6 @@ For real collectors of good music, for synthwave lovers, for your video game sou
 -   **👻 No Vanishing Music:** Tracks and albums on streaming services can disappear overnight due to expired licensing agreements. Your personal, self-hosted library is permanent. Your favorite songs will never be pulled from your collection.
 
 -   **🔊 Uncompromised Audio Quality:** Many collectors prefer lossless formats like FLAC to preserve the full quality of their music. While some streaming services offer higher tiers for this, a self-hosted player lets you stream your high-fidelity files without compromise or extra cost.
-
--   **🎤 For Music Creators:** Are you a musician or composer? This platform can become your own record label. Publish your works-in-progress or finished masterpieces directly to your server, share them with fans, and bypass the corporate gatekeepers of the music industry dictatorship. You control the distribution, you own the rights, and you're not bound by any platform's rules.
 
 -   **✨ The Full Aesthetic Experience:** A generic, modern UI can't capture the spirit of the enjoyable music. The Synthwave Player is designed to immerse you in the neon-drenched, world of dreams to elevate your experience. Because it's not just about listening, it's about the vibe. Spotify sells you music, this player gives you a time machine to repair the past.
 
