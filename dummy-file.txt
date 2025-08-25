@@ -951,3 +951,4 @@ feat: added admin mode for protected settings
 feat: add a 5s delay to admin login to stop brute force
 feat: Add debug logging for admin login attempts
 refactor: Use private network for admin mode entry and option visibility
+use is_private_network in template
