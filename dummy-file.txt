@@ -966,3 +966,4 @@ fix: Remove client IP from cache on disconnect
 small improvements
 stop browser password suggestions on admin login
 set admin notification duration
+disable password suggestions
