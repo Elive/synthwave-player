@@ -970,3 +970,4 @@ disable password suggestions
 include private networks in config api
 changelog
 release 3.1
+use logout symbol for exit admin
