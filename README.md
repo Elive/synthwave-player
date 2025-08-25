@@ -137,7 +137,7 @@ You host it yourself. There is no tracking, no data collection, and no third-par
 
 ---
 
-## Getting Started
+## Download / Install
 
 **NOTE:** If you just want to try the player 🚀 the quickest method is to simply download **[Elive Retrowave](https://www.elivecd.org/download/retrowave)** which ships with the player already pre-installed, configured, and with music ready to use.
 
