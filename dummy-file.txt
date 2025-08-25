@@ -964,3 +964,4 @@ feat: add animation and delay to the viral banner
 cache IP remote vs local state
 fix: Remove client IP from cache on disconnect
 small improvements
+stop browser password suggestions on admin login
