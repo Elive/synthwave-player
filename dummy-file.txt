@@ -986,3 +986,4 @@ proxy radio streams and fix time format
 feat: new synthwave-style radio icon
 better shoutcast compatibility
 better radio stream parsing
+updated http headers for audio
