@@ -45,7 +45,7 @@ Unlike desktop apps lacking a good experience or restrictive streaming platforms
 
 <details>
     <summary>
-        <strong>Why this Self-Hosted Player Beats Spotify for Music Lovers👈 </strong>
+        <strong>Why this Self-Hosted Player 🏆 Beats Spotify for Music Lovers👈 </strong>
     </summary>
     <br>
 
@@ -63,7 +63,7 @@ For real collectors of good music, synthwave lovers, seekers or of original mast
 
 -   **🔊 Uncompromised Audio Quality:** Many collectors prefer lossless formats like FLAC to preserve the full quality of their music. While some streaming services offer higher tiers for this, a self-hosted player lets you stream your high-fidelity files without compromise or extra cost.
 
--   **✨ The Full Aesthetic Experience:** A generic, modern UI can't capture the spirit of the enjoyable music. The Synthwave Player is designed to immerse you in the neon-drenched, world of dreams to elevate your experience. Because it's not just about listening, it's about the vibe. Spotify sells you music, this player gives you a time machine to repair the past.
+-   **✨ The Full Aesthetic Experience:** A generic, modern UI can't capture the spirit of the enjoyable music. The Synthwave Player is designed to immerse you in the neon-drenched, world of dreams to elevate your experience. Because it's not just about listening, it's about the vibe. Spotify sells you music, this player gives you a time machine to change the history.
 
 </details>
 
@@ -75,25 +75,27 @@ For real collectors of good music, synthwave lovers, seekers or of original mast
 
 Stream your entire music library to any device with a web browser, whether you're at home or on the go. The responsive design works beautifully on desktops, laptops, tablets, and phones.
 
-### 📦 Zero-Setup, with Rhythmbox Integration
--   Automatically discovers and parses your existing `rhythmdb.xml` database, so you can continue managing your music within Rhythmbox.
--   Instantly loads all your songs, metadata, and star ratings, and builds a **completely organized list** from your entire library.
--   Imports your `.pls` playlists if you have, with robust handling for different character encodings and special characters in file paths.
--   Automatically locates for sharing your music using the **XDG standard directory**, supporting whitelisted additional locations for enhanced security and flexibility.
+<img src="media/synthwave-player-multiple-interfaces.webp" alt="Synthwave Player - Multiple Interfaces">
 
-### ⚡️ Blazing-Fast Fuzzy Search
-_when you remember that the song contains "summer" as title and the artist is trevor-something, but you can't remember the rest?_
--   The builtin smart fuzzy matching finds what you're looking for, even with typos or partial words.
--   Find any track, artist, or album in milliseconds with an as-you-type search.
+
+### 📦 Zero-Setup, and with Rhythmbox Integration
+-   Automatically discovers and parses your existing `rhythmdb.xml` database, so you can continue managing your music within Rhythmbox and share all from this player.
+-   Instantly loads all your songs, metadata, and star ratings, and builds a **completely organized list** from your entire library.
+-   Imports your `.pls` playlists if you have, radio stations, etc
+
+### ⚡️ Blazing-Fast Fuzzy Results
+_when you remember that the song contains "summer" as title and the artist is trevor-something, but you can't remember more than that?_
+-   The house-made, builtin smart fuzzy matching finds what you're looking for, even with typos or partial words.
+-   Find any track, artist, or album in milliseconds with an as-you-type search, faster than selecting lists manually.
 -   Search results can be further filtered and sorted just like any other view.
 
 ### 🎨 Stunning Synthwave & Retrowave UI
--   A beautiful, responsive and adjustable interface with a neon-style, retro-futuristic aesthetic, so enjoyable that it should be forbidden in every country.
+-   A beautiful, responsive and adjustable interface with a neon-style, retro-futuristic aesthetic, so enjoyable that it should be forbidden in every country from this world and other ones.
 -   **Dynamic Visualizer:** When a song with cover art plays, the album cover slides out to reveal a spinning vinyl disc with a subtle, cycling neon glow.
 
 https://github.com/user-attachments/assets/c422dc7f-b973-452b-8cc1-ce991e1a2b6a
 
--   View fullscreen cover art for any song with a single click or from the menu, in order to leave the player running on your device.
+_View fullscreen cover art for any song with a single click or from the menu, so you can leave the player running like that._
 
 ### 🎛️ Powerful Filtering & Sorting
 -   Create on-the-fly views by combining filters for **multiple genres**, **multiple playlists**, and **star ratings**. Mix and match to create the perfect soundscape, for example, instantly viewing all your 5-star songs from your "Rock" and "80s" playlists combined that contain the keyword "night".
@@ -114,12 +116,10 @@ https://github.com/user-attachments/assets/c422dc7f-b973-452b-8cc1-ce991e1a2b6a
 -   **Playback Speed Control:** Adjust playback speed on the fly with pitch preservation, perfect for listening the podcasts or audiobooks at your own pace.
 -   **Power-User Shortcuts:** Use your mouse wheel over the progress and volume bars to seek and adjust levels. Right-click on elements throughout the player to access powerful context menus.
 
-### 📥 Easy Downloads & Management
--   Download any song directly from the player with a single click.
+### 📥 Easy Downloads & Menus
+-   Download any song directly when playing it with a single click. No need to trick a download!
 -   A powerful right-click **context menu** on songs, playlists, and genres provides quick access to actions like sharing (songs, playlists, views), downloading, viewing cover art, and opening lists in a new tab.
-
-### 💻 Desktop App Integration
-Run the player as a native-like desktop application using Chrome or Firefox's app mode. This gives you an experience free from browser distractions, making it a permanent part of your desktop.
+-   Settings to enable/disable features like cover art, crossfade duration, columns, etc.
 
 ### 🌐 Automatic Network Configuration
 Built-in **UPnP** support that automatically configure your required port forwarding on your router, making your music accessible from the internet with zero hassle.
@@ -410,7 +410,6 @@ Some ideas / TODO to implement:
 -   **Peer-to-Peer Sharing:** Build shareable music libraries with friends over peer-to-peer connections, directly integrated with yours!
 -   **User Authentication:** Optional username/password protection to restrict access to your player.
 -   **Audio Equalizer:** A built-in equalizer to customize your sound.
--   **Easy Sharing:** A QR code generator to easily share links to your player, playlists, or songs.
 -   **New Version Notifier:** An in-app notification when a new version of the player is available.
 -   **User Statistics:** Track listening habits and see stats on a per-user basis.
 -   **Notifications of different types:** To differentiate between info, debug, error, or warning messages.
