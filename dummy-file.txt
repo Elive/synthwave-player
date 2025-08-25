@@ -953,3 +953,4 @@ feat: Add debug logging for admin login attempts
 refactor: Use private network for admin mode entry and option visibility
 use is_private_network in template
 refactor: Tune admin login brute-force delay and clarify password logging
+refactor: Admin mode to use config password; add initial setup
