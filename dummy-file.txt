@@ -960,3 +960,4 @@ refactor: Move 'Exit Admin Mode' menu item to end of settings menu
 feat: can now configure private networks (Tailscale added by default)
 docs: Document default private network ranges
 fix config loading and log network type
+feat: add animation and delay to the viral banner
