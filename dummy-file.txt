@@ -948,3 +948,4 @@ chore: Disable Ctrl+S browser save functionality
 feat: auto-reload when the config file changes
 check port and prompt for ip
 feat: added admin mode for protected settings
+feat: add a 5s delay to admin login to stop brute force
