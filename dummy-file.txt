@@ -973,3 +973,4 @@ release 3.1
 use logout symbol for exit admin
 feat: save playback position in local storage
 feat: remember where you left off and resume playback
+ignore zero-byte cover art
