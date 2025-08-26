@@ -1012,3 +1012,4 @@ feat: save UI settings in the browser's local storage
 configurable server port
 reload app after saving settings
 docs: Clarify music player origin in index page
+feat: better UPnP with more settings and UI tweaks
