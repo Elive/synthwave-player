@@ -1001,3 +1001,4 @@ ci: Disable automatic source code archives for releases
 simplified config saving
 feat: open settings automatically after admin login
 fix race condition on config save
+atomic file writes for settings
