@@ -1009,3 +1009,4 @@ feat: support mobile media session for background play
 feat: better media controls for background playback
 show cover art on ios lock screen
 feat: save UI settings in the browser's local storage
+configurable server port
