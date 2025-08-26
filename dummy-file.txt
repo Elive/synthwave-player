@@ -1003,3 +1003,4 @@ feat: open settings automatically after admin login
 fix race condition on config save
 atomic file writes for settings
 fix config save encoding
+updated docs
