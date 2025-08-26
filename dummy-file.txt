@@ -994,3 +994,4 @@ radio bump - WIP
 refactor: Clarify shuffle mode tooltip from 'List' to 'Replicable'
 removed redundant default values
 fix settings button text
+style: Display SHOW_TRACK_NUMBER as a toggle switch in server settings
