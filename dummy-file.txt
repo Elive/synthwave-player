@@ -1015,3 +1015,4 @@ docs: Clarify music player origin in index page
 feat: better UPnP with more settings and UI tweaks
 added resources
 feat: Use fallback image for missing cover art
+added mediasession api and logs
