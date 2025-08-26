@@ -1004,3 +1004,4 @@ fix race condition on config save
 atomic file writes for settings
 fix config save encoding
 updated docs
+feat: turn off EQ/crossfade on mobile by default with a warning
