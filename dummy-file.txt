@@ -1006,3 +1006,4 @@ fix config save encoding
 updated docs
 feat: turn off EQ/crossfade on mobile by default with a warning
 feat: support mobile media session for background play
+feat: better media controls for background playback
