@@ -999,3 +999,4 @@ added utf8 pragma to config
 config reloaded and saved as utf8
 ci: Disable automatic source code archives for releases
 simplified config saving
+feat: open settings automatically after admin login
