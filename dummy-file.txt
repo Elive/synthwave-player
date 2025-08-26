@@ -992,3 +992,4 @@ feat: log a lot more info for radio proxy debugging
 disable accept-encoding for radio proxy
 radio bump - WIP
 refactor: Clarify shuffle mode tooltip from 'List' to 'Replicable'
+removed redundant default values
