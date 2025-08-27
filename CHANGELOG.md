@@ -1,5 +1,28 @@
 # Synthwave Music Player Changelog
 
+## v3.2 - "The Conductor"
+- ⚙️ **Reworked** server settings for reliability with atomic saving, auto-reloads, and an improved UI.
+- 📱 **Enhanced** background playback on mobile with improved MediaSession API controls and continuous playback fixes.
+- #️⃣ **Added** a toggleable track number column to the playlist.
+- 💾 **Persisted** UI settings and song playback position between sessions.
+- 📻 **Implemented** radio stream support with a proxy, improved error handling, and a new themed icon.
+- 📂 **Added** support for multiple playlist directories and formats (M3U, M3U8).
+- 🔌 **Made** server port configurable via the UI, with a watcher to ensure it remains set.
+- 🖼️ **Improved** handling of missing or zero-byte cover art with a proper fallback image.
+- 🔐 **Automatically** opens settings after initial admin password setup to simplify configuration.
+- 🚫 **Added** blacklisting for playlists, genres, and artists.
+- 🎵 **Clarified** music player origin in the UI, crediting Elive Linux.
+- ⏳ **Fixed** crossfade logic to correctly handle zero duration when disabled.
+- 📚 **Updated** documentation with new features and instructions.
+- 🎛️ **Disabled** equalizer and crossfade on mobile devices for better performance.
+- 🍏 **Added** support for displaying cover art on the iOS lock screen.
+- 🚪 **Replaced** the "Exit Admin Mode" icon with a clearer logout symbol.
+- 🔔 **Refactored** notification system to be client-side, reducing duplicate alerts.
+- ⌨️ **Fixed** a debounce issue with the spacebar key for play/pause.
+- 🌐 **Prevented** remote clients from incorrectly flagging the Rhythmbox database as out-of-date.
+- 🔀 **Clarified** the shuffle mode tooltip for better understanding.
+- 📡 **Enhanced** UPnP port forwarding with configurable periodic checks.
+
 ## v3.1 - The Guardian
 - 🔐 **Admin Mode**: Introduced a secure, local network-only admin mode for privileged settings, protected by configurable passwords, brute-force rate limiting, and debug logging.
 - 🌐 **Network Security**: Added configurable private IP network detection (including Tailscale support) to control admin access; client IP is now cached and cleared on disconnect for better privacy.
