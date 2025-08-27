@@ -1032,3 +1032,4 @@ bump
 sort by track number when sorting by album
 changelog
 support for other media types
+fix audio mime type regex
