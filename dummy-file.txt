@@ -1029,3 +1029,4 @@ docs: Prepare CHANGELOG for v3.2 release, consolidating and reformatting entries
 docs: Add related-topic icons and bold first word to v3.2 changelog entries
 Release version 3.2
 bump
+sort by track number when sorting by album
