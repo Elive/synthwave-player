@@ -1022,3 +1022,4 @@ no crossfade on mobile
 fix spacebar double-toggle
 refactor: moved notifications to the client and added debouncing
 better radio error handling
+feat: can now blacklist specific playlists, genres, or artists
