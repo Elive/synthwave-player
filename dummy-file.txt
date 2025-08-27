@@ -1020,3 +1020,4 @@ crossfade duration is 0 when off
 fix mobile lock screen playback
 no crossfade on mobile
 fix spacebar double-toggle
+refactor: moved notifications to the client and added debouncing
