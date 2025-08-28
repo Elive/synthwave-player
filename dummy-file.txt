@@ -1035,3 +1035,4 @@ support for other media types
 fix audio mime type regex
 feat: searching for 'radio' or 'stream' now works specifically
 adjusted cover art logic
+fix coverart animation in mobile that should only happen when theres a change
