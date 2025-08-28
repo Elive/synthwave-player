@@ -1040,3 +1040,4 @@ delay revoking blob urls
 check songswithnocover to avoid 404s
 fix 404s for missing cover art
 feat: check if cover art exists before loading to avoid 404 errors
+feat: play radio directly in the browser instead of proxying through server
