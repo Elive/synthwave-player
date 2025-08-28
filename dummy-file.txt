@@ -1038,3 +1038,4 @@ adjusted cover art logic
 fix coverart animation in mobile that should only happen when theres a change
 delay revoking blob urls
 check songswithnocover to avoid 404s
+fix 404s for missing cover art
