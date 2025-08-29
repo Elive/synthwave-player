@@ -1060,3 +1060,4 @@ fix binary encoding iconv errors
 allow multiple duplicated playlist filenames
 feat: log more details when playing radio or skipping tracks
 ignore empty src error on song change
+ignore transient audio errors
