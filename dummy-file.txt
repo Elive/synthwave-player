@@ -1068,3 +1068,4 @@ feat: don't reload the page when starting radio with EQ on
 abort stream loads on player switch
 small improvements
 ignore harmless audio errors
+label elements
