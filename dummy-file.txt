@@ -1046,3 +1046,4 @@ no cover art for radio
 added fallback radio images
 feat: show a default radio icon when no cover is found
 feat: added radio support and updated CSP
+moved inline css to styles.css
