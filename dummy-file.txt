@@ -1049,3 +1049,4 @@ feat: added radio support and updated CSP
 moved inline css to styles.css
 moved alpine js to its own file
 pass server config to js
+refactor: Simplify code by extracting helpers and consolidating gradients
