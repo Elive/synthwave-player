@@ -1074,3 +1074,4 @@ can stop audio preload
 chore: Remove unused MIME::Base64 and fuse.min.js dependencies
 perf: Add option to disable visual effects for better performance
 fix header z-index
+feat: added scanlines, pulsing headers, and more neon effects
