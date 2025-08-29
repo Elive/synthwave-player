@@ -1089,3 +1089,4 @@ feat: Implement cascading genre filter for artists and albums
 sidebar font sizes for different elements
 adjusted sidebar sizes
 clear sidebar filters on stop
+feat: show how many items are in the sidebar titles
