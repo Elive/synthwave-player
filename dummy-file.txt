@@ -1071,3 +1071,4 @@ ignore harmless audio errors
 label elements
 fix for downloading songs from the icon button
 can stop audio preload
+chore: Remove unused MIME::Base64 and fuse.min.js dependencies
