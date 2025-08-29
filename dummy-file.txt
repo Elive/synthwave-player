@@ -1084,3 +1084,4 @@ enabled sidebar scrolling
 feat: Reduce font size for artist and album sidebar items
 feat: Dynamically adjust tracklist title font for long titles
 style: Shorten "All Tracks" to "All"
+feat: Update long tracklist title font size scaling
