@@ -1078,3 +1078,4 @@ feat: added scanlines, pulsing headers, and more neon effects
 feat: sidebar titles flicker when you hover over them
 chore: Remove obsolete meta tags, unused fuzzy search, and PRO features
 feat: sidebars now remember what you selected
+fix clicking and scrolling in sidebars
