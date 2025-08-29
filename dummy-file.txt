@@ -1055,3 +1055,4 @@ refactor: Refactor song filtering and social share item generation
 refactor: Consolidate server rate-limiting, simplify settings UI, and add CSS vars
 skip library search for radio
 keep title visible while preloading
+no speed control for radio
