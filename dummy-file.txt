@@ -1052,3 +1052,4 @@ pass server config to js
 refactor: Simplify code by extracting helpers and consolidating gradients
 refactor: Simplify JS audio chain & settings; Perl playlist processing & filtering
 refactor: Refactor song filtering and social share item generation
+refactor: Consolidate server rate-limiting, simplify settings UI, and add CSS vars
