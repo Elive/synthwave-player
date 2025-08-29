@@ -1056,3 +1056,4 @@ refactor: Consolidate server rate-limiting, simplify settings UI, and add CSS va
 skip library search for radio
 keep title visible while preloading
 no speed control for radio
+fix binary encoding iconv errors
