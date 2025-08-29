@@ -1070,3 +1070,4 @@ small improvements
 ignore harmless audio errors
 label elements
 fix for downloading songs from the icon button
+can stop audio preload
