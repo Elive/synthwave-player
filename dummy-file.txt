@@ -1085,3 +1085,4 @@ feat: Reduce font size for artist and album sidebar items
 feat: Dynamically adjust tracklist title font for long titles
 style: Shorten "All Tracks" to "All"
 feat: Update long tracklist title font size scaling
+feat: Implement cascading genre filter for artists and albums
