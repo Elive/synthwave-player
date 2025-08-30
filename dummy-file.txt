@@ -1118,3 +1118,4 @@ feat: can now search inside the sidebars
 Release version 3.4
 bump
 feat: Add search icon to toggle search input visibility in sidebars
+feat: click icon to show sidebar search and focus it
