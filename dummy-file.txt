@@ -1116,3 +1116,4 @@ refactor: Remove unused config variables and `x-show` directive
 feat: Add donation link to settings for non-premium users
 feat: can now search inside the sidebars
 Release version 3.4
+bump
