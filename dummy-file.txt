@@ -1186,3 +1186,4 @@ feat: add genius.com lyrics and lower the fetch timeout
 chore: Rephrase online lyrics search failure logs
 broadcast empty lyrics if none found
 docs: Recommend eyeD3/exiftool for local lyrics in config description
+small improvements
