@@ -1168,3 +1168,4 @@ fix lyrics modal blur when effects are off
 disabled glassmorphism and blur
 removed blur from lyrics modal
 keep artist/album selection on reload
+small improvements
