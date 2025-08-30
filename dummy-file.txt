@@ -1154,3 +1154,4 @@ better lyrics detection with exiftool
 return empty string if lyrics missing
 decode exiftool lyrics as utf8
 refactor: Simplify lyrics extraction with helper and streamlined COMM logic
+feat: add glass effect and close animation to lyrics modal
