@@ -1198,3 +1198,4 @@ fix: lyrics must be at least 200 chars to be valid
 fix: strip headers from genius.com lyrics
 chore: log more details when lyrics download fails
 feat: lyrics panel now lets you use the player at the same time
+feat: added lyrics toggle and fixed some styling issues
