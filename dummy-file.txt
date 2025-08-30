@@ -1162,3 +1162,4 @@ added suggested dependencies
 style: Adjust lyrics modal background, remove glassmorphism
 feat: Conditionally style lyrics modal background and pause disc spin
 style: Use translucent background for lyrics modal when effects disabled
+translucent lyrics modal without effects
