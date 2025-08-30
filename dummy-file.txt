@@ -1210,3 +1210,4 @@ feat: moved the lyrics button to the tracklist header
 small improvements
 refactor: cleaned up how html looks in debug logs
 docs: updated the description for online lyrics search
+small improvements
