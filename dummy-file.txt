@@ -1192,3 +1192,4 @@ chore: Default online lyrics search to disabled and update description
 better genius redirect handling
 feat: support letssingit.com and rentanadviser.com for lyrics
 log lyrics timeouts as debug
+update lyrics via websocket
