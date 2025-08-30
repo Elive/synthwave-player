@@ -1105,3 +1105,4 @@ feat: Highlight unlisted active songs from URL with orange
 stop highlighting exact matches, use fuzzy class
 style: Apply orange neon-shadow to fuzzy highlights
 Release version 3.3
+tunned presets to remove minor bass-distortion
