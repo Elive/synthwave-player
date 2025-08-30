@@ -1120,3 +1120,4 @@ bump
 feat: Add search icon to toggle search input visibility in sidebars
 feat: click icon to show sidebar search and focus it
 natural sort for tracklists and sidebars
+feat: better natural sort by ignoring symbols
