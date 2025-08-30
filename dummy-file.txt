@@ -1107,3 +1107,4 @@ style: Apply orange neon-shadow to fuzzy highlights
 Release version 3.3
 tunned presets to remove minor bass-distortion
 don't reorder song if already in list
+added icon
