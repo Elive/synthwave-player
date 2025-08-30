@@ -1104,3 +1104,4 @@ feat: Highlight only differing character in fuzzy search matches
 feat: Highlight unlisted active songs from URL with orange
 stop highlighting exact matches, use fuzzy class
 style: Apply orange neon-shadow to fuzzy highlights
+Release version 3.3
