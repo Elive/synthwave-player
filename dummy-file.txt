@@ -1109,3 +1109,4 @@ tunned presets to remove minor bass-distortion
 don't reorder song if already in list
 added icon
 CI build: added RPM and AppImage builds
+can hide cover art anytime
