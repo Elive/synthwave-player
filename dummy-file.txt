@@ -1173,3 +1173,4 @@ feat: stop the disc spinning when a modal is open
 chore: Remove verbose lyrics debug logs and add success info
 Release version 3.4.1
 added setting to enable/disable lyrics
+small improvements
