@@ -1134,3 +1134,4 @@ feat: add websocket keep-alive pings on the client
 fix: Disable backdrop-blur when visual effects are disabled
 feat: add neon glow to modal edges
 feat: turn off visual effects if the browser can't handle blur
+feat: show lyrics in a popup modal
