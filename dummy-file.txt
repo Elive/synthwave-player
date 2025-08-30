@@ -1144,3 +1144,4 @@ chore: Add debug logging to lyrics fetching logic
 fix: Improve lyrics parsing for eyeD3 tags and enhance debug logs
 fix: Prevent crash when MP3::Tag returns string for COMM frame
 fix: Fix ID3v2 frame debug logging and improve COMM lyrics fallback
+fix: Move fallback lyrics fallback logic to correct function
