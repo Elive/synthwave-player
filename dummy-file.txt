@@ -1124,3 +1124,4 @@ feat: better natural sort by ignoring symbols
 perf: Defer loading artists/albums and optimize initial playlist data
 exact matches first in search
 fix undefined error in sidebar filter
+fix mobile sidebar collapse
