@@ -1,27 +1,88 @@
 # Synthwave Music Player Changelog
 
-## v3.2 - "The Conductor"
+## v3.3 - The Featurer
 - ⚙️ **Reworked** server settings for reliability with atomic saving, auto-reloads, and an improved UI.
 - 📱 **Enhanced** background playback on mobile with improved MediaSession API controls and continuous playback fixes.
 - #️⃣ **Added** a toggleable track number column to the playlist.
 - 💾 **Persisted** UI settings and song playback position between sessions.
 - 📻 **Implemented** radio stream support with a proxy, improved error handling, and a new themed icon.
 - 📂 **Added** support for multiple playlist directories and formats (M3U, M3U8).
-- 🔌 **Made** server port configurable via the UI, with a watcher to ensure it remains set.
-- 🖼️ **Improved** handling of missing or zero-byte cover art with a proper fallback image.
-- 🔐 **Automatically** opens settings after initial admin password setup to simplify configuration.
 - 🚫 **Added** blacklisting for playlists, genres, and artists.
 - 🎵 **Clarified** music player origin in the UI, crediting Elive Linux.
-- ⏳ **Fixed** crossfade logic to correctly handle zero duration when disabled.
-- 📚 **Updated** documentation with new features and instructions.
 - 🎛️ **Disabled** equalizer and crossfade on mobile devices for better performance.
 - 🍏 **Added** support for displaying cover art on the iOS lock screen.
-- 🚪 **Replaced** the "Exit Admin Mode" icon with a clearer logout symbol.
 - 🔔 **Refactored** notification system to be client-side, reducing duplicate alerts.
-- ⌨️ **Fixed** a debounce issue with the spacebar key for play/pause.
-- 🌐 **Prevented** remote clients from incorrectly flagging the Rhythmbox database as out-of-date.
+- ⌨️  **Fixed** a debounce issue with the spacebar key for play/pause.
+- ➕ Added AIFF, AAC, WMA, MKA support and Opus MIME type. 
+- 🎵 Added option to stop preloading audio and reset sources to fix loading hangs. 
+- 🎨 Animated gradient backgrounds, scanlines, pulsing headers, and flicker effects added to modals. 
+- 🎞️ Animation on mobile cover art only triggers on changes. 
+- 🎧 **Audio Playback Fixes and Features:** 
+- 🗂️ Centralized social platform definitions; simplified share item creation for easier extension. 
+- 📡 Client-side radio stream playback implemented, removing server proxy. 
+- 🧹 **Code Refactoring and Cleanup:** 
+- 🎨 Consolidated gradients; simplified song filtering and social sharing code. 
+- 🖼️ **Cover Art Handling Improvements:** 
+- ⏱️ Delayed revoking old cover art blobs to avoid file-not-found errors. 
+- 🚫 Disabled playback speed controls on radio streams. 
+- 🖥️ Enlarged sidebar widths on large screens for balanced layout. 
+- 🎚️ Equalizer auto-disables on radio streams with user alerts and player reloads to avoid issues. 
+- 📻 Fallback cover art for radio streams added. 
+- 🐞 Fixed cover art display bugs on mobile/desktop. 
+- ⬇️ Fixed download button logic to enable downloads for non-radio tracks. 
+- 🧩 Fixed encoding detection errors with "binary" encodings. 
+- 🔀 Fixed filter delimiters from commas to triple-pipe (`|||`) for accurate filtering. 
+- 🔍 Fixed server-side filtering to properly intersect category filters. 
+- 🖱️ Fixed sidebar click and scroll with dynamic lists. 
+- 🔓 Full support for non-SSL radio stations with CSP tweaks for insecure streams. 
+- 🔎 **Fuzzy Search Highlighting:** 
+- 🔍 Highlights search matches in title, artist, album; fuzzy matches allow 1-char typos with Levenshtein distance. 
+- ⚡ Improved sidebar fetch order for better performance. 
+- 🔢 Item counts shown next to titles, moved beside collapse arrows for clarity. 
+- 🎶 **Media Format Support:** 
+- 🛠️ **Miscellaneous Fixes:** 
+- 📂 Moved Alpine.js scripts to external JS file. 
+- 🎨 Moved embedded CSS to external stylesheets with CSS variables for easier theming. 
+- 📂 Multiple playlists can share names with appended counters. 
+- 🌟 Neon flicker animation on sidebar titles on hover for synthwave style. 
+- 🔶 Orange neon shadow highlights only differing chars in fuzzy matches; exact matches not highlighted to reduce clutter. 
+- ⚙️ **Performance & Accessibility Features:** 
+- 🔄 **Playlist and Library Filtering Fixes:** 
+- 🚫 Prevented page reloads on radio autoplay if equalizer was active; equalizer restored after. 
+- 📻 **Radio Stream Support:** 
+- ⬆️ Raised header z-index for proper settings menu display. 
+- 🔕 Removed unnecessary audio error console warnings. 
+- 🗑️ Removed unused dependencies and obsolete premium/fuzzy search UI elements. 
+- 🔀 Reordered sidebar options; removed parentheses from item counts for cleaner look. 
+- ✨ **Search Term Highlighting in Metadata:** 
+- 🌐 Server config now passed to client JS via global object for consistency. 
+- ✂️ Shortened "All Tracks" label to "All". 
+- 📚 **Sidebar Enhancements:** 
+- 🔗 Sidebar filtering supports cascading genre filters for artists/albums and filtering by selected playlists. 
+- ❌ Sidebar selections clear when switching types; config menu auto-closes on changes. 
+- 👻 Silent checks for cover art existence prevent 404 errors and console noise. 
+- 🔤 Smaller fonts and scrolling enabled for artist and album lists. 
+- 🤝 **Social Sharing Improvements:** 
+- 🧡 Songs loaded via URL but not in current list highlight in orange for visibility. 
+- 🔢 Sorted album tracks by track number when album names are identical. 
+- 🔍 Special search queries “radio” and “stream” list all radio entries. 
+- ⏳ Stream loading timeout with user notification on radio load failure. 
+- 🚫 Suppressed benign audio playback errors from rapid source changes or empty sources. 
+- ⚙️ Toggle visual effects (shadows, animations, blurs) to improve performance on low-end devices. 
+- 🔤 Tracklist title font size adjusts dynamically for long titles. 
+- 🔶 **Unlisted Active Songs Highlight:** 
+- 📻 Updated cover art logic to avoid fallback images for radio streams; mobile shows cover art only if available. 
+- 📢 Updated to version 3.3 "The Featurer" with many new features and fixes. 
+- 📋 Verbose logging added for radio playback and track navigation. 
+- 🎨 **Visual and UI Improvements:**
+
+## v3.2 - The Conductor
+- 🔐 **Automatically** opens settings after initial admin password setup to simplify configuration.
+- ⏳ **Fixed** crossfade logic to correctly handle zero duration when disabled.
+- 🚪 **Replaced** the "Exit Admin Mode" icon with a clearer logout symbol.
 - 🔀 **Clarified** the shuffle mode tooltip for better understanding.
 - 📡 **Enhanced** UPnP port forwarding with configurable periodic checks.
+- 🔌 **Made** server port configurable via the UI, with a watcher to ensure it remains set.
 
 ## v3.1 - The Guardian
 - 🔐 **Admin Mode**: Introduced a secure, local network-only admin mode for privileged settings, protected by configurable passwords, brute-force rate limiting, and debug logging.
@@ -35,7 +96,7 @@
 - 🖥️ **Server Connectivity Prompt**: Improved launcher so if connecting to default server IP/port fails, it prompts users for server details with helpful hostname tips and fallback warnings. 
 - 📶 **IP Address Caching & Private Network Detection**: Cached results of IP privacy checks to speed up detection and improved private network logging accuracy. 
 
-## v3.0 - "The Refactor"
+## v3.0 - The Refactor
 - 🐛 **Application Restructuring**: Changed the organization of files by separating executable programs, templates, and desktop configuration files; moved HTML templates out of embedded Perl code to make maintenance easier.
 - 📦 **Debian Packaging** & **Build System**: Made Debian packages from GitHub Actions to automatically build packages, upload build files, and create releases based on tags and changelogs.
 - 🎧 **Rhythmbox Integration**: Automated updates and reloads of the Rhythmbox music library to keep it in sync smoothly.
@@ -52,7 +113,7 @@
 - 🚪 **UPnP Error Handling**: Detects when UPnP port forwarding fails; shows users a warning with a modal dialog and instructions for manually setting up ports if necessary.
 - 🖼 **User Interface**: Added a user interface tip recommending Picard software for automatic music tagging and cover art downloads to help keep the music library organized.
 
-## v2.9 - "The Alchemist"
+## v2.9 - The Alchemist
 - 🎛️ **Audio Alchemy**: A brand new 10-band audio equalizer with preamp, bass boost, stereo controls, and savable presets to perfectly shape your sound.
 - ⚙️ **Server-Side Sorcery**: Take full control with a new server settings for deep customization.
 - 📂 **Smarter Library Paths**: Configure multiple music and playlist directories, with improved parsing and validation for flexible library management.
@@ -76,7 +137,7 @@
 
 </details>
 
-## v2.8 - "The Decoder"
+## v2.8 - The Decoder
 - 🎶 **Playlist Prodigy**: Drastically improved `.pls` file parsing. The player now expertly handles various character encodings (ISO-8859-15, Windows-1252) and special characters in file paths, ensuring your curated lists load correctly.
 - 🚀 **Playback Power-Up**: Take control of your tempo with a new playback speed button, featuring pitch preservation for a natural sound at any speed. Especially useful for audiobooks and automatically loaded widget for them.
 - 📚 **Smarter Library Scanning**:
@@ -88,7 +149,7 @@
     - Added user-facing notifications for common playback errors.
 - 🛠️ **Robustness Fixes**: Loosened MIME type validation to correctly handle MP3s sometimes identified as `application/octet-stream`.
 
-## v2.7 - "Smooth Operator"
+## v2.7 - Smooth Operator
 - 🛡️ **Path traversal protection**: Comprehensive security fixes for audio and cover art endpoints
 - 🎛️ **Crossfading enhancements**: Improved crossfade behavior with instant full volume start
 - ⚡ **Shuffle fix**: Correct handling of shuffle seed value 0
@@ -97,37 +158,37 @@
 - 👥 **Social features**: Add friends music icon before settings icon
 - 📈 **Viral discovery**: Personal Spotify banner with localStorage persistence
 
-## v2.6 - "The Configurator"
+## v2.6 - The Configurator
 - ⚙️ **Settings takeover**: New gear-icon config menu (next to stop button)
 - 🖱️ **Scroll magic**: Mouse wheel controls progress bar & volume
 - 🔇 **Mute mutiny**: Toggleable mute with stateful speaker icon
 - 📚 **Library linguistics**: "Add Music" → "Manage Music Library" (+helpful modal)
 
-## v2.5 - "Social Butterfly"
+## v2.5 - Social Butterfly
 - 🎵 **Smart sorting**: Selected playlists/genres jump to top
 - ✌️ **Multi-select magic**: Combine genres (OR) and playlists (AND)
 - 📢 **Share evolution**: Timestamped song links + social media refinements
 - 🎨 **Neon dreams**: Cyan borders and glow shadows for all menus
 
-## v2.4 - "Shuffle Supreme"
+## v2.4 - Shuffle Supreme
 - 🔀 **3-state shuffle**: Off / List / Chaos modes with pink "R" icon
 - ♾️ **Infinite scroll**: Server-side pagination and filtering
 - 🔍 **Search party**: Server-side search with empty result handling
 - 📱 **Mobile MVP**: Mini-player interface for small screens
 
-## v2.2 - "Finder Keeper"
+## v2.2 - Finder Keeper
 - 🕵️ **Fuzzy finding**: Improved multi-word search with special char support
 - 📱 **Tap context**: Song menu on mini-view tap
 - 🌈 **WhatsApp glam**: Gradient icons for sharing
 - 🚚 **On-demand tracks**: Performance-focused loading
 
-## v2.0 - "Mobile Majesty"
+## v2.0 - Mobile Majesty
 - 📲 **Micro-player**: Compact interface for phones
 - 🎮 **One-hand mode**: Redesigned mobile controls
 - 🌌 **Always-on cover art**: No more disappearing mobile artwork
 - 🤝 **Sidebar sync**: Coordinated playlist/genre expansion
 
-## v1.0 - "Synthwave Origins"
+## v1.0 - Synthwave Origins
 - 🌠 **Neon debut**: Initial synthwave-themed player
 - 🎧 **Autoplay hustle**: Workarounds for browser restrictions
 - 💿 **Disco inferno**: Glowing spinning disc animations
