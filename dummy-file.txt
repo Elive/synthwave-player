@@ -1204,3 +1204,4 @@ feat: now saves lyrics in the xdg cache folder
 fix: fixed lyrics title so the glow isn't cut off
 switched to standard spew/slurp
 small improvements
+improved lyrics modal visibility
