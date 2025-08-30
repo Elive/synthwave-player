@@ -1222,3 +1222,4 @@ encode lyrics to utf8 before caching
 keep whitespace in lyrics preview
 cleaned up lyrics body preview
 feat: Append 6 newlines to lyrics for shifted display
+try url variations for genius 404s
