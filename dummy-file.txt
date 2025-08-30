@@ -1160,3 +1160,4 @@ fix eyed3 encoding and lyrics auto-open
 feat: exiftool is now optional
 added suggested dependencies
 style: Adjust lyrics modal background, remove glassmorphism
+feat: Conditionally style lyrics modal background and pause disc spin
