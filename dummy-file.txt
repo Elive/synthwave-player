@@ -1153,3 +1153,4 @@ fix id3v2.4 utf8 detection
 better lyrics detection with exiftool
 return empty string if lyrics missing
 decode exiftool lyrics as utf8
+refactor: Simplify lyrics extraction with helper and streamlined COMM logic
