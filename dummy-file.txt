@@ -1207,3 +1207,4 @@ small improvements
 improved lyrics modal visibility
 added lyrics length validation
 feat: moved the lyrics button to the tracklist header
+small improvements
