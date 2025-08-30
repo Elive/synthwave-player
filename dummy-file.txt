@@ -1217,3 +1217,4 @@ feat: added elive linux info to the user-agent
 added dependency
 fix redirect urls with mojo
 remove empty lines from online lyrics
+fix accents in genius search urls
