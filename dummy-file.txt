@@ -1136,3 +1136,4 @@ feat: add neon glow to modal edges
 feat: turn off visual effects if the browser can't handle blur
 feat: show lyrics in a popup modal
 fix: Support TXXX "Lyrics" ID3v2 frame for lyrics retrieval
+fix: Expand ID3 lyrics search to COMM frames and partial description
