@@ -1099,3 +1099,4 @@ refactor: Reorder playlist and genre checks in sidebar fetch condition
 style: Reorder sidebar options and remove parentheses from item count
 feat: added proper fuzzy search with normalization
 feat: fuzzy search now handles small typos
+feat: highlight search matches in titles, artists, and albums
