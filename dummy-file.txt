@@ -1094,3 +1094,4 @@ clear sidebar selection on change
 close config after sidebar change
 refetch sidebars when genres in url
 style: Move sidebar item count next to collapse arrow
+feat: Filter artist and album sidebars by selected playlists
