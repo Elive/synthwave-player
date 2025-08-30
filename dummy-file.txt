@@ -1215,3 +1215,4 @@ feat: stripped html from debug logs to make them readable
 fix: fixed redirects when getting lyrics
 feat: added elive linux info to the user-agent
 added dependency
+fix redirect urls with mojo
