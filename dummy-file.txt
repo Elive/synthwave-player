@@ -1126,3 +1126,4 @@ exact matches first in search
 fix undefined error in sidebar filter
 fix mobile sidebar collapse
 removed hover effects on mobile
+init sidebars on load
