@@ -1148,3 +1148,4 @@ fix: Move fallback lyrics fallback logic to correct function
 fix: Correctly parse array-based lyrics from ID3v2.4 tags
 decode id3v2 lyrics frames
 fix id3v2 encoding crash
+use exiftool as id3 fallback
