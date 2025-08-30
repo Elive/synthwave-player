@@ -1221,3 +1221,4 @@ fix accents in genius search urls
 encode lyrics to utf8 before caching
 keep whitespace in lyrics preview
 cleaned up lyrics body preview
+feat: Append 6 newlines to lyrics for shifted display
