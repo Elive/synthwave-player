@@ -1090,3 +1090,4 @@ sidebar font sizes for different elements
 adjusted sidebar sizes
 clear sidebar filters on stop
 feat: show how many items are in the sidebar titles
+clear sidebar selection on change
