@@ -1187,3 +1187,4 @@ chore: Rephrase online lyrics search failure logs
 broadcast empty lyrics if none found
 docs: Recommend eyeD3/exiftool for local lyrics in config description
 small improvements
+handle redirects and log errors during lyrics fetch
