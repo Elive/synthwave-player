@@ -1128,3 +1128,4 @@ fix mobile sidebar collapse
 removed hover effects on mobile
 init sidebars on load
 fix html tags in tracklist
+feat: added a setting to hide/show the rating column
