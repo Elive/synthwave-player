@@ -1,4 +1,4 @@
-# Synthwave Player
+# Synthwave Player by Elive
 
 > Crafted with a strong dedication and passion for more than 2 entire months, non-stop days until 4am with the aim to create an unparalleled, feature-rich listening experience.
 
@@ -8,7 +8,7 @@ It is a self-hosted, open-source, web-based music _(WIP and video)_ player appli
 
 <!-- Intro Image -->
 <a href="https://raw.githubusercontent.com/Elive/synthwave-player/refs/heads/main/media/synthwave-player-multiple-interfaces.webp" target="_blank">
-    <img src="media/synthwave-player-multiple-interfaces.webp" alt="Synthwave Player - Multiple Interfaces"/>
+    <img src="media/synthwave-player-multiple-interfaces.webp" alt="Synthwave Player by Elive- Multiple Interfaces"/>
 </a>
 
 <!-- [![Synthwave Player - Video Demo](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/hqdefault.jpg)](https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE "Synthwave Player - Video Demo") -->
@@ -95,6 +95,22 @@ _when you remember that the song contains "summer" as title and the artist is tr
 -   The house-made, builtin smart fuzzy matching finds what you're looking for, even with typos or partial words.
 -   Find any track, artist, or album in milliseconds with an as-you-type search, faster than selecting lists manually.
 -   Search results can be further filtered and sorted just like any other view.
+- It checks for the presence of each search term within a concatenated string of the song's title, artist, and album. A relevance score is calculated for each match. Matches in the title are weighted highest, followed by artist and album. Bonus points are given for matching whole words or words at the beginning of a field.
+- Results are sorted by relevance score, matches in the title are weighted highest, followed by artist and album. Bonus points are given for matching whole words or words at the beginning of a field.
+
+### ✨ Smartest Logic Ever
+
+#### Song List Filtering
+
+- Selections within the same category (e.g., two Genres) act as an OR filter. The song list will show tracks that match any of the selected items.
+- Selections across different categories (e.g., a Genre and an Artist) act as an AND filter. The song list is narrowed down to show only tracks that match all of the selected criteria. This allow grouped results like: show all the songs in group Rock or Blues with the artists "Elvis Presley" y "B.B. King"
+
+#### Dynamic Sidebar Updates
+
+- The Artist and Album sidebars are dynamic. When you select a Genre or Playlist, the Artist and Album lists will update to show only the entries relevant to your selection.
+- The Genre and Playlist sidebars are static and always display all available items from your library.
+
+
 
 ### 🎨 Stunning Synthwave & Retrowave UI
 -   A beautiful, responsive and adjustable interface with a neon-style, retro-futuristic aesthetic, so enjoyable that it should be forbidden in every country from this world and other ones.
