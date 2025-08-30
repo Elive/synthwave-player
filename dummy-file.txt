@@ -1164,3 +1164,4 @@ feat: Conditionally style lyrics modal background and pause disc spin
 style: Use translucent background for lyrics modal when effects disabled
 translucent lyrics modal without effects
 feat: hide the lyrics modal if the song doesn't have any
+fix lyrics modal blur when effects are off
