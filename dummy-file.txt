@@ -1178,3 +1178,4 @@ feat: Add configurable online lyrics search when no local lyrics found
 style: Darken lyrics modal background
 abort pending fetches on playback change
 async online lyrics and websocket updates
+separated local and online lyrics fetching
