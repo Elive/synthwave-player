@@ -1219,3 +1219,4 @@ fix redirect urls with mojo
 remove empty lines from online lyrics
 fix accents in genius search urls
 encode lyrics to utf8 before caching
+keep whitespace in lyrics preview
