@@ -1125,3 +1125,4 @@ perf: Defer loading artists/albums and optimize initial playlist data
 exact matches first in search
 fix undefined error in sidebar filter
 fix mobile sidebar collapse
+removed hover effects on mobile
