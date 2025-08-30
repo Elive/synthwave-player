@@ -1158,3 +1158,4 @@ feat: add glass effect and close animation to lyrics modal
 feat: better lyrics extraction with eyeD3 and fallbacks
 fix eyed3 encoding and lyrics auto-open
 feat: exiftool is now optional
+added suggested dependencies
