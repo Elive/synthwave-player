@@ -1188,3 +1188,4 @@ broadcast empty lyrics if none found
 docs: Recommend eyeD3/exiftool for local lyrics in config description
 small improvements
 handle redirects and log errors during lyrics fetch
+chore: Default online lyrics search to disabled and update description
