@@ -110,6 +110,12 @@ _when you remember that the song contains "summer" as title and the artist is tr
 - The Artist and Album sidebars are dynamic. When you select a Genre or Playlist, the Artist and Album lists will update to show only the entries relevant to your selection.
 - The Genre and Playlist sidebars are static and always display all available items from your library.
 
+#### Smart Search results
+
+- Utilizes a relevance-based scoring algorithm where all query terms must match a song's normalized metadata (title, artist, or album) allowing for minor grammar errors.
+- Prioritizes results by heavily weighting matches in the song title, followed by the artist, and then the album.
+- Bonus points are awarded for whole-word and start-of-field matches to ensure the most relevant results appear first.
+
 
 
 ### 🎨 Stunning Synthwave & Retrowave UI
