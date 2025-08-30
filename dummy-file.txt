@@ -1166,3 +1166,4 @@ translucent lyrics modal without effects
 feat: hide the lyrics modal if the song doesn't have any
 fix lyrics modal blur when effects are off
 disabled glassmorphism and blur
+removed blur from lyrics modal
