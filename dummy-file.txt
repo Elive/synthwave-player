@@ -1182,3 +1182,4 @@ separated local and online lyrics fetching
 fix connection closing with shared user agent
 increased lyrics timeout and better logs
 feat: try multiple lyrics providers and skip the ones that fail
+feat: add genius.com lyrics and lower the fetch timeout
