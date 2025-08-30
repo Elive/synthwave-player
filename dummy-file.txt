@@ -1211,3 +1211,4 @@ small improvements
 refactor: cleaned up how html looks in debug logs
 docs: updated the description for online lyrics search
 small improvements
+feat: stripped html from debug logs to make them readable
