@@ -1195,3 +1195,4 @@ log lyrics timeouts as debug
 update lyrics via websocket
 small improvements
 fix: lyrics must be at least 200 chars to be valid
+fix: strip headers from genius.com lyrics
