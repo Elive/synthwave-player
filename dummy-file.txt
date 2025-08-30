@@ -1130,3 +1130,4 @@ init sidebars on load
 fix html tags in tracklist
 feat: added a setting to hide/show the rating column
 fix media session errors during crossfade
+feat: add websocket keep-alive pings on the client
