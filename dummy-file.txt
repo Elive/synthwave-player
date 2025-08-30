@@ -1169,3 +1169,4 @@ disabled glassmorphism and blur
 removed blur from lyrics modal
 keep artist/album selection on reload
 small improvements
+feat: stop the disc spinning when a modal is open
