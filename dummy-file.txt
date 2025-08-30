@@ -1111,3 +1111,4 @@ added icon
 CI build: added RPM and AppImage builds
 can hide cover art anytime
 style: Apply custom styling to select dropdown menus
+style: Apply dark theme to dropdown select options
