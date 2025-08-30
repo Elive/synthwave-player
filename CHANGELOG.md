@@ -1,5 +1,17 @@
 # Synthwave Music Player Changelog
 
+## v3.4 - The EvenBetter
+- 🎨 **Application Icons Added**: Replaced generic icons with custom ones for player and server apps, giving a cleaner look.
+- 🛠️ **CI Build Enhancements**: Automated builds now produce RPM and AppImage packages, broadening distribution options.
+- 🧹 **Code Cleanup**: Removed unused configs and redundant display settings to simplify the codebase.
+- 🔽 **Custom Styled Select Dropdowns**: Improved select menus with custom arrows and styling for better usability.
+- 🌑 **Dark Theme for Dropdowns**: Applied a uniform dark theme to all select dropdowns for visual consistency.
+- 💰 **Donation Link for Non-Premium Users**: Added a clickable donation prompt in settings to support future updates.
+- 🎚️ **Equalizer Presets Tuning**: Tweaked presets to cut minor bass distortion, enhancing sound quality.
+- 🖼️ **Fullscreen Cover Art Toggle Fix**: Fixed toggle allowing hiding fullscreen cover art even when no song plays.
+- 🔗 **Prevent Playlist Reordering on URL Load**: Fixed bug where loading a song via URL reordered playlist unnecessarily.
+- 🔍 **Sidebar Search Filtering**: Added a sidebar search to dynamically filter playlists, genres, artists, and albums.
+
 ## v3.3 - The Featurer
 - ⚙️ **Reworked** server settings for reliability with atomic saving, auto-reloads, and an improved UI.
 - 📱 **Enhanced** background playback on mobile with improved MediaSession API controls and continuous playback fixes.
@@ -13,67 +25,67 @@
 - 🍏 **Added** support for displaying cover art on the iOS lock screen.
 - 🔔 **Refactored** notification system to be client-side, reducing duplicate alerts.
 - ⌨️  **Fixed** a debounce issue with the spacebar key for play/pause.
-- ➕ Added AIFF, AAC, WMA, MKA support and Opus MIME type. 
-- 🎵 Added option to stop preloading audio and reset sources to fix loading hangs. 
-- 🎨 Animated gradient backgrounds, scanlines, pulsing headers, and flicker effects added to modals. 
-- 🎞️ Animation on mobile cover art only triggers on changes. 
-- 🎧 **Audio Playback Fixes and Features:** 
-- 🗂️ Centralized social platform definitions; simplified share item creation for easier extension. 
-- 📡 Client-side radio stream playback implemented, removing server proxy. 
-- 🧹 **Code Refactoring and Cleanup:** 
-- 🎨 Consolidated gradients; simplified song filtering and social sharing code. 
-- 🖼️ **Cover Art Handling Improvements:** 
-- ⏱️ Delayed revoking old cover art blobs to avoid file-not-found errors. 
-- 🚫 Disabled playback speed controls on radio streams. 
-- 🖥️ Enlarged sidebar widths on large screens for balanced layout. 
-- 🎚️ Equalizer auto-disables on radio streams with user alerts and player reloads to avoid issues. 
-- 📻 Fallback cover art for radio streams added. 
-- 🐞 Fixed cover art display bugs on mobile/desktop. 
-- ⬇️ Fixed download button logic to enable downloads for non-radio tracks. 
-- 🧩 Fixed encoding detection errors with "binary" encodings. 
-- 🔀 Fixed filter delimiters from commas to triple-pipe (`|||`) for accurate filtering. 
-- 🔍 Fixed server-side filtering to properly intersect category filters. 
-- 🖱️ Fixed sidebar click and scroll with dynamic lists. 
-- 🔓 Full support for non-SSL radio stations with CSP tweaks for insecure streams. 
-- 🔎 **Fuzzy Search Highlighting:** 
-- 🔍 Highlights search matches in title, artist, album; fuzzy matches allow 1-char typos with Levenshtein distance. 
-- ⚡ Improved sidebar fetch order for better performance. 
-- 🔢 Item counts shown next to titles, moved beside collapse arrows for clarity. 
-- 🎶 **Media Format Support:** 
-- 🛠️ **Miscellaneous Fixes:** 
-- 📂 Moved Alpine.js scripts to external JS file. 
-- 🎨 Moved embedded CSS to external stylesheets with CSS variables for easier theming. 
-- 📂 Multiple playlists can share names with appended counters. 
-- 🌟 Neon flicker animation on sidebar titles on hover for synthwave style. 
-- 🔶 Orange neon shadow highlights only differing chars in fuzzy matches; exact matches not highlighted to reduce clutter. 
-- ⚙️ **Performance & Accessibility Features:** 
-- 🔄 **Playlist and Library Filtering Fixes:** 
-- 🚫 Prevented page reloads on radio autoplay if equalizer was active; equalizer restored after. 
-- 📻 **Radio Stream Support:** 
-- ⬆️ Raised header z-index for proper settings menu display. 
-- 🔕 Removed unnecessary audio error console warnings. 
-- 🗑️ Removed unused dependencies and obsolete premium/fuzzy search UI elements. 
-- 🔀 Reordered sidebar options; removed parentheses from item counts for cleaner look. 
-- ✨ **Search Term Highlighting in Metadata:** 
-- 🌐 Server config now passed to client JS via global object for consistency. 
-- ✂️ Shortened "All Tracks" label to "All". 
-- 📚 **Sidebar Enhancements:** 
-- 🔗 Sidebar filtering supports cascading genre filters for artists/albums and filtering by selected playlists. 
-- ❌ Sidebar selections clear when switching types; config menu auto-closes on changes. 
-- 👻 Silent checks for cover art existence prevent 404 errors and console noise. 
-- 🔤 Smaller fonts and scrolling enabled for artist and album lists. 
-- 🤝 **Social Sharing Improvements:** 
-- 🧡 Songs loaded via URL but not in current list highlight in orange for visibility. 
-- 🔢 Sorted album tracks by track number when album names are identical. 
-- 🔍 Special search queries “radio” and “stream” list all radio entries. 
-- ⏳ Stream loading timeout with user notification on radio load failure. 
-- 🚫 Suppressed benign audio playback errors from rapid source changes or empty sources. 
-- ⚙️ Toggle visual effects (shadows, animations, blurs) to improve performance on low-end devices. 
-- 🔤 Tracklist title font size adjusts dynamically for long titles. 
-- 🔶 **Unlisted Active Songs Highlight:** 
-- 📻 Updated cover art logic to avoid fallback images for radio streams; mobile shows cover art only if available. 
-- 📢 Updated to version 3.3 "The Featurer" with many new features and fixes. 
-- 📋 Verbose logging added for radio playback and track navigation. 
+- ➕ Added AIFF, AAC, WMA, MKA support and Opus MIME type.
+- 🎵 Added option to stop preloading audio and reset sources to fix loading hangs.
+- 🎨 Animated gradient backgrounds, scanlines, pulsing headers, and flicker effects added to modals.
+- 🎞️ Animation on mobile cover art only triggers on changes.
+- 🎧 **Audio Playback Fixes and Features:**
+- 🗂️ Centralized social platform definitions; simplified share item creation for easier extension.
+- 📡 Client-side radio stream playback implemented, removing server proxy.
+- 🧹 **Code Refactoring and Cleanup:**
+- 🎨 Consolidated gradients; simplified song filtering and social sharing code.
+- 🖼️ **Cover Art Handling Improvements:**
+- ⏱️ Delayed revoking old cover art blobs to avoid file-not-found errors.
+- 🚫 Disabled playback speed controls on radio streams.
+- 🖥️ Enlarged sidebar widths on large screens for balanced layout.
+- 🎚️ Equalizer auto-disables on radio streams with user alerts and player reloads to avoid issues.
+- 📻 Fallback cover art for radio streams added.
+- 🐞 Fixed cover art display bugs on mobile/desktop.
+- ⬇️ Fixed download button logic to enable downloads for non-radio tracks.
+- 🧩 Fixed encoding detection errors with "binary" encodings.
+- 🔀 Fixed filter delimiters from commas to triple-pipe (`|||`) for accurate filtering.
+- 🔍 Fixed server-side filtering to properly intersect category filters.
+- 🖱️ Fixed sidebar click and scroll with dynamic lists.
+- 🔓 Full support for non-SSL radio stations with CSP tweaks for insecure streams.
+- 🔎 **Fuzzy Search Highlighting:**
+- 🔍 Highlights search matches in title, artist, album; fuzzy matches allow 1-char typos with Levenshtein distance.
+- ⚡ Improved sidebar fetch order for better performance.
+- 🔢 Item counts shown next to titles, moved beside collapse arrows for clarity.
+- 🎶 **Media Format Support:**
+- 🛠️ **Miscellaneous Fixes:**
+- 📂 Moved Alpine.js scripts to external JS file.
+- 🎨 Moved embedded CSS to external stylesheets with CSS variables for easier theming.
+- 📂 Multiple playlists can share names with appended counters.
+- 🌟 Neon flicker animation on sidebar titles on hover for synthwave style.
+- 🔶 Orange neon shadow highlights only differing chars in fuzzy matches; exact matches not highlighted to reduce clutter.
+- ⚙️ **Performance & Accessibility Features:**
+- 🔄 **Playlist and Library Filtering Fixes:**
+- 🚫 Prevented page reloads on radio autoplay if equalizer was active; equalizer restored after.
+- 📻 **Radio Stream Support:**
+- ⬆️ Raised header z-index for proper settings menu display.
+- 🔕 Removed unnecessary audio error console warnings.
+- 🗑️ Removed unused dependencies and obsolete premium/fuzzy search UI elements.
+- 🔀 Reordered sidebar options; removed parentheses from item counts for cleaner look.
+- ✨ **Search Term Highlighting in Metadata:**
+- 🌐 Server config now passed to client JS via global object for consistency.
+- ✂️ Shortened "All Tracks" label to "All".
+- 📚 **Sidebar Enhancements:**
+- 🔗 Sidebar filtering supports cascading genre filters for artists/albums and filtering by selected playlists.
+- ❌ Sidebar selections clear when switching types; config menu auto-closes on changes.
+- 👻 Silent checks for cover art existence prevent 404 errors and console noise.
+- 🔤 Smaller fonts and scrolling enabled for artist and album lists.
+- 🤝 **Social Sharing Improvements:**
+- 🧡 Songs loaded via URL but not in current list highlight in orange for visibility.
+- 🔢 Sorted album tracks by track number when album names are identical.
+- 🔍 Special search queries “radio” and “stream” list all radio entries.
+- ⏳ Stream loading timeout with user notification on radio load failure.
+- 🚫 Suppressed benign audio playback errors from rapid source changes or empty sources.
+- ⚙️ Toggle visual effects (shadows, animations, blurs) to improve performance on low-end devices.
+- 🔤 Tracklist title font size adjusts dynamically for long titles.
+- 🔶 **Unlisted Active Songs Highlight:**
+- 📻 Updated cover art logic to avoid fallback images for radio streams; mobile shows cover art only if available.
+- 📢 Updated to version 3.3 "The Featurer" with many new features and fixes.
+- 📋 Verbose logging added for radio playback and track navigation.
 - 🎨 **Visual and UI Improvements:**
 
 ## v3.2 - The Conductor
@@ -90,11 +102,11 @@
 - 🛡️ **Browser Hardening**: Implemented measures across login forms to prevent browsers from saving, suggesting, or auto-filling passwords, enhancing security.
 - 🖥️ **User Interface**: Masked admin password fields and cleared them on focus; moved the 'Exit Admin Mode' option to the end of the settings menu for a clearer workflow.
 - ⚙️ **Configuration Management**: The server now automatically watches for changes to its config file and reloads without a restart; ensured configs load reliably on startup.
-- 🎉 **Viral Banner UI**: Added a new animated viral banner that appears after 15 seconds, with smooth fade effects and remembers when users dismiss it. 
-- 📂 **Playlist & Genre Cache Fix**: Fixed issues where playlists and genres didn’t update properly by removing overly long cache-control headers. 
-- 📣 **UI Notification on Config Update**: Clients now show a notification and automatically reload the page when server configuration changes. 
-- 🖥️ **Server Connectivity Prompt**: Improved launcher so if connecting to default server IP/port fails, it prompts users for server details with helpful hostname tips and fallback warnings. 
-- 📶 **IP Address Caching & Private Network Detection**: Cached results of IP privacy checks to speed up detection and improved private network logging accuracy. 
+- 🎉 **Viral Banner UI**: Added a new animated viral banner that appears after 15 seconds, with smooth fade effects and remembers when users dismiss it.
+- 📂 **Playlist & Genre Cache Fix**: Fixed issues where playlists and genres didn’t update properly by removing overly long cache-control headers.
+- 📣 **UI Notification on Config Update**: Clients now show a notification and automatically reload the page when server configuration changes.
+- 🖥️ **Server Connectivity Prompt**: Improved launcher so if connecting to default server IP/port fails, it prompts users for server details with helpful hostname tips and fallback warnings.
+- 📶 **IP Address Caching & Private Network Detection**: Cached results of IP privacy checks to speed up detection and improved private network logging accuracy.
 
 ## v3.0 - The Refactor
 - 🐛 **Application Restructuring**: Changed the organization of files by separating executable programs, templates, and desktop configuration files; moved HTML templates out of embedded Perl code to make maintenance easier.
