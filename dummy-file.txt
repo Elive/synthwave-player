@@ -1175,3 +1175,4 @@ Release version 3.4.1
 added setting to enable/disable lyrics
 small improvements
 feat: Add configurable online lyrics search when no local lyrics found
+style: Darken lyrics modal background
