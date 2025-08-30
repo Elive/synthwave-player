@@ -1132,3 +1132,4 @@ feat: added a setting to hide/show the rating column
 fix media session errors during crossfade
 feat: add websocket keep-alive pings on the client
 fix: Disable backdrop-blur when visual effects are disabled
+feat: add neon glow to modal edges
