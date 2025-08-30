@@ -1200,3 +1200,4 @@ chore: log more details when lyrics download fails
 feat: lyrics panel now lets you use the player at the same time
 feat: added lyrics toggle and fixed some styling issues
 small improvements
+feat: now saves lyrics in the xdg cache folder
