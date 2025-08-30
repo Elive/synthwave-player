@@ -1123,3 +1123,4 @@ natural sort for tracklists and sidebars
 feat: better natural sort by ignoring symbols
 perf: Defer loading artists/albums and optimize initial playlist data
 exact matches first in search
+fix undefined error in sidebar filter
