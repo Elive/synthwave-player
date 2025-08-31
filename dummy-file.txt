@@ -1286,3 +1286,4 @@ faster genius lyrics search
 karaoke-style lyrics scrolling
 fix karaokepossible property access
 save playback position on pause
+sync karaoke scroll indicator
