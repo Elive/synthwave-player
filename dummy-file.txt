@@ -1231,3 +1231,4 @@ cache failed lyrics so we don't keep retrying
 fix double rendering in lyrics fetch
 show title and artist in lyrics header
 strip 'read more' and 'written by' from lyrics
+better genius lyrics parsing
