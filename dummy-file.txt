@@ -1228,3 +1228,4 @@ removed dependency
 cleaner 404 logs for lyrics
 chore: Reduce verbose debug logging for lyrics search
 cache failed lyrics so we don't keep retrying
+fix double rendering in lyrics fetch
