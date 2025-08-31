@@ -1244,3 +1244,4 @@ style: Center lyrics modal title and adjust close button position
 style: Adjust lyrics modal title padding and mobile lyrics font size
 style: Hide scrollbar on lyrics modal
 fix lyrics fetch errors with cache
+style: Reduce title font size in lyrics modal
