@@ -1242,3 +1242,4 @@ style: Add glow effect for lyrics modal
 style: Set lyrics modal title to cyan and reduce neon glow
 style: Center lyrics modal title and adjust close button position
 style: Adjust lyrics modal title padding and mobile lyrics font size
+style: Hide scrollbar on lyrics modal
