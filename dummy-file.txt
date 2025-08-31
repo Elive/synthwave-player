@@ -1243,3 +1243,4 @@ style: Set lyrics modal title to cyan and reduce neon glow
 style: Center lyrics modal title and adjust close button position
 style: Adjust lyrics modal title padding and mobile lyrics font size
 style: Hide scrollbar on lyrics modal
+fix lyrics fetch errors with cache
