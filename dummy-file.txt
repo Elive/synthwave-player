@@ -1273,3 +1273,4 @@ better lyrics caching and instrumentals
 use slurp instead of slurp_utf8 and spew instead of spew_utf8
 fix double rendering with cached lyrics
 fix blank lines in genius lyrics
+save playback state across reloads
