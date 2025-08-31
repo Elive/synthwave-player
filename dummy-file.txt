@@ -1247,3 +1247,4 @@ fix lyrics fetch errors with cache
 style: Reduce title font size in lyrics modal
 fix settings menu z-index
 disable lyrics glow when effects are off
+style: Align lyrics modal border color when effects disabled
