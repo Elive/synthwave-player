@@ -1260,3 +1260,4 @@ chore: add more info to error logs to help debugging
 stop redundant lyrics fetching
 fix lyrics fetch race conditions
 filter bad songs and fix alpine keys
+Release version 3.4.2
