@@ -1270,3 +1270,4 @@ readme
 better genius lyrics and instrumentals
 use cached lyrics before local files
 better lyrics caching and instrumentals
+use slurp instead of slurp_utf8 and spew instead of spew_utf8
