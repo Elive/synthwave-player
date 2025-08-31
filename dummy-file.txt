@@ -1268,3 +1268,4 @@ move amount of min lyrics validation from 200 to 500 chars
 add a note about future rhythmnbox independency
 readme
 better genius lyrics and instrumentals
+use cached lyrics before local files
