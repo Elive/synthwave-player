@@ -1254,3 +1254,4 @@ disable tooltips on touch/mobile
 fix settings menu z-index
 save lyrics modal state across songs
 smaller scrollbars
+don't log lyrics errors for old songs
