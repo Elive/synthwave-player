@@ -1232,3 +1232,4 @@ fix double rendering in lyrics fetch
 show title and artist in lyrics header
 strip 'read more' and 'written by' from lyrics
 better genius lyrics parsing
+style: Improve lyrics modal close button visibility
