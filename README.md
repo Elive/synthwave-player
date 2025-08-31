@@ -44,6 +44,7 @@ Unlike desktop apps lacking a good experience or restrictive streaming platforms
 -   **🎨 Beautiful Design & Unique UX:** Music is a sensorial experience, so this player offers a beautifully crafted synthwave-inspired interface and a unique user experience designed to immerse you in the music with the sole purpose to enjoy it.
 -   **🔭 View-Based Tracklists:** Features a powerful view-based tracklist selection. Any view you create by filtering multiple genres, combining playlists, selected specific artists, or search results becomes a unique, perfectly shareable tracklist. This is a unique concept that never another music app had before.
 -   **🧩 Seamless Rhythmbox Sync:** It leverages your existing, meticulously curated Rhythmbox library out of the box. All your songs, ratings, and playlists are available instantly with zero configuration.
+    - NOTE: It is planned in future versions to remove the rhythmbox dependency and have its own super-powerful realtime engine 😎
 -   **🚀 Access Anywhere:** With automatic **UPnP** configuration, your own music cloud is effortlessly available wherever you have an internet connection. No complex network setup required.
 -   **🔗 Unmatched Sharability:** Share not just songs, but *moments*. Send a link to a track that starts at the exact second you want, or share a link to your custom-filtered 5-star 80s rock playlist.
 
@@ -86,6 +87,7 @@ Stream your entire music library to any device with a web browser, whether you'r
 
 
 ### 📦 Zero-Setup, and with Rhythmbox Integration
+- NOTE: It is planned in future versions to remove the rhythmbox dependency and have its own super-powerful realtime engine 😎
 -   Automatically discovers and parses your existing `rhythmdb.xml` database, so you can continue managing your music within Rhythmbox and share all from this player.
 -   Instantly loads all your songs, metadata, and star ratings, and builds a **completely organized list** from your entire library.
 -   Imports your `.pls` playlists if you have, radio stations, etc
