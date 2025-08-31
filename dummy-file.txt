@@ -1281,3 +1281,4 @@ better lyrics footer removal
 moved lyrics cleaning to a function
 better genius url matching
 show attempt number in lyrics logs
+don't retry duplicate lyrics urls
