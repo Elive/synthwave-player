@@ -1255,3 +1255,4 @@ fix settings menu z-index
 save lyrics modal state across songs
 smaller scrollbars
 don't log lyrics errors for old songs
+clear lyrics modal on song change
