@@ -1236,3 +1236,4 @@ style: Improve lyrics modal close button visibility
 full height mobile tracklist
 lyrics view overlay in tracklist
 mobile sidebars always visible in search
+lyrics view is now a floating sidebar
