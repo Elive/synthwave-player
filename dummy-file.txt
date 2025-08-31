@@ -1251,3 +1251,4 @@ style: Align lyrics modal border color when effects disabled
 save volume setting
 better lyrics extraction with mp3 tag
 disable tooltips on touch/mobile
+fix settings menu z-index
