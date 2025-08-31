@@ -1276,3 +1276,4 @@ fix blank lines in genius lyrics
 save playback state across reloads
 fix: Disable UPNP by default
 better genius lyrics parsing
+create lyrics cache dirs if missing
