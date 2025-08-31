@@ -1289,3 +1289,4 @@ save playback position on pause
 sync karaoke scroll indicator
 fix karaoke timing delay
 wording
+karaoke progress based on word count
