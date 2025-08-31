@@ -1293,3 +1293,4 @@ karaoke progress based on word count
 better karaoke sync timing
 init karaoke on load and save lyrics
 fix karaoke timing delays
+bump
