@@ -1265,3 +1265,4 @@ blacklisted times
 removed unused dependency
 increased a bit the sidebars
 move amount of min lyrics validation from 200 to 500 chars
+add a note about future rhythmnbox independency
