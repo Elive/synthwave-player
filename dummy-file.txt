@@ -1284,3 +1284,4 @@ show attempt number in lyrics logs
 don't retry duplicate lyrics urls
 faster genius lyrics search
 karaoke-style lyrics scrolling
+fix karaokepossible property access
