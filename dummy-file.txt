@@ -1249,3 +1249,4 @@ fix settings menu z-index
 disable lyrics glow when effects are off
 style: Align lyrics modal border color when effects disabled
 save volume setting
+better lyrics extraction with mp3 tag
