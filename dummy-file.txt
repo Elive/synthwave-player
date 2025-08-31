@@ -1234,3 +1234,4 @@ strip 'read more' and 'written by' from lyrics
 better genius lyrics parsing
 style: Improve lyrics modal close button visibility
 full height mobile tracklist
+lyrics view overlay in tracklist
