@@ -1253,3 +1253,4 @@ better lyrics extraction with mp3 tag
 disable tooltips on touch/mobile
 fix settings menu z-index
 save lyrics modal state across songs
+smaller scrollbars
