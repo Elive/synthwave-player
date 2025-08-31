@@ -1237,3 +1237,4 @@ full height mobile tracklist
 lyrics view overlay in tracklist
 mobile sidebars always visible in search
 lyrics view is now a floating sidebar
+feat: Adjust mobile tracklist height and enhance lyrics modal glow
