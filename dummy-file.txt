@@ -1269,3 +1269,4 @@ add a note about future rhythmnbox independency
 readme
 better genius lyrics and instrumentals
 use cached lyrics before local files
+better lyrics caching and instrumentals
