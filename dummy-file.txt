@@ -1246,3 +1246,4 @@ style: Hide scrollbar on lyrics modal
 fix lyrics fetch errors with cache
 style: Reduce title font size in lyrics modal
 fix settings menu z-index
+disable lyrics glow when effects are off
