@@ -1278,3 +1278,4 @@ fix: Disable UPNP by default
 better genius lyrics parsing
 create lyrics cache dirs if missing
 better lyrics footer removal
+moved lyrics cleaning to a function
