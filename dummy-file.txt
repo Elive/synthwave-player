@@ -1285,3 +1285,4 @@ don't retry duplicate lyrics urls
 faster genius lyrics search
 karaoke-style lyrics scrolling
 fix karaokepossible property access
+save playback position on pause
