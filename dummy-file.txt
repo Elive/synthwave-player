@@ -1263,3 +1263,4 @@ filter bad songs and fix alpine keys
 Release version 3.4.2
 blacklisted times
 removed unused dependency
+increased a bit the sidebars
