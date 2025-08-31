@@ -1226,3 +1226,4 @@ try url variations for genius 404s
 bump
 removed dependency
 cleaner 404 logs for lyrics
+chore: Reduce verbose debug logging for lyrics search
