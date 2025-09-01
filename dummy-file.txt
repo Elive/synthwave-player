@@ -1295,3 +1295,4 @@ init karaoke on load and save lyrics
 fix karaoke timing delays
 bump
 fix karaoke progress bar loading
+updated deps
