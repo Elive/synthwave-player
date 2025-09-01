@@ -1296,3 +1296,4 @@ fix karaoke timing delays
 bump
 fix karaoke progress bar loading
 updated deps
+bump
