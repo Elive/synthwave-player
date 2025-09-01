@@ -1297,3 +1297,4 @@ bump
 fix karaoke progress bar loading
 updated deps
 bump
+Release version 3.4.3
