@@ -1303,3 +1303,4 @@ highlight exact matches first
 instant search as you type
 better fuzzy search highlights
 cyan/orange highlights for fuzzy search
+stop lyrics autoscroll on interaction
