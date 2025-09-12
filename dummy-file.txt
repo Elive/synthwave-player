@@ -1307,3 +1307,4 @@ stop lyrics autoscroll on interaction
 lyrics always read as utf8
 gradient for lyrics progress
 style: Refine song click animation gradient
+removed karaoke indicator, using autoscroll
