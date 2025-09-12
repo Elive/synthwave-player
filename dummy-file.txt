@@ -1301,3 +1301,4 @@ Release version 3.4.3
 changed preview
 highlight exact matches first
 instant search as you type
+better fuzzy search highlights
