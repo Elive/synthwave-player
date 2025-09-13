@@ -1341,3 +1341,4 @@ docs: Update v3.6 changelog with new features and bump app version
 docs: Highlight major features like equalizer, lyrics, and radio in README
 docs: Improve description of supported playlist formats
 docs: Refactor README future plans with new features and structure
+docs: Add exclusive sidebar filtering and system intelligence features to README
