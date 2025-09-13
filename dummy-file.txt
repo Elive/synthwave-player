@@ -1330,3 +1330,4 @@ enable player embedding with csp
 allow websockets in embed player
 lyrics fetch order: cache then local
 utf8 fix
+fix: Enable websockets and blob audio in embed player CSP
