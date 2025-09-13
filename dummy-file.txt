@@ -1311,3 +1311,4 @@ removed karaoke indicator, using autoscroll
 fix lyrics modal position
 update check only on private networks
 fix settings menu z-index
+added systemd user service
