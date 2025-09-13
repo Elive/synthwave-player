@@ -1323,3 +1323,4 @@ feat: Add embed mode for sharing and embedding player
 docs: Add embed code comments for sizing options
 Release version 3.5
 removed transparent bg
+utf8 fix
