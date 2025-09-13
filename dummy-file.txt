@@ -1328,3 +1328,4 @@ added embedding settings and ui toggle
 chore: Disable embedding by default
 enable player embedding with csp
 allow websockets in embed player
+lyrics fetch order: cache then local
