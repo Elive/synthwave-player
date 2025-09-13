@@ -1318,3 +1318,4 @@ prompt to start server or enter ip
 show 'enable lyrics' based on config
 don't fetch lyrics if online search is off
 alt+click for exclusive sidebar selection
+don't autoscroll on manual selection
