@@ -1324,3 +1324,4 @@ docs: Add embed code comments for sizing options
 Release version 3.5
 removed transparent bg
 utf8 fix
+added embedding settings and ui toggle
