@@ -1338,3 +1338,4 @@ better manual lyrics scroll detection
 added medias
 docs: Add v3.6 'The Archivist' changelog entry for undocumented features
 docs: Update v3.6 changelog with new features and bump app version
+docs: Highlight major features like equalizer, lyrics, and radio in README
