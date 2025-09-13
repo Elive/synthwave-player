@@ -1,5 +1,30 @@
 # Synthwave Music Player Changelog
 
+## v3.5 - The Stabilizer
+- 🎵 **Auto-Scroll Fix**: Disabled auto-scroll when manually selecting songs to improve navigation control.
+- 🖥️ **Browser Launch Improvements**: Dynamically size player window by screen; prefer `surf` on Debian 13+ (v2.2+), fallback to Chrome/Firefox, passing window size when supported.
+- 🔗 **Embed Mode Initialization**: Detect embed mode via URL; hide sidebars, welcome messages, and adjust layout for embedded use.
+- 🎨 **Embed Mode Styles**: Added CSS with transparent backgrounds and adjusted footer/tracklist for embeds.
+- 📤 **Embed Player**: New embed mode supports playlist sharing; improved embed code comments with size and height options.
+- 🔍 **Exact Match Search Priority**: Search highlights exact matches over fuzzy ones, preventing fuzzy overrides.
+- 🌈 **Fuzzy Search Highlighting**: Mixed cyan (exact) and orange (fuzzy) highlight colors clarify search results.
+- 🧠 **Improved Fuzzy Search Logic**: Better highlighting of insertions, deletions, substitutions; fallback for complex cases.
+- ⚡ **Instant Cancellable Search**: Search-as-you-type with cancelable prior requests improves speed and reduces load.
+- 🎤 **Karaoke Indicator Removal**: Removed imprecise karaoke line; replaced with smooth auto-scrolling for lyrics progress.
+- ✋ **Lyrics Auto-Scroll Interruption**: Detect manual lyric scroll to pause auto-scroll and avoid interruptions.
+- 🚫 **Lyrics Fetch Control**: Disabled online lyrics fetching if server config turns off the feature.
+- 📐 **Lyrics Modal Positioning**: Fixed modal position to prevent visual clipping and enhance readability.
+- 🎨 **Lyrics Progress Gradient**: Changed lyric highlight from line color to subtle vertical gradient.
+- 👁️ **Lyrics Setting Visibility**: Show or hide ‘Enable Lyrics’ UI setting based on server flags.
+- 🔒 **Network Security Fix**: Limit server update checks to private IP ranges to block external queries.
+- 🖼️ **Open Graph Preview Image**: Updated social preview image to a current Synthwave Player screenshot.
+- 🔓 **Search Length Relaxation**: Server accepts any non-empty query, removing minimum length limits.
+- ⏯️ **Server Connection Prompt**: Prompt user to start server if installed but unreachable; option for auto-start on boot.
+- ⚙️ **Settings Menu Fix**: Raised settings menu z-index to appear above lyrics modal for better access.
+- 🔘 **Sidebar Selection Enhancement**: Alt+click selects single sidebar item exclusively, improving filtering and toggling.
+- 🛠️ **Systemd Service for Server**: Added systemd user service for easy server management and auto-restart.
+- 🌐 **UTF-8 Lyrics Reading**: All lyrics now read and cached in UTF-8 for proper international character support.
+
 ## v3.4 - The EvenBetter
 - 🎨 **Application Icons Added**: Replaced generic icons with custom ones for player and server apps, giving a cleaner look.
 - 🛠️ **CI Build Enhancements**: Automated builds now produce RPM and AppImage packages, broadening distribution options.
