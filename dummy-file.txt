@@ -1335,3 +1335,4 @@ docs: Mark ENABLE_EMBEDDING as experimental and note WebSocket issue
 fix karaoke timing and padding
 refresh lyrics elements on song change
 better manual lyrics scroll detection
+added medias
