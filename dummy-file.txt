@@ -1342,3 +1342,4 @@ docs: Highlight major features like equalizer, lyrics, and radio in README
 docs: Improve description of supported playlist formats
 docs: Refactor README future plans with new features and structure
 docs: Add exclusive sidebar filtering and system intelligence features to README
+docs: Update README with new UI, mobile, and real-time sync features
