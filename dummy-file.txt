@@ -1334,3 +1334,4 @@ fix: Enable websockets and blob audio in embed player CSP
 docs: Mark ENABLE_EMBEDDING as experimental and note WebSocket issue
 fix karaoke timing and padding
 refresh lyrics elements on song change
+better manual lyrics scroll detection
