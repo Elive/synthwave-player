@@ -1316,3 +1316,4 @@ chore: Refine AI-related feature comments
 dynamic window sizing and surf browser
 prompt to start server or enter ip
 show 'enable lyrics' based on config
+don't fetch lyrics if online search is off
