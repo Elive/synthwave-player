@@ -1309,3 +1309,4 @@ gradient for lyrics progress
 style: Refine song click animation gradient
 removed karaoke indicator, using autoscroll
 fix lyrics modal position
+update check only on private networks
