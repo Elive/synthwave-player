@@ -1319,3 +1319,4 @@ show 'enable lyrics' based on config
 don't fetch lyrics if online search is off
 alt+click for exclusive sidebar selection
 don't autoscroll on manual selection
+feat: Add embed mode for sharing and embedding player
