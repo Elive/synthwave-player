@@ -1314,3 +1314,4 @@ fix settings menu z-index
 added systemd user service
 chore: Refine AI-related feature comments
 dynamic window sizing and surf browser
+prompt to start server or enter ip
