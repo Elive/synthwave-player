@@ -1344,3 +1344,4 @@ docs: Refactor README future plans with new features and structure
 docs: Add exclusive sidebar filtering and system intelligence features to README
 docs: Update README with new UI, mobile, and real-time sync features
 more gap between banner button and close
+Add a space in the footer for the mobile standalone to avoid OS controls
