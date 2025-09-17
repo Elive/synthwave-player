@@ -1348,3 +1348,4 @@ Add a space in the footer for the mobile standalone to avoid OS controls
 added apple-touch-icon
 added pwa manifest for android
 detect radio by url
+fix malformed sort params
