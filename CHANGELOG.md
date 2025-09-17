@@ -1,5 +1,49 @@
 # Synthwave Music Player Changelog
 
+## v3.6 - The Archivist
+- 📜 **Undocumented Features Documented**: This special release catalogues numerous features developed over time that were not previously listed in the changelog.
+- ✨ **UI/UX Enhancements**:
+    - **Right-Click Context Menus**: Access quick actions for songs, playlists, and genres (share, download, show cover art).
+    - **Advanced Mouse Wheel Controls**: Use the mouse wheel to adjust playback rate and crossfade duration, in addition to volume and progress.
+    - **Configurable Sidebars**: Customize and save which content appears in each of the two sidebars (Playlists, Genres, Artists, Albums).
+    - **Welcome Tour**: Greets new users with a flying welcome message and an introductory modal highlighting key features.
+    - **"Comet" Share Hint**: A visual animation guides users from the context menu to the main share button.
+    - **Natural Sorting**: Lists are sorted intelligently, correctly handling numbers in names (e.g., "Playlist 2" before "Playlist 10").
+    - **Intelligent "Previous" Button**: Restarts the current track if played briefly; otherwise, navigates to the actual previous song in your listening history.
+    - **"Friends' Music" Links**: Add and access a list of links to your friends' music players directly from the UI.
+- 🎨 **Visual Polish**:
+    - **Cover Art Shine**: A glossy shine effect on cover art when hovering.
+    - **Micro-animations**: Subtle jiggle/pulse effects on buttons and selected songs.
+    - **Header/Footer Effects**: An animated underline for the main title and a glowing footer border during playback.
+    - **Custom Lyrics View**: A retro-style lyrics display with a monospace font and custom scrollbar.
+- ⚙️ **System & Configuration**:
+    - **Automatic Update Checks**: The player periodically checks for new versions in the background.
+    - **Real-time WebSocket Notifications**: Receive instant alerts for library updates and when lyrics are found, without needing to reload.
+    - **Grouped Settings UI**: Server settings are now organized into logical groups like General, Library, and Performance for easier management.
+- 🎵 **Backend & Internals**:
+    - **Dependency Checker**: On startup, the server verifies that all required system dependencies (Perl modules and external commands like `file`, `eyeD3`) are present, ensuring stability and providing clear error messages on failure.
+    - **Port Conflict Prevention**: The server intelligently checks if its configured port is already in use and prevents a second instance from running, avoiding conflicts.
+    - **Non-Blocking Library Scan**: The music library is scanned asynchronously in chunks, allowing the server to be responsive immediately at startup, even with massive music collections.
+    - **Advanced Filter Logic**: When combining filters (e.g., a playlist and a genre), the server performs a true intersection of the sets, enabling precise and powerful music discovery.
+    - **Hierarchical Lyrics Engine**: The system uses a sophisticated multi-step process to find lyrics: it first checks its local cache, then performs a deep scan of the audio file's metadata (checking `eyeD3`, multiple ID3v2 tag frames, and `exiftool`), and only then searches multiple online providers as a last resort.
+    - **Resilient Online Fetching**: The online lyrics search is built for robustness, with fallbacks to multiple providers, temporary blacklisting of failing services, and intelligent URL variations to maximize success.
+- 🛡️ **Security**:
+    - **Multi-Layer File Access Security**: Every request for an audio file is validated through a chain of security checks, including preventing path traversal, blocking malicious characters, ensuring the file is within a whitelisted directory, and verifying its MIME type to serve only legitimate audio.
+- 📱 **Mobile UX Refinements**:
+    - **Persistent Cover Art State**: Remembers if you've hidden the fullscreen mobile cover art.
+    - **Dynamic Sidebar Visibility**: Sidebars auto-hide during search on mobile to maximize screen space.
+- 🛠 **Dropdown Clipping Fix**: Removed `overflow-hidden` from main container to stop dropdowns being cut off by content area.
+- 🔄 **Malformed Sort Parameter Handling**: Added server fallback to default sort if `sort` param is invalid, improving stability.
+- 🎵 **Player Border Fix in Standalone Mode**: Tweaked `.footer-player` CSS to fix player borders in PWA or standalone windows.
+- 📻 **Radio Playback Stability**: Reset autoplay flags and source to ensure reliable radio stream playback after reloads.
+- 🎯 **Radio Stream Detection Improvement**: Server now detects radio streams by HTTP/HTTPS URLs instead of `-1` duration for accuracy.
+- ⏳ **Radio Stream UI Improvements**: Show infinite duration and hide progress bars for continuous radio streams.
+- 🚫 **Radio Track Duration Handling**: Hide zero/null durations for radio tracks in tracklist to avoid confusion.
+- ⚙ **Server-side Query Parsing Fixes**: Updated parsing to use `~` delimiter instead of `|||` and split ratings by spaces, syncing backend with frontend.
+- ↕ **Sorting Parameters Enhancement**: Added `track_number` to sortable columns and split sorting into `sort_by` and `sort_dir` params for clarity.
+- 🔗 **URL Parameter Formatting Refactor**: Replaced `|||` with `~` for list params and spaces for ratings, improving URL readability and parsing.
+
+
 ## v3.5 - The Stabilizer
 - 🎵 **Auto-Scroll Fix**: Disabled auto-scroll when manually selecting songs to improve navigation control.
 - 🖥️ **Browser Launch Improvements**: Dynamically size player window by screen; prefer `surf` on Debian 13+ (v2.2+), fallback to Chrome/Firefox, passing window size when supported.
