@@ -1349,3 +1349,4 @@ added apple-touch-icon
 added pwa manifest for android
 detect radio by url
 fix malformed sort params
+refactor: Improve URL param formatting with '|' for lists and ' ' for ratings
