@@ -1357,3 +1357,4 @@ fix player borders in standalone mode
 docs: Clarify radio search result ordering
 radio streams first in search
 don't autoplay saved song on new url
+fix dropdown clipping
