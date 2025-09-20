@@ -1,167 +1,190 @@
 # Synthwave Player by Elive
 
-> Crafted with a strong dedication and passion for more than 2 entire months, non-stop days until 4am with the aim to create an unparalleled, feature-rich listening experience.
+> _Crafted with relentless dedication during three months of intensive, around-the-clock development, this player was passionately built to deliver a truly unparalleled, feature-rich listening experience._
 
-Simply put, this is the **most enjoyable** music player ever made.
 
-It is a self-hosted, open-source, web-based music _(WIP and video)_ player application that streams your local music library with a beautiful synthwave / retrowave / outrun / neon-style aesthetic. Using your music collection to be a private streaming service or just a personal player, giving you complete control over your listening experience without distractions.
+Simply put, this is the **most enjoyable** music player ever made. It is not just a player, is a masterpiece.
+
+This self-hosted, open-source web player streams your personal music collection with a stunning synthwave/retrowave aesthetic that transforms your listening experience. It converts your library into a private, distraction-free streaming service, putting you in complete control.
 
 <!-- Intro Image -->
 <a href="https://raw.githubusercontent.com/Elive/synthwave-player/refs/heads/main/media/synthwave-player-multiple-interfaces.webp" target="_blank">
-    <img src="media/synthwave-player-multiple-interfaces.webp" alt="Synthwave Player by Elive- Multiple Interfaces"/>
+    <img src="media/synthwave-player-multiple-interfaces.webp" alt="Synthwave Player by Elive - Multiple Interfaces" width="100%"/>
 </a>
 
+<!-- Video Demo Placeholder -->
 <!-- [![Synthwave Player - Video Demo](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/hqdefault.jpg)](https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE "Synthwave Player - Video Demo") -->
-<!-- ![Player Screenshot](https://forum.elivelinux.org/uploads/default/original/2X/3/3ba57ea8f0731f8c10c7d93b4a6073459ff391a3.jpeg) -->
-
-<!-- **[➡️ Demo Website](https://music.home.thanatermesis.org/?genres=Synthwave%2CSynthwave+Vocal&song=2f0f940b8d019f2f2a2271317a01ae99efadb44e&sort=rating%3Adesc&t=54)** -->
-**[➡️ Demo Website](https://music.home.thanatermesis.org/?playlists=Royalty-Free&song=24350eb10ec99665d6444bb294983d2998e363a4&sort=rating%3Adesc&t=77)**
-
-**[📜 Changelog - See all the history changes](CHANGELOG.md)**
-
-
-
-## A Sonic Universe Under Your Control
-
-<!-- <img align="right" src="media/network-sharing.png" alt="Network sharing" width="270" height="220"> -->
-
-Tired of streaming services that dictate your listening experience, inject ads, and rent you access to music you thought you owned? The **Synthwave Player** is a declaration of musical independence a real music freedom.
-
-It's not a service; it's ***your*** **open-source server**, it's your music and your curation, it's your unstoppable own power.
-
-<img align="right" src="media/network-sharing.png" alt="Network sharing" width="40%" height="auto">
-
-Built for the discerning music lover who curates their own library, this player combines the convenience of a web interface access with the power of hosting your own music. It streams your local music directly to any browser, on any device, wrapped in a gorgeous, retro-futuristic synthwave aesthetic.
 
 <br clear="right">
-
-### Why is it Better?
-
-Unlike desktop apps lacking a good experience or restrictive streaming platforms, this player is built with a different philosophy:
-
--   **👑 Total Ownership:** Your music, your rules. No subscriptions, no ads, no internet dependency for your files. De-cloud yourself and own your best listening experience, exactly as you want it.
--   **🎧 Your Personal Spotify:** Transform your music library into a private streaming service. Get the Spotify experience with your own collection, no ads, no fees, no surprises, and complete privacy. - Is time to cancel your Spotify billing!
--   **🎨 Beautiful Design & Unique UX:** Music is a sensorial experience, so this player offers a beautifully crafted synthwave-inspired interface and a unique user experience designed to immerse you in the music with the sole purpose to enjoy it.
--   **🔭 View-Based Tracklists:** Features a powerful view-based tracklist selection. Any view you create by filtering multiple genres, combining playlists, selected specific artists, or search results becomes a unique, perfectly shareable tracklist. This is a unique concept that never another music app had before.
--   **🧩 Seamless Rhythmbox Sync:** It leverages your existing, meticulously curated Rhythmbox library out of the box. All your songs, ratings, and playlists are available instantly with zero configuration.
-    - NOTE: It is planned in future versions to remove the rhythmbox dependency and have its own super-powerful realtime engine 😎
--   **🚀 Access Anywhere:** With automatic **UPnP** configuration, your own music cloud is effortlessly available wherever you have an internet connection. No complex network setup required.
--   **🔗 Unmatched Sharability:** Share not just songs, but *moments*. Send a link to a track that starts at the exact second you want, or share a link to your custom-filtered 5-star 80s rock playlist.
+<br clear="right">
 
 
-<details>
-    <summary>
-        <strong>Why this Self-Hosted Player 🏆 Beats Spotify for Music Lovers👈 </strong>
-    </summary>
-    <br>
+**[➡️ LIVE DEMO](https://music.home.thanatermesis.org/?playlists=Royalty-Free&song=24350eb10ec99665d6444bb294983d2998e363a4&sort=rating%3Adesc&t=77)** - Experience the player directly
 
-For real collectors of good music, synthwave lovers, seekers or of original masterpieces, a self-hosted player isn't just a preference, it's a necessity. Here’s why streaming services like Spotify fall short for the dedicated music enthusiast:
-
--   **🎵 The Unfindable Tracks:** Mainstream services lack the deep cuts. Obscure B-sides, rare Japanese imports, fan-made remixes, and entire video game OSTs are very often missing from their libraries. With a self-hosted player, if you have the file, you can play it. Your collection is limited only by what you can find, not by what a corporation dictates.
-
--   **🎤 For Music Creators:** Are you a musician or composer? This platform can become your own record label. Publish your works-in-progress or finished masterpieces directly to your server, share them with fans, and bypass the corporate gatekeepers of the music industry dictatorship. You control the distribution, you own the rights, and you're not bound by any platform's rules.
-
--   **💿 The Original Masters:** Streaming platforms frequently replace original album versions with modern "remasters", which can alter the classic sound you fell in love with. Self-hosting your music gives you full control over the specific version and mastering of each track, preserving the authentic experience you want to have.
-
--   **🏷️ Your Curation:** Are you tired of seeing your meticulously tagged "Vaporwave" tracks lumped into a generic "Electronic" category? On Spotify, you're stuck with their metadata. Here you control the tags, genres, ratings, and cover art. You can build the perfectly organized music library you've always wanted and that nobody else can offer you.
-
--   **👻 No Vanishing Music:** Tracks and albums on streaming services can disappear overnight due to expired licensing agreements. Your personal, self-hosted library is permanent. Your favorite songs will never be pulled from your collection.
-
--   **🔊 Uncompromised Audio Quality:** Many collectors prefer lossless formats like FLAC to preserve the full quality of their music. While some streaming services offer higher tiers for this, a self-hosted player lets you stream your high-fidelity files without compromise or extra cost.
-
--   **✨ The Full Aesthetic Experience:** A generic, modern UI can't capture the spirit of the enjoyable music. The Synthwave Player is designed to immerse you in the neon-drenched, world of dreams to elevate your experience. Because it's not just about listening, it's about the vibe. Spotify sells you music, this player gives you a time machine to change the history.
-
-</details>
+**[📜 Changelog](CHANGELOG.md)** - Follow our ongoing improvements and updates
 
 ---
 
-## Features
+## 🎧 A Sonic Universe Under Your Control
 
-### 🎵 Your Music, Everywhere
+<img align="right" src="media/network-sharing.png" alt="Network sharing" width="40%" height="auto">
 
-Stream your entire music library to any device with a web browser, whether you're at home or on the go. The responsive design works beautifully on desktops, laptops, tablets, and phones.
+Tired of streaming services that dictate your listening experience, inject ads, and rent you access to music you thought you owned? The **Synthwave Player** is a declaration of musical independence. It's not a service; it's ***your*** **open-source server**, its your music, your curation, and your unstoppable power.
 
-<a href="https://raw.githubusercontent.com/Elive/synthwave-player/refs/heads/main/media/synthwave-player-multiple-interfaces.webp" target="_blank">
-    <img src="media/synthwave-player-multiple-interfaces.webp" alt="Synthwave Player - Multiple Interfaces"/>
-</a>
+Built for the discerning music lover who curates their own library, this player combines the convenience of web access with the power of self-hosting. De-cloud yourself and own your listening experience, without limits.
 
-
-### 📦 Zero-Setup, and with Rhythmbox Integration
-- NOTE: It is planned in future versions to remove the rhythmbox dependency and have its own super-powerful realtime engine 😎
--   Automatically discovers and parses your existing `rhythmdb.xml` database, so you can continue managing your music within Rhythmbox and share all from this player.
--   Instantly loads all your songs, metadata, and star ratings, and builds a **completely organized list** from your entire library.
--   Imports your `.pls` playlists if you have, radio stations, etc
-
-### ⚡️ Blazing-Fast Fuzzy Results
-_when you remember that the song contains "summer" as title and the artist is trevor-something, but you can't remember more than that?_
--   The house-made, builtin smart fuzzy matching finds what you're looking for, even with typos or partial words.
--   Find any track, artist, or album in milliseconds with an as-you-type search, faster than selecting lists manually.
--   Search results can be further filtered and sorted just like any other view.
-- It checks for the presence of each search term within a concatenated string of the song's title, artist, and album. A relevance score is calculated for each match. Matches in the title are weighted highest, followed by artist and album. Bonus points are given for matching whole words or words at the beginning of a field.
-- Results are sorted by relevance score, matches in the title are weighted highest, followed by artist and album. Bonus points are given for matching whole words or words at the beginning of a field.
-
-### ✨ Smartest Logic Ever
-
-#### Song List Filtering
-
-- Selections within the same category (e.g., two Genres) act as an OR filter. The song list will show tracks that match any of the selected items.
-- Selections across different categories (e.g., a Genre and an Artist) act as an AND filter. The song list is narrowed down to show only tracks that match all of the selected criteria. This allow grouped results like: show all the songs in group Rock or Blues with the artists "Elvis Presley" y "B.B. King"
-
-#### Dynamic Sidebar Updates
-
-- The Artist and Album sidebars are dynamic. When you select a Genre or Playlist, the Artist and Album lists will update to show only the entries relevant to your selection.
-- The Genre and Playlist sidebars are static and always display all available items from your library.
-
-#### Smart Search results
-
-- Utilizes a relevance-based scoring algorithm where all query terms must match a song's normalized metadata (title, artist, or album) allowing for minor grammar errors.
-- Prioritizes results by heavily weighting matches in the song title, followed by the artist, and then the album.
-- Bonus points are awarded for whole-word and start-of-field matches to ensure the most relevant results appear first.
+<br clear="right">
 
 
+### 🏆 Why This Self-Hosted Player Beats Spotify
 
-### 🎨 Stunning Synthwave & Retrowave UI
--   A beautiful, responsive and adjustable interface with a neon-style, retro-futuristic aesthetic, so enjoyable that it should be forbidden in every country from this world and other ones.
+
+For real music lovers, a self-hosted player isn't just a preference—it's a necessity. Here’s why streaming services fall short:
+
+-   **👑 Your full control:** Your music, your rules. No subscriptions, ads, limits or surprises. With no tracking data collection.
+-   **🎧 Your Personal Spotify, anywhere!:** Transform your music library into a private streaming service effortlessly. Get the Spotify experience with your own collection, no ads, no fees, no surprises, and complete privacy. - Is time to cancel your Spotify billing!
+-   **🎨 Beautiful Design & Unique UX:** Music is a sensorial experience, this player gives you in a unique user experience designed to immerse you in the music with the sole purpose to enjoy it.
+-   **🎤 Automated Lyrics:** Sing along with synchronized, auto-scrolling lyrics found automatically from multiple sources. A premium feature on other platforms, free and standard here.
+-   **🎤 For Music Creators:** Use it as your Music website. Publish your works-in-progress or finished masterpieces directly, bypassing corporate gatekeepers. You control the distribution and own the rights.
+-   **🔭 View-Based Tracklists:** Features a powerful view-based tracklist selection. Any view you create by filtering multiple genres, combining playlists, selected specific artists, or search results becomes a unique, perfectly shareable tracklist. This is a unique concept that never another music app had before.
+-   **🔗 Unmatched Sharability:** Share not just songs, but *moments*. Send a link to a track that starts at the exact second you want, or share a link to your custom-filtered 5-star 80s rock playlist.
+-   **🎵 The Unfindable Tracks:** Mainstream services lack deep cuts, rare imports, remixes, and many game OSTs, and often replace original albums with modern "remasters." Self-hosting preserves the authentic sound of the specific version you own—if you have the file, you can play it.
+-   **👻 No Vanishing Music:** Tracks on streaming services can disappear overnight due to licensing issues. Your personal library is permanent.
+-   **🔊 Uncompromised Audio Quality:** Stream your high-fidelity lossless files (like FLAC) without compromise or extra cost.
+-   **🏷️ Your Curation and Metadata:** Tired of seeing your meticulously tagged "Retrowave" tracks in a generic "Electronic" category? You control the tags, genres, ratings, and cover art, building the perfectly organized library you've always wanted.
+
+---
+
+## ✨ Features
+
+### 🎵 Core Playback & Audio Control
+-   **Full-Featured Playback:** All the controls you expect: Play, Pause, Next, Previous, plus a dedicated **Stop** button to restart your picked selection.
+-   **Intelligent `Previous` Button:** Restarts the current track if played briefly; otherwise, navigates to the actual previous song in your listening history.
+-   **Advanced Shuffle & Repeat:** Three shuffle modes ("Off," "List" for a stable randomized queue, and "Random" for a new random song every time) and three repeat modes (Off, One, All).
+-   **10-Band Audio Equalizer:** Shape your sound with a 10-band EQ, preamp, bass boost, and stereo width controls. Save your settings as custom presets and toggle them on the fly.
+<p align="center">
+  <img src="media/synthwave-player-equalizer.png" alt="10-Band Audio Equalizer" width="75%">
+</p>
+
+-   **Playback Speed Control:** Adjust playback speed with pitch preservation, perfect for audiobooks or podcasts.
+-   **Advanced Mouse Controls:** Use your mouse wheel over player elements to control the progress bar, volume, playback rate, and crossfade duration.
+
+
+
+### 📚 Library Management & Organization
+-   **Zero-Setup Rhythmbox Integration:** Automatically discovers and parses your existing `rhythmdb.xml` database, instantly loading all songs, metadata, ratings, and playlists (`.pls`, `.m3u`, `.m3u8`). It even stays in sync with your library changes. _(NOTE: Rhythmbox dependency will be removed in a future version for a standalone engine)._
+-   **Powerful Filtering & Sorting:**
+    - Create on-the-fly views by combining filters for **multiple genres**, **multiple playlists**, and **star ratings**.
+    - Selections within a category (e.g., two Genres) act as an **OR** filter, while selections across categories (e.g., a Genre and an Artist) act as an **AND** filter.
+    - `Alt+click` any sidebar item to select it exclusively.
+    - Sort your music by title, artist, album, genre, rating, or duration with natural sorting that correctly handles numbers.
+<p align="center">
+    <img src="media/synthwave-player-filter-stars.png" alt="Filter by star rating" width="50%">
+</p>
+-   **Fuzzy Search:**
+    - Find any track, artist, or album with an as-you-type search that's tolerant of typos and partial words.
+    - A relevance-based scoring algorithm heavily weights matches in the song title, followed by the artist and album, ensuring the most relevant results appear first.
+<p align="center">
+    <img src="media/synthwave-player-fuzzy-search.png" alt="Fuzzy Search" width="60%">
+</p>
+
+-   **Multi-select Filtering:** Select multiple artists or albums to create combined views. This works in conjunction with genre and playlist filters for powerful and precise tracklist curation.
+<p align="center">
+    <img src="media/synthwave-player-multiselect-lists.png" alt="Multi-select filters" width="30%">
+</p>
+
+-   **Dynamic Sidebars:** The Artist and Album lists dynamically update to show only entries relevant to your current Genre or Playlist selection. Or change them to other selectors, and even run a personal search inside them for faster selection.
+<p align="center">
+    <img src="media/synthwave-player-sidebars-search.png" alt="Sidebar search" width="30%">
+</p>
+
+
+### ✨ User Experience & Interface
+-   **Stunning Synthwave & Retrowave UI:** A beautiful, responsive interface with a neon-style aesthetic, micro-animations, glossy cover art effects, and an animated header/footer.
 -   **Dynamic Visualizer:** When a song with cover art plays, the album cover slides out to reveal a spinning vinyl disc with a subtle, cycling neon glow.
 
 https://github.com/user-attachments/assets/c422dc7f-b973-452b-8cc1-ce991e1a2b6a
 
-_View fullscreen cover art for any song with a single click or from the menu, so you can leave the player running like that._
+-   **Integrated Lyrics View:** View synchronized lyrics in a custom, retro-styled display. Lyrics auto-scroll with the music, and manual scrolling pauses the auto-scroll. A smart fetching engine finds lyrics from local cache, metadata, and multiple online providers, with real-time notifications when lyrics are found.
+<p align="center">
+    <img src="media/synthwave-player-automatic-lyrics-generator.png" alt="Automatic Lyrics" width="90%">
+</p>
 
-### 🎛️ Powerful Filtering & Sorting
--   Create on-the-fly views by combining filters for **multiple genres**, **multiple playlists**, and **star ratings**. Mix and match to create the perfect soundscape, for example, instantly viewing all your 5-star songs from your "Rock" and "80s" playlists combined that contain the keyword "night".
--   Sort your music by title, artist, album, genre, rating, or duration.
--   The player state is stored in the URL, so you can bookmark and share your exact view, filters, sorting, and all.
+-   **Powerful Context Menus:** Right-click on songs, playlists, or genres for quick access to actions like sharing, downloading, viewing cover art, and opening lists in a new tab.
+-   **Download a liked song:** There's a direct download feature that will downlad the song on its full quality, metatags, and coverart images included.
+<p align="center">
+  <img src="media/synthwave-player-download-song.png" alt="Context Menu" width="50%">
+</p>
 
-### 🔗 Hyper-Specific Sharing
--   Share a direct link to any **song**.
--   Share a song that starts at a specific **timestamp** (e.g., `...&t=125`).
--   Share links to custom views, including combinations of **multiple playlists**, **multiple genres**, rating filters, sorting, and even search queries.
--   One-click sharing of the current song to **X**, **Facebook**, **WhatsApp**, and **Telegram**.
+-   **UI Customization:** Toggle special columns, enable/disable visual effects for performance, enable/disable features, and configure sidebars to show the content you want (Playlists, Genres, Artists, Albums).
+<p align="center">
+  <img src="media/synthwave-player-public-settings.png" alt="UI Customization" width="30%">
+</p>
 
-### 🎧 Full-Featured Playback
--   All the controls you expect: Play, Pause, Next, Previous, plus a dedicated **Stop** button to clear the current view and filters.
--   **Smart `Previous` Button:** Restarts the current song if you're more than a few seconds in (configurable), otherwise plays the previous track.
--   **Two Shuffle Modes:** "List" shuffle creates a randomized but stable playlist from your current view, while "Random" shuffle picks a completely new random song each time.
--   **Repeat modes:** Repeat All, Repeat One, or Off.
--   **Playback Speed Control:** Adjust playback speed on the fly with pitch preservation, perfect for listening the podcasts or audiobooks at your own pace.
--   **Power-User Shortcuts:** Use your mouse wheel over the progress and volume bars to seek and adjust levels. Right-click on elements throughout the player to access powerful context menus.
+-   **Interactive Onboarding:** A flying welcome message and an introductory modal greet first-time users, while animated "comet" hints guide discovery of new features.
 
-### 📥 Easy Downloads & Menus
--   Download any song directly when playing it with a single click. No need to trick a download!
--   A powerful right-click **context menu** on songs, playlists, and genres provides quick access to actions like sharing (songs, playlists, views), downloading, viewing cover art, and opening lists in a new tab.
--   Settings to enable/disable features like cover art, crossfade duration, columns, etc.
+### 📱 Mobile Experience & Features
+-   **Fully Responsive Design:** A beautiful, adaptive interface that offers a seamless experience on any device, from desktops to smartphones.
+-   **Lock Screen Controls:** Manage playback and view cover art directly from your phone's lock screen, with support for iOS and Android.
+-   **Background Playback:** Keep the music going reliably even when the app is minimized or your screen is off.
+-   **Optimized for Performance:** Features like the equalizer and crossfade are disabled on mobile to ensure a smooth, lightweight experience without draining your battery.
+-   **One-Handed Usability:** The layout is designed for intuitive one-handed use on smaller screens, making it easy to navigate your library on the go.
+-   **Standalone App:** Add it to your home screen for quick access, and it behaves like a native app without browser UI elements.
+<p align="center">
+  <img src="media/synthwave-player-mobile-2.jpg" width="40%">
+  <img src="media/synthwave-player-mobile-3.jpg" width="40%">
+</p>
+<p align="center">
+  <img src="media/synthwave-player-mobile-5.jpg" width="40%">
+  <img src="media/synthwave-player-mobile-6.jpg" width="40%">
+</p>
+<p align="center">
+  <img src="media/synthwave-player-mobile-7.png" width="30%">
+  <img src="media/synthwave-player-mobile-1.png" width="30%">
+</p>
 
-### 🌐 Automatic Network Configuration
-Built-in **UPnP** support that automatically configure your required port forwarding on your router, making your music accessible from the internet with zero hassle.
+### 🔗 Sharing & Connectivity
+-   **Hyper-Specific Sharing:** Share a direct link to a song, a song starting at a specific **timestamp**, or a complex custom view combining playlists, genres, ratings, sorting, and even search queries. Includes one-click sharing to social media.
+<p align="center">
+  <img src="media/synthwave-player-share-song-position.png" alt="Share song at specific time" width="40%">
+</p>
 
-### 🚀 High-Performance & Lightweight
--   **High-Performance Streaming:** Built on the robust Mojolicious framework, the player uses a non-blocking (asynchronous) architecture to handle hundreds of simultaneous connections and streams with minimal resource usage.
--   **Lightweight & Self-Contained:** The server is incredibly lightweight, capable of running with as little as 50MB of RAM. The entire application is a 🤯 **single file** 🤯, designed to be lean, fast, and easy to run.
--   **Scales to Massive Libraries:** For even the largest libraries, the player shows a progress bar while loading and then intelligently renders songs in batches as you scroll. This keeps the interface snappy, no matter if you have a few hundred songs or tens of thousands.
+-   **Internet Radio & Stream Support:** Add and play live internet radio streams from file playlists alongside your local music.
+<p align="center">
+  <img src="media/synthwave-player-radio-support.png" alt="Internet Radio Support" width="50%">
+</p>
 
-### 🔒 Private & Secure
-You host it yourself. There is no tracking, no data collection, and no third-party servers are involved. It's just you and your music. Let's get back to the roots of the internet, a world without commercial interest, with our freedom and privacy. Like in the old times, but now with super powers.
+-   **Automatic Network Configuration:** Built-in **UPnP** support automatically configures port forwarding on your router, making your music accessible from the internet with zero hassle.
+-   **Friends' Music Links:** Curate and display a list of links to your friends' Synthwave Player servers, accessible directly from the main menu.
+<p align="center">
+  <img src="media/synthwave-player-friends-links.png" alt="Friends' player links" width="40%">
+</p>
+
+### 🚀 System, Performance & Security
+-   **High-Performance & Lightweight:** Built on a non-blocking asynchronous architecture, the server handles hundreds of simultaneous streams with minimal resource usage (as little as 50MB of RAM). It scales to massive libraries by intelligently loading and rendering songs in batches.
+<p align="center">
+  <img src="media/synthwave-player-low-resources.png" alt="Low resource usage" width="30%">
+</p>
+
+<!-- TODO FIXME -->
+<p align="center">
+  <video src="media/synthwave-player-server-settings.mp4" width="80%" autoplay loop muted playsinline alt="Synthwave Player Server Settings"></video>
+</p>
+
+
+-   **Private & Secure:** As a self-hosted application, there is no tracking or third-party data collection. It features a secure, local-network-only **Admin Mode** with password protection and brute-force rate limiting. All file access is hardened against path traversal attacks.
+<p align="center">
+  <img src="media/synthwave-player-admin-login.png" alt="Admin mode" width="45%">
+  <img src="media/synthwave-player-admin-settings.png" alt="Admin settings" width="25%">
+</p>
+
+-   **System Intelligence:**
+    - The server automatically checks for new versions and notifies you with a detailed changelog.
+    - On startup, it verifies that all system dependencies are present and that its network port is free, preventing common setup issues.
+-   **Real-time WebSocket Sync:** The UI stays perfectly in sync with the server, providing instant notifications for library updates, configuration changes, and newly found lyrics without needing to reload the page.
+<p align="center">
+  <img src="media/synthwave-player-reload-on-library-updates.png" alt="Real-time library sync" width="50%">
+</p>
 
 ---
 
@@ -379,40 +402,24 @@ A cron job can start the player at boot. This is easy to set up but won't restar
 
 **Option B: Run as a Systemd Service (Recommended)**
 
-This is the most reliable way to run the player as a long-term service.
+This is the most reliable way to run the player as a long-term service. The player comes with a pre-configured `systemd` user service.
 
-1.  **Create a service file:**
+1.  **Enable user lingering:**
+    To ensure the server runs even when you are not logged in, you must enable lingering for your user account. Replace `your_username` with your actual username.
     ```bash
-    sudo nano /etc/systemd/system/music-player.service
+    sudo loginctl enable-linger your_username
     ```
 
-2.  **Paste the following configuration.** Be sure to change `User` to your username and `WorkingDirectory` to the correct path where `synthwave-player` is located.
-    ```ini
-    [Unit]
-    Description=Synthwave Player
-    After=network.target
-
-    [Service]
-    Type=simple
-    User=your_username
-    Group=your_username
-    WorkingDirectory=/home/your_username/path/to/music-player
-    ExecStart=hypnotoad /home/your_username/path/to/music-player/synthwave-player
-    Restart=on-failure
-    RestartSec=5s
-
-    [Install]
-    WantedBy=multi-user.target
+2.  **Enable and start the service:**
+    To start the server immediately and have it automatically start on every boot, run the following command (as your user, not root):
+    ```bash
+    systemctl --user enable --now synthwave-player-server.service
     ```
 
-3.  **Enable and start the service:**
+3.  **Check the service status:**
+    You can verify that the service is running correctly with:
     ```bash
-    sudo systemctl enable --now music-player.service
-    ```
-
-4.  You can check its status anytime with:
-    ```bash
-    sudo systemctl status music-player.service
+    systemctl --user status synthwave-player-server.service
     ```
 Your server is now fully configured! You can access your music securely at `https://music.yourdomain.com`.
 
@@ -434,12 +441,21 @@ Some ideas / TODO to implement:
 -   **Video Player:** A companion video player with a similar synthwave aesthetic and feature set, including animated thumbnails.
 -   **Peer-to-Peer Sharing:** Build shareable music libraries with friends over peer-to-peer connections, directly integrated with yours!
 -   **User Authentication:** Optional username/password protection to restrict access to your player.
--   **Audio Equalizer:** A built-in equalizer to customize your sound.
--   **New Version Notifier:** An in-app notification when a new version of the player is available.
 -   **User Statistics:** Track listening habits and see stats on a per-user basis.
--   **Notifications of different types:** To differentiate between info, debug, error, or warning messages.
 -   **User-based liked system**: Allow users to like (hearth) the songs, saving them in ther username login, and display the total ratings average too.
 -   **Windows / MacOS / Docker Support:** Set up this player running it from a docker so you can install it on windows or mac too.
 -   **UI**: The disc should not spin, but instead it should remain in place and rotate a few pixels back and forth to simulate the record spinning. This will require to separate the reflection with the disc image (2 images), the disc should spin and the reflection should whobble back-and-forth
--   **Radio url support**: Include a special playlist file with radio URL's to add support for radios, if exist, the radios will be shown in the "playlists" sidebard with a special radio icon to identify it, when loaded, the tracklist will show the radios available on the list that can be clicked to stream the radio stream to the user player directly (without passing by the server side). 
 
+
+
+---
+
+## 💝 Supporting the Project
+
+If you enjoy using the Elive Synthwave Player, consider:
+
+* Starring the repository on GitHub
+
+* Share it with others
+
+* Supporting Elive Linux development
