@@ -1372,3 +1372,4 @@ feat: Update README with new features and clarifications
 docs: Add integrated lyrics view with auto-scroll to README
 small updates
 docs: Reorder features and update TODO list in README
+docs: Meld "Unfindable Tracks" and "Original Masters" into a single README point
