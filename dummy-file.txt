@@ -1369,3 +1369,4 @@ fix: Update service name to synthwave-player-server
 docs: Update README systemd user service usage instructions
 docs: Reorganize and restructure README, remove redundancies
 feat: Update README with new features and clarifications
+docs: Add integrated lyrics view with auto-scroll to README
