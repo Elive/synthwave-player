@@ -1366,3 +1366,4 @@ bump
 stop old audio before playing new song
 rename
 fix: Update service name to synthwave-player-server
+docs: Update README systemd user service usage instructions
