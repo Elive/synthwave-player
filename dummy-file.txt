@@ -1362,3 +1362,4 @@ fix side panel sizing
 hide horizontal overflow
 fix
 Release version 3.6
+bump
