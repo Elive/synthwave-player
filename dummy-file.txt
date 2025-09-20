@@ -1363,3 +1363,4 @@ hide horizontal overflow
 fix
 Release version 3.6
 bump
+stop old audio before playing new song
