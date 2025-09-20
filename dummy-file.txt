@@ -1375,3 +1375,4 @@ docs: Reorder features and update TODO list in README
 docs: Meld "Unfindable Tracks" and "Original Masters" into a single README point
 bump
 README
+support
