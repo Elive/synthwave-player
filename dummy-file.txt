@@ -1378,3 +1378,4 @@ README
 support
 bump
 images added
+image improvements
