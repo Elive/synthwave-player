@@ -1371,3 +1371,4 @@ docs: Reorganize and restructure README, remove redundancies
 feat: Update README with new features and clarifications
 docs: Add integrated lyrics view with auto-scroll to README
 small updates
+docs: Reorder features and update TODO list in README
