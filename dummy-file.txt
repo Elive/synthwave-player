@@ -1380,3 +1380,4 @@ bump
 images added
 image improvements
 WIP readme
+WIP readme mobile
