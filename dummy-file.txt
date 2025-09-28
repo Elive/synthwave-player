@@ -1388,3 +1388,4 @@ made song ids shorter and added partial matching
 changed how sort parameters are formatted
 feat: ask the user what to do with the running server
 refactor: cleaned up how lyrics look in debug logs
+ui now updates as soon as lyrics are found
