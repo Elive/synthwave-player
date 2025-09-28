@@ -1386,3 +1386,4 @@ WIP readme
 timestamp is last in share links
 made song ids shorter and added partial matching
 changed how sort parameters are formatted
+feat: ask the user what to do with the running server
