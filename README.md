@@ -61,10 +61,6 @@ For real music lovers, a self-hosted player isn't just a preference—it's a nec
 -   **Full-Featured Playback:** All the controls you expect: Play, Pause, Next, Previous, plus a dedicated **Stop** button to restart your picked selection.
 -   **Intelligent `Previous` Button:** Restarts the current track if played briefly; otherwise, navigates to the actual previous song in your listening history.
 -   **Advanced Shuffle & Repeat:** Three shuffle modes ("Off," "List" for a stable randomized queue, and "Random" for a new random song every time) and three repeat modes (Off, One, All).
--   **10-Band Audio Equalizer:** Shape your sound with a 10-band EQ, preamp, bass boost, and stereo width controls. Save your settings as custom presets and toggle them on the fly.
-<p align="center">
-  <img src="media/synthwave-player-equalizer.png" alt="10-Band Audio Equalizer" width="75%">
-</p>
 
 -   **Playback Speed Control:** Adjust playback speed with pitch preservation, perfect for audiobooks or podcasts.
 -   **Advanced Mouse Controls:** Use your mouse wheel over player elements to control the progress bar, volume, playback rate, and crossfade duration.
@@ -430,6 +426,24 @@ A Raspberry Pi is an excellent choice for a low-power, energy-efficient, and alw
 
 The only specific consideration for a Raspberry Pi is the location of your music library. If you store your music on an external USB drive, you will need to edit the `@MUSIC_DIRECTORIES` variable from the tool, personal configurations, or interface configurations to include the path to your drive (e.g., `/media/pi/MyMusicDrive`).
 </details>
+
+---
+
+## 💎 PRO / Premium Version
+
+For users who want to take their experience to the next level, the **Synthwave Player PRO** offers exclusive features and capabilities not found in the standard version. Upgrading to PRO is also a great way to support the continued development of this project.
+
+**Exclusive PRO Features:**
+-   **Advanced Audio Processing:** Unlock additional audio enhancements and professional-grade effects.
+-   **Multi-user Profiles:** Create separate profiles for different users, each with their own settings, playlists, and statistics.
+-   **10-Band Audio Equalizer:** Shape your sound with a 10-band EQ, preamp, bass boost, and stereo width controls. Save your settings as custom presets and toggle them on the fly.
+<p align="center">
+  <img src="media/synthwave-player-equalizer.png" alt="10-Band Audio Equalizer" width="75%">
+</p>
+
+#### Future ideas to implement for the PRO version
+-   **AI-Powered Lyric Repair:** High-quality lyrics, repairing the text using AI.
+-   **Smart Playlist Generation:** Automatically create playlists based on your listening habits, mood, or specific criteria.
 
 ---
 
