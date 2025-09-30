@@ -1397,3 +1397,4 @@ systemd service now runs in foreground
 refactor: stopped using exiftool for lyrics
 feat: Report specific playlists that are out of date
 feat: Log eyeD3 lyrics character count in debug
+lyrics parsing includes chapter titles
