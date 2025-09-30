@@ -1394,3 +1394,4 @@ docs: added pro features and ideas to readme
 added license
 stopped cluttering the url with default sort
 systemd service now runs in foreground
+refactor: stopped using exiftool for lyrics
