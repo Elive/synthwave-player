@@ -1393,3 +1393,4 @@ player buttons now work while loading
 docs: added pro features and ideas to readme
 added license
 stopped cluttering the url with default sort
+systemd service now runs in foreground
