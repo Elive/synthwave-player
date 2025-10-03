@@ -1401,3 +1401,4 @@ lyrics parsing includes chapter titles
 only stop lyrics fetch for eyed3 tags
 cap karaoke scroll offsets to 30s
 configurable db/playlist warnings
+disable pull-to-refresh on mobile
