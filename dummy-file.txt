@@ -1403,3 +1403,4 @@ cap karaoke scroll offsets to 30s
 configurable db/playlist warnings
 disable pull-to-refresh on mobile
 ignore aborterror in audio
+collapse sidebars on mobile
