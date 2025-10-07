@@ -1408,3 +1408,4 @@ fix notifications on mobile
 share song by id
 cache busting for static files
 fix: Open context menu on click of playing song
+center context menu
