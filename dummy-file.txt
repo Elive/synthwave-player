@@ -1409,3 +1409,4 @@ share song by id
 cache busting for static files
 fix: Open context menu on click of playing song
 center context menu
+added open graph tags for previews
