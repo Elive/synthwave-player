@@ -1421,3 +1421,4 @@ Revert "fix: Open context menu on click of playing song"
 fix lyrics disappearing on replay
 hide cover when lyrics modal is clicked
 wording
+use pipe as url delimiter
