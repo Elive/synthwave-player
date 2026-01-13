@@ -1436,3 +1436,4 @@ cleanups
 fix: only use the first argument in track digit/digit that we need, fixes sorting
 REVERT the URL field separators to the ~ char
 fix the duration tag fetching and sorting
+added support to fetch ratings
