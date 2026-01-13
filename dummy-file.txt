@@ -1434,3 +1434,4 @@ MIGRATE from RHYTHMBOX database to own file scanning
 show actual progress file scanning on web interface too
 cleanups
 fix: only use the first argument in track digit/digit that we need, fixes sorting
+REVERT the URL field separators to the ~ char
