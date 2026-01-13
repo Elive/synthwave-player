@@ -1424,3 +1424,4 @@ wording
 use pipe as url delimiter
 moved config logic to its own module
 always use Elive as repo org name
+moved Networks and Lyrics logic to own module files
