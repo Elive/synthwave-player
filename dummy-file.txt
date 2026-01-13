@@ -1431,3 +1431,4 @@ cleanups for the code moved to the Config module
 moved other parts of the code to independent modules
 added PRO license
 MIGRATE from RHYTHMBOX database to own file scanning
+show actual progress file scanning on web interface too
