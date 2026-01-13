@@ -1414,3 +1414,4 @@ refactor: Use comma as URL parameter separator
 added autoplay=yes url param
 run autoplay after ui renders
 better mobile detection for autoplay
+fix url-encoded commas in share links
