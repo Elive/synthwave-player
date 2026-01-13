@@ -1411,3 +1411,4 @@ fix: Open context menu on click of playing song
 center context menu
 added open graph tags for previews
 refactor: Use comma as URL parameter separator
+added autoplay=yes url param
