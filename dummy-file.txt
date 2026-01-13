@@ -1429,3 +1429,4 @@ cleanups for the code moved to the Network module
 cleanups for the code moved to the Lyrics module
 cleanups for the code moved to the Config module
 moved other parts of the code to independent modules
+added PRO license
