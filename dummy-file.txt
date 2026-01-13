@@ -1427,3 +1427,4 @@ always use Elive as repo org name
 moved Networks and Lyrics logic to own module files
 cleanups for the code moved to the Network module
 cleanups for the code moved to the Lyrics module
+cleanups for the code moved to the Config module
