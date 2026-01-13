@@ -1422,3 +1422,4 @@ fix lyrics disappearing on replay
 hide cover when lyrics modal is clicked
 wording
 use pipe as url delimiter
+moved config logic to its own module
