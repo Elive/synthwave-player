@@ -1417,3 +1417,4 @@ better mobile detection for autoplay
 fix url-encoded commas in share links
 increased http timeouts for lyrics
 filter instrumental lyrics
+Revert "fix: Open context menu on click of playing song"
