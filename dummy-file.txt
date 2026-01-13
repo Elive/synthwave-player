@@ -1412,3 +1412,4 @@ center context menu
 added open graph tags for previews
 refactor: Use comma as URL parameter separator
 added autoplay=yes url param
+run autoplay after ui renders
