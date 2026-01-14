@@ -1438,3 +1438,4 @@ REVERT the URL field separators to the ~ char
 fix the duration tag fetching and sorting
 added support to fetch ratings
 URL field separators moved from ~ to |
+fix progress bar when scaning music
