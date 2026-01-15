@@ -1,5 +1,35 @@
 # Synthwave Music Player Changelog
 
+## v3.8 - The Independent
+- ⚡ **Rhythmbox Independence**: The player no longer depends on the Rhythmbox database; it can now scan and manage music libraries on its own, making it a standalone music server and player.
+- 📦 **Code Cleanup & Modularization**: Split Config, Lyrics, Network, Library, Search, Utils into separate modules for cleaner, maintainable code.
+- 🔗 **Open Graph Meta Tags**: Added OG tags for better song link previews on social media.
+- ⚡ **Async and Reactive Improvements**: Replaced blocking sleep with non-blocking timers on admin login; delayed autoplay until UI fully renders to boost responsiveness.
+- 🗂️ **Song Metadata Modal**: Added context menu option to show song metadata in modal with copy-to-clipboard for file path.
+- 🆔 **ID Handling Enhancements**: Shortened song IDs to 16 chars with partial ID matching in APIs for better speed and usability.
+- 📈 **Library Scan Progress**: Added real-time terminal progress and more accurate, frequent web UI progress updates during scans.
+- 🔍 **URL Parameter Parsing & Formatting**: New standardized delimiter (`|`) for lists.
+- ⚠️ **Format Compatibility Warning**: Detect MPEG version/layer during scans; warn on MPEG 1 Layer 2 files and suggest re-encoding.
+
+- More Changes, Improvements, and Bug Fixes:
+    - 🚀 **Admin & Server Management**: Added prompt to handle running servers with continue/restart/configure options; switched systemd service to simple foreground mode for easier control.
+    - 🐞 **Bug Reporting UI**: Premium users can now choose reporting core or PRO-specific issues, streamlining feedback.
+    - 🖥️ **UI/UX Improvements**: Disabled global text selection to avoid accidental highlights; sidebar collapse default on mobile; fixed mobile pull-to-refresh and notification popup positioning; hide fullscreen cover when interacting with lyrics modal on mobile.
+    - 🧹 **Cache Busting for Static Assets**: Added `?v=version` query parameters to CSS/JS for fresh content after updates.
+    - 🔧 **Configuration Handling**: Centralized atomic config saving with safe temp file writes; moved config logic to a dedicated module; switched to JSON configs to enhance security.
+    - 🎯 **Context Menu Positioning**: Fixed horizontal centering on desktop/mobile and vertical overflow clipping.
+    - 📚 **Documentation & Media**: Major README overhaul with updated PRO features, reordered lists, better screenshots/video sizing, clearer descriptions, and added missing images.
+    - ⏱️ **Duration Display and Sorting**: Show empty durations as blank, radio streams as infinity; fixed sorting warnings by avoiding numeric compares.
+    - 🔗 **Enhanced Sharing Features**: Share URLs now pass current song IDs, support `autoplay=yes` param to auto-start playback, and encode/order parameters correctly.
+    - 🎤 **Karaoke Lyrics Timing**: Limited karaoke scroll offsets to max 30 seconds for smoother sync.
+    - 🎵 **Lyrics Handling Fixes**: Fixed radio song lyrics updates; parsed out “Instrumental” tags; increased HTTP timeouts; improved error handling and logging.
+    - 📝 **Lyrics Module Refactor**: Isolated lyrics fetching/caching in own module; dropped exiftool, kept eyeD3; refined parsing and added debug logs for lyrics char counts.
+    - 🎼 **Metadata Handling**: Improved MP3 tag reads using TIT2 frame and high-level APIs to avoid bleed; enhanced extraction of titles, artists, albums, genres, tracks, durations, and bitrate.
+    - 🛠️ **Miscellaneous Fixes**: Fixed fractional track number sorting; prevented lyrics disappearing on replay; refined mobile autoplay detection; improved clipboard fallback; enhanced lyrics fetch debug output.
+    - 🌐 **Network Module Refactor**: Moved network code to module; adjusted port checks to avoid binds in multi-worker setups; improved private IP and UPnP handling.
+    - ⚡ **Performance Optimizations**: Reduced library chunk sizes for UI smoothness; sped up web UI load checks; removed fake loading indicators.
+    - ▶️ **Playback Controls**: Fixed stop/start logic to halt previous audio cleanly; silenced abort errors; fixed context menu on currently playing songs.
+
 ## v3.6 - The Archivist
 - 📜 **Undocumented Features Documented**: This special release catalogues numerous features developed over time that were not previously listed in the changelog.
 - ✨ **UI/UX Enhancements**:
@@ -25,7 +55,7 @@
     - **Port Conflict Prevention**: The server intelligently checks if its configured port is already in use and prevents a second instance from running, avoiding conflicts.
     - **Non-Blocking Library Scan**: The music library is scanned asynchronously in chunks, allowing the server to be responsive immediately at startup, even with massive music collections.
     - **Advanced Filter Logic**: When combining filters (e.g., a playlist and a genre), the server performs a true intersection of the sets, enabling precise and powerful music discovery.
-    - **Hierarchical Lyrics Engine**: The system uses a sophisticated multi-step process to find lyrics: it first checks its local cache, then performs a deep scan of the audio file's metadata (checking `eyeD3`, multiple ID3v2 tag frames, and `exiftool`), and only then searches multiple online providers as a last resort.
+    - **Hierarchical Lyrics Engine**: The system uses a sophisticated multi-step process to find lyrics: it first checks its local cache, then performs a deep scan of the audio file's metadata (checking `eyeD3`, multiple ID3v2 tag frames, and only then searches multiple online providers as a last resort.
     - **Resilient Online Fetching**: The online lyrics search is built for robustness, with fallbacks to multiple providers, temporary blacklisting of failing services, and intelligent URL variations to maximize success.
 - 🛡️ **Security**:
     - **Multi-Layer File Access Security**: Every request for an audio file is validated through a chain of security checks, including preventing path traversal, blocking malicious characters, ensuring the file is within a whitelisted directory, and verifying its MIME type to serve only legitimate audio.
