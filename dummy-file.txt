@@ -1496,3 +1496,4 @@ renamed template to index_synthwave
 cleanups
 refactor: Move all modals to external partials file `modals_synthwave.html.ep`
 reduced search highlight glow
+edit more tags like composer and disc
