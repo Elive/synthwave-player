@@ -1466,3 +1466,4 @@ Release version 3.8
 moved library to sqlite
 extract all music tags to db
 store full dates in db
+refactor: use empty strings instead of 'Unknown' for missing tags
