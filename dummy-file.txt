@@ -1442,3 +1442,4 @@ fix progress bar when scaning music
 implemented bitrate column
 moved config to json for security
 fix port binding in multi-worker
+refactor: Centralize atomic config file saving logic
