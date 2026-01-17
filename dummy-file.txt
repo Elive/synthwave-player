@@ -1478,3 +1478,4 @@ chore: removed RAM warnings for large libraries
 chore: removed the "instant changes" note from settings
 improved tag editing with click-to-save
 refactor: switched config checkboxes to use booleans
+start tag edit on click
