@@ -1483,3 +1483,4 @@ fix cursor position when editing
 refactor: Conditionally label metatags view and context menu
 private network regex supports ports
 pretty-print json config
+metatag saving in modal
