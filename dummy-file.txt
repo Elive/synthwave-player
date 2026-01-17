@@ -1460,3 +1460,4 @@ better duration display and sorting
 better context menu alignment
 fix lyrics update for radio
 metadata modal and copy filepath
+detect mpeg version and warn on scan
