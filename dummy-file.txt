@@ -1487,3 +1487,4 @@ metatag saving in modal
 metatag editing in modal
 update year and comment tags
 fix admin password setup
+admin and local editing config
