@@ -1494,3 +1494,4 @@ typo where the welcome message should say "fsck" as a fixing issue
 esc key closes modals
 renamed template to index_synthwave
 cleanups
+refactor: Move all modals to external partials file `modals_synthwave.html.ep`
