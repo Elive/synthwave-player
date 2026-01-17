@@ -1453,3 +1453,4 @@ fix missing broadcast functions
 style: Disable global text selection
 fix search sort warning
 fix mojo useragent errors
+fix duration check warning
