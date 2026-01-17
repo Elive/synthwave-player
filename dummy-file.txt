@@ -1462,3 +1462,4 @@ fix lyrics update for radio
 metadata modal and copy filepath
 detect mpeg version and warn on scan
 fix title tag bleed
+Release version 3.8
