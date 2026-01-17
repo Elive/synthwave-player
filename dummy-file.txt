@@ -1472,3 +1472,4 @@ added inline tag editing to the tracklist
 improved inline tag editing
 added an ignore list for the file watcher
 added star ratings for songs
+added local network editing and admin sessions
