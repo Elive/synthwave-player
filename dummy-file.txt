@@ -1447,3 +1447,4 @@ fix config encoding
 perf: Replace blocking sleep with non-blocking timer in admin login
 bug report choices for pro users
 fix playlist count warning
+fix zero duration display
