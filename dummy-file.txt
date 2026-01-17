@@ -1459,3 +1459,4 @@ fix numeric comparison for duration
 better duration display and sorting
 better context menu alignment
 fix lyrics update for radio
+metadata modal and copy filepath
