@@ -1499,3 +1499,4 @@ reduced search highlight glow
 edit more tags like composer and disc
 Fix: Adjust tag editing for device-specific interactions and update pen icon behaviour
 added admin logout api
+toggle equalizer without reload
