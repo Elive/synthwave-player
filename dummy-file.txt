@@ -1455,3 +1455,4 @@ fix search sort warning
 fix mojo useragent errors
 fix duration check warning
 terminal progress for library scan
+fix numeric comparison for duration
