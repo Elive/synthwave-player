@@ -1490,3 +1490,4 @@ fix admin password setup
 admin and local editing config
 remember admin state
 metadata editing form
+typo where the welcome message should say "fsck" as a fixing issue
