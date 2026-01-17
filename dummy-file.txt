@@ -1469,3 +1469,4 @@ store full dates in db
 refactor: use empty strings instead of 'Unknown' for missing tags
 added library watcher and song stats
 added inline tag editing to the tracklist
+improved inline tag editing
