@@ -1457,3 +1457,4 @@ fix duration check warning
 terminal progress for library scan
 fix numeric comparison for duration
 better duration display and sorting
+better context menu alignment
