@@ -1473,3 +1473,4 @@ improved inline tag editing
 added an ignore list for the file watcher
 added star ratings for songs
 added local network editing and admin sessions
+tag editing is now restricted by canEditTags
