@@ -1493,3 +1493,4 @@ metadata editing form
 typo where the welcome message should say "fsck" as a fixing issue
 esc key closes modals
 renamed template to index_synthwave
+cleanups
