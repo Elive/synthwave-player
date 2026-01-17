@@ -1451,3 +1451,4 @@ fix zero duration display
 refactor: Expose _broadcast_lyrics_update from SynthwavePlayer::Lyrics
 fix missing broadcast functions
 style: Disable global text selection
+fix search sort warning
