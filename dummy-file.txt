@@ -1448,3 +1448,4 @@ perf: Replace blocking sleep with non-blocking timer in admin login
 bug report choices for pro users
 fix playlist count warning
 fix zero duration display
+refactor: Expose _broadcast_lyrics_update from SynthwavePlayer::Lyrics
