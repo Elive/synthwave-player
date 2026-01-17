@@ -1446,3 +1446,4 @@ refactor: Centralize atomic config file saving logic
 fix config encoding
 perf: Replace blocking sleep with non-blocking timer in admin login
 bug report choices for pro users
+fix playlist count warning
