@@ -1521,3 +1521,4 @@ bigger progress bar thumb
 better sidebar resizing
 style: Enlarge progress bar thumb for easier interaction
 drag and drop to reorder columns
+moved display options to client-side
