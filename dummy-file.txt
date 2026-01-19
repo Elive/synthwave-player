@@ -1501,3 +1501,4 @@ Fix: Adjust tag editing for device-specific interactions and update pen icon beh
 added admin logout api
 toggle equalizer without reload
 fix tracklist overflow
+sync lyrics websocket events
