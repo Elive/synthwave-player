@@ -1514,3 +1514,4 @@ style: Adjust UI fonts, remove bold track titles, and monospace ratings
 improved default font size and family
 resizable tracklist columns
 style: Disable focus outline for range inputs
+style: Reduce width of track #, bitrate, and duration columns
