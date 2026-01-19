@@ -1504,3 +1504,4 @@ fix tracklist overflow
 sync lyrics websocket events
 fix config events and friends music
 updated mismatches and removed dead code
+configurable lyrics font size
