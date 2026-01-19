@@ -1509,3 +1509,4 @@ use render for 403 status
 better autoplay detection
 style: Adjust default lyrics font size
 configurable font families
+dynamic google fonts for ui and lyrics
