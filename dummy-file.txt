@@ -1512,3 +1512,4 @@ configurable font families
 dynamic google fonts for ui and lyrics
 style: Adjust UI fonts, remove bold track titles, and monospace ratings
 improved default font size and family
+resizable tracklist columns
