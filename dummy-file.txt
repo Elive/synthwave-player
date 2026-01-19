@@ -1518,3 +1518,4 @@ style: Reduce width of track #, bitrate, and duration columns
 don't sort when resizing columns
 resizable sidebars
 bigger progress bar thumb
+better sidebar resizing
