@@ -1516,3 +1516,4 @@ resizable tracklist columns
 style: Disable focus outline for range inputs
 style: Reduce width of track #, bitrate, and duration columns
 don't sort when resizing columns
+resizable sidebars
