@@ -1506,3 +1506,4 @@ fix config events and friends music
 updated mismatches and removed dead code
 configurable lyrics font size
 use render for 403 status
+better autoplay detection
