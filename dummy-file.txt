@@ -1507,3 +1507,4 @@ updated mismatches and removed dead code
 configurable lyrics font size
 use render for 403 status
 better autoplay detection
+style: Adjust default lyrics font size
