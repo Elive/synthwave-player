@@ -1530,3 +1530,4 @@ apply ui font to modals and settings
 removed focus outlines and text selection
 re-enabled column resizing
 Fix: Ensure tracklist table uses full width and truncates content
+stop sort arrow from wrapping
