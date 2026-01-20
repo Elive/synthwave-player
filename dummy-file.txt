@@ -1536,3 +1536,4 @@ style: Update search placeholder to 'Scan the frequency...'
 style: Reduce vertical padding for sidebar elements
 server settings topics collapsed by default
 support structured friends music config
+show friends music in settings
