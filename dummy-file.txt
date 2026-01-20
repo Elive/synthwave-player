@@ -1534,3 +1534,4 @@ stop sort arrow from wrapping
 style: Reduce rating column width and add min-w-0
 style: Update search placeholder to 'Scan the frequency...'
 style: Reduce vertical padding for sidebar elements
+server settings topics collapsed by default
