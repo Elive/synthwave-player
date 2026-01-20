@@ -1526,3 +1526,4 @@ better column dragging ux
 style: Limit dynamic width of track, duration, and bitrate columns
 style: Consolidate compact width for track number, bitrate, duration columns
 style: Reduce vertical padding for tracklist elements
+apply ui font to modals and settings
