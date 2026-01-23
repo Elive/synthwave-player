@@ -1543,3 +1543,4 @@ fix admin mode persistence
 fix font by overriding tailwind
 apply ui font to body and forms
 fix perl errors and db schema init
+style: Add thicker bottom border to tracklist header for separation
