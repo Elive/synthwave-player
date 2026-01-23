@@ -1541,3 +1541,4 @@ style: Increase genre column width
 increased font size for lyrics with overlock font
 fix admin mode persistence
 fix font by overriding tailwind
+apply ui font to body and forms
