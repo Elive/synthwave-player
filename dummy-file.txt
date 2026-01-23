@@ -1539,3 +1539,4 @@ support structured friends music config
 show friends music in settings
 style: Increase genre column width
 increased font size for lyrics with overlock font
+fix admin mode persistence
