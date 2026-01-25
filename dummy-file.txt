@@ -1557,3 +1557,4 @@ allow local network sharing with warnings
 fix genius lyrics parsing and breaks
 small updates
 custom slow scrolling for lyrics
+smooth sinusoidal lyrics scrolling
