@@ -1546,3 +1546,4 @@ fix perl errors and db schema init
 style: Add thicker bottom border to tracklist header for separation
 set currenttime immediately to stop jumping on resume
 fix double-encoding in share links
+smooth scrolling for karaoke lyrics
