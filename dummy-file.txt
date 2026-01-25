@@ -1555,3 +1555,4 @@ better lyrics fetching and instrumental detection
 Fix: Blacklist lyrics providers on errors and normalize cache file extensions
 allow local network sharing with warnings
 fix genius lyrics parsing and breaks
+small updates
