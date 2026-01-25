@@ -1552,3 +1552,4 @@ better lyrics search by cleaning titles
 better lyrics debug info
 chore: Change cached lyrics log to debug level
 better lyrics fetching and instrumental detection
+Fix: Blacklist lyrics providers on errors and normalize cache file extensions
