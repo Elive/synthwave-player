@@ -1550,3 +1550,4 @@ smooth scrolling for karaoke lyrics
 use cached lyrics even if they failed before
 better lyrics search by cleaning titles
 better lyrics debug info
+chore: Change cached lyrics log to debug level
