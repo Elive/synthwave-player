@@ -1548,3 +1548,4 @@ set currenttime immediately to stop jumping on resume
 fix double-encoding in share links
 smooth scrolling for karaoke lyrics
 use cached lyrics even if they failed before
+better lyrics search by cleaning titles
