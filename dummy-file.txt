@@ -1563,3 +1563,4 @@ do not require internet for work
 fixed playback position on reload
 added keyboard actions, home, end, left, right, enter, etc
 keep hilighted the playing item
+clear pending autoplay / sync logic to prevent from overriding Home key
