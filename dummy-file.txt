@@ -1560,3 +1560,4 @@ custom slow scrolling for lyrics
 smooth sinusoidal lyrics scrolling
 small updates
 do not require internet for work
+fixed playback position on reload
