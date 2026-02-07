@@ -1567,3 +1567,4 @@ clear pending autoplay / sync logic to prevent from overriding Home key
 fixes
 fix for playing back the song to its position
 fixed form standards
+buffering
