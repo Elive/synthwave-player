@@ -1569,3 +1569,4 @@ fix for playing back the song to its position
 fixed form standards
 buffering
 include option to allow admin mode from any network
+remember admin state and use offline fonts if available
