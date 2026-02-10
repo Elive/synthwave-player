@@ -1592,3 +1592,4 @@ improve play pause statuses
 improved settings menu
 fix admin mode remembering
 tracklist populating fixes
+thumbnails for mobile redesigned to be more logic
