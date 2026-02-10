@@ -1583,3 +1583,4 @@ Fix: Differentiate player button click from hold actions
 reset progress when changing tracks
 expand sidebars by default on mobile
 differentiate hold/press on mobile hero buttons
+style: Set mobile sidebar height to 25%
