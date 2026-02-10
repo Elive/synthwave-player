@@ -1581,3 +1581,4 @@ expand sidebars on mobile
 fix navigation and mobile sidebar state
 Fix: Differentiate player button click from hold actions
 reset progress when changing tracks
+expand sidebars by default on mobile
