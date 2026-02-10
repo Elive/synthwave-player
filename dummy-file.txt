@@ -1589,3 +1589,4 @@ pause hero animations when disc is paused
 differentiate between hold and press on buttons
 correctly differentiate between holding and press next-prev keys
 improve play pause statuses
+improved settings menu
