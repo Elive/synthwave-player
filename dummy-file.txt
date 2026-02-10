@@ -1571,3 +1571,4 @@ buffering
 include option to allow admin mode from any network
 remember admin state and use offline fonts if available
 redesigned Mobile hero player, precache, etc, wip
+improved designs
