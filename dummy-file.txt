@@ -1594,3 +1594,4 @@ fix admin mode remembering
 tracklist populating fixes
 thumbnails for mobile redesigned to be more logic
 fix for ESC
+resolution fixes
