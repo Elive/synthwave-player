@@ -1579,3 +1579,4 @@ fast-forward/rewind on hold for mobile
 fix play/pause state on fast clicks
 expand sidebars on mobile
 fix navigation and mobile sidebar state
+Fix: Differentiate player button click from hold actions
