@@ -1596,3 +1596,4 @@ thumbnails for mobile redesigned to be more logic
 fix for ESC
 resolution fixes
 thumbnail fix
+fixes
