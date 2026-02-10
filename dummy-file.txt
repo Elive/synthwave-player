@@ -1584,3 +1584,4 @@ reset progress when changing tracks
 expand sidebars by default on mobile
 differentiate hold/press on mobile hero buttons
 style: Set mobile sidebar height to 25%
+fix track skipping on mobile seek
