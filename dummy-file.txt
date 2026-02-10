@@ -1577,3 +1577,4 @@ fix song duration on mobile
 mobile sidebar height set to 30%
 fast-forward/rewind on hold for mobile
 fix play/pause state on fast clicks
+expand sidebars on mobile
