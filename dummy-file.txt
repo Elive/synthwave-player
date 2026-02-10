@@ -1591,3 +1591,4 @@ correctly differentiate between holding and press next-prev keys
 improve play pause statuses
 improved settings menu
 fix admin mode remembering
+tracklist populating fixes
