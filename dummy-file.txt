@@ -1599,3 +1599,4 @@ thumbnail fix
 fixes
 bump
 added scan_state table and better path cleanup
+added missing dependency
