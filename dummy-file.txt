@@ -1607,3 +1607,4 @@ fix vertical scrollbar in mobile hero
 fix: top bar menus are now always on top
 refactor: added glass effect to menus and search boxes
 feat: menus now know where the screen edges are
+feat: menus now resize and move to stay on screen
