@@ -1602,3 +1602,4 @@ added scan_state table and better path cleanup
 added missing dependency
 added mp3 tag and info to deps check
 improved fonts
+fix mobile hero blur background
