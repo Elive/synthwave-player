@@ -1604,3 +1604,4 @@ added mp3 tag and info to deps check
 improved fonts
 fix mobile hero blur background
 fix vertical scrollbar in mobile hero
+fix: top bar menus are now always on top
