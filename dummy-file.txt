@@ -1600,3 +1600,4 @@ fixes
 bump
 added scan_state table and better path cleanup
 added missing dependency
+added mp3 tag and info to deps check
