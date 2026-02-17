@@ -1605,3 +1605,4 @@ improved fonts
 fix mobile hero blur background
 fix vertical scrollbar in mobile hero
 fix: top bar menus are now always on top
+refactor: added glass effect to menus and search boxes
