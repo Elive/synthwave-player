@@ -1611,3 +1611,4 @@ feat: menus now resize and move to stay on screen
 feat: added mac-style proximity scrolling for menus
 menus move to stay visible when resizing
 menus now resize to fit the screen
+feat: combined context menu with proximity scrolling
