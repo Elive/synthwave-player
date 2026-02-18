@@ -1617,3 +1617,4 @@ refactor: moved menu logic into a single SWPMenu helper
 feat: Enhance dynamic menus with Alpine.js data binding and event handling
 fix: Correct UTF-8 display for friends list data
 finished moving popup menus and fixed undefined errors
+fix alpine scope in dynamic menus
