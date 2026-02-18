@@ -1620,3 +1620,4 @@ finished moving popup menus and fixed undefined errors
 fix alpine scope in dynamic menus
 fix alpine errors and menu clicking issues
 fix menu popups and alpine variables
+clean up old menu code and popups
