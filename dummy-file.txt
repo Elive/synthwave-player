@@ -1613,3 +1613,4 @@ menus move to stay visible when resizing
 menus now resize to fit the screen
 feat: combined context menu with proximity scrolling
 fix: made sure top bar menus stay on top again
+refactor: moved menu logic into a single SWPMenu helper
