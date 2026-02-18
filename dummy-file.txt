@@ -1609,3 +1609,4 @@ refactor: added glass effect to menus and search boxes
 feat: menus now know where the screen edges are
 feat: menus now resize and move to stay on screen
 feat: added mac-style proximity scrolling for menus
+menus move to stay visible when resizing
