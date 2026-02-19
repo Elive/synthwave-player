@@ -1633,3 +1633,4 @@ DATABASE improvements, mtime, watchers, rescanings, etc [143 commits crushed int
 font size controls for ui and lyrics
 better utf8 handling for paths and metadata
 sync library on config changes
+style: Align radio station titles and icons to the left
