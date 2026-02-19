@@ -1630,3 +1630,4 @@ moved menu styles to one place and brought back the playlist warning
 fix lyrics font bleeding into menus
 use ui font for menus
 DATABASE improvements, mtime, watchers, rescanings, etc [143 commits crushed into a single one]
+font size controls for ui and lyrics
