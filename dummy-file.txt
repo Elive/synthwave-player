@@ -1625,3 +1625,4 @@ smooth mac-style scrolling for menus
 integrated swpmenu with alpine
 better menu transitions and positioning logic
 fixed menu stability and alpine scopes
+updated menu calls and cleaned up the dom logic
