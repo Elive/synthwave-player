@@ -1631,3 +1631,4 @@ fix lyrics font bleeding into menus
 use ui font for menus
 DATABASE improvements, mtime, watchers, rescanings, etc [143 commits crushed into a single one]
 font size controls for ui and lyrics
+better utf8 handling for paths and metadata
