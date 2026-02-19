@@ -1622,3 +1622,4 @@ fix alpine errors and menu clicking issues
 fix menu popups and alpine variables
 clean up old menu code and popups
 smooth mac-style scrolling for menus
+integrated swpmenu with alpine
