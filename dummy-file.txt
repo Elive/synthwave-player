@@ -1624,3 +1624,4 @@ clean up old menu code and popups
 smooth mac-style scrolling for menus
 integrated swpmenu with alpine
 better menu transitions and positioning logic
+fixed menu stability and alpine scopes
