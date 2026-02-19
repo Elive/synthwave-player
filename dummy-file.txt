@@ -1628,3 +1628,4 @@ fixed menu stability and alpine scopes
 updated menu calls and cleaned up the dom logic
 moved menu styles to one place and brought back the playlist warning
 fix lyrics font bleeding into menus
+use ui font for menus
