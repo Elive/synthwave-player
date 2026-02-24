@@ -1653,3 +1653,4 @@ persist playlist state for multi-worker sync
 better ipv6 regex and fixed some comments
 auto-reload when server changes
 keep search order and highlight matches
+better sql filtering for fuzzy search and highlights
