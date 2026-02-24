@@ -1640,3 +1640,4 @@ cleaned up whitespace
 cut down on unnecessary library scanning
 force a rescan if the structure changes
 moved library metadata to library.pm
+moved search logic and sql building to library.pm
