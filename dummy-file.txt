@@ -1635,3 +1635,4 @@ better utf8 handling for paths and metadata
 sync library on config changes
 style: Align radio station titles and icons to the left
 keep disc spinning when skipping at end of list
+database: added watcher, hashed dirs, and realtime updates
