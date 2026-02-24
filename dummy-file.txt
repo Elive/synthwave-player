@@ -1656,3 +1656,4 @@ keep search order and highlight matches
 better sql filtering for fuzzy search and highlights
 fixed a crash in pagination
 improved search with typo tolerance and partial matches
+made fuzzy search faster by skipping long strings
