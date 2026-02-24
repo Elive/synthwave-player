@@ -1647,3 +1647,4 @@ cleaned up the logic for production
 font size steps set to 5%
 implemented polling system as a fallback for inotify
 fix race conditions and throttle localstorage
+Race Condition: "The Vanishing Scan" (Multi-worker)
