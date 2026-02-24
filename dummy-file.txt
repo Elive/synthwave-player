@@ -1651,3 +1651,4 @@ Race Condition: "The Vanishing Scan" (Multi-worker)
 secure pid file creation in /tmp
 persist playlist state for multi-worker sync
 better ipv6 regex and fixed some comments
+auto-reload when server changes
