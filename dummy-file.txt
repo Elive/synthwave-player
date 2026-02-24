@@ -1638,3 +1638,4 @@ keep disc spinning when skipping at end of list
 database: added watcher, hashed dirs, and realtime updates
 cleaned up whitespace
 cut down on unnecessary library scanning
+force a rescan if the structure changes
