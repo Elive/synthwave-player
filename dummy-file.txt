@@ -1643,3 +1643,4 @@ moved library metadata to library.pm
 moved search logic and sql building to library.pm
 moved sqlite config to Library.pm
 fixed database issues for production
+cleaned up the logic for production
