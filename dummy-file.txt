@@ -1663,3 +1663,4 @@ made fuzzy search sql filtering faster
 search now works with acronyms
 improved menu popup staying
 popup menus improvements
+sidebars defaults
