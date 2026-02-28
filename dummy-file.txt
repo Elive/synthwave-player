@@ -1666,3 +1666,4 @@ popup menus improvements
 sidebars defaults
 allow to set the font size with the mouse wheel and typing it
 updated alpine.js
+updated fuse.js
