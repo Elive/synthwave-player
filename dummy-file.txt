@@ -1674,3 +1674,4 @@ improved precaching songs system
 commented out debug lines for lyrics
 remember user settings
 know useragent for specific cases
+detect when a browser requires improved audio engine
