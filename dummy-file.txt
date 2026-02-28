@@ -1668,3 +1668,4 @@ allow to set the font size with the mouse wheel and typing it
 updated alpine.js
 updated fuse.js
 FIX: include fuse.js
+use the variable isMobileMode to know when we are or not in mobile mode
