@@ -1673,3 +1673,4 @@ allow equalizer and crossfade in mobile but warn about it
 improved precaching songs system
 commented out debug lines for lyrics
 remember user settings
+know useragent for specific cases
