@@ -1676,3 +1676,4 @@ remember user settings
 know useragent for specific cases
 detect when a browser requires improved audio engine
 force equalizer and crossfadesongs when Elsurf and surf
+fix for race condition loading the interface
