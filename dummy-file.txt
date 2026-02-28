@@ -1670,3 +1670,4 @@ updated fuse.js
 FIX: include fuse.js
 use the variable isMobileMode to know when we are or not in mobile mode
 allow equalizer and crossfade in mobile but warn about it
+improved precaching songs system
