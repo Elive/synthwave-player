@@ -1707,3 +1707,4 @@ list_name_value is no longer handled as a path
 small improvements
 small improvements
 finished setting up user account permissions
+add font configurator for user for lyrics too
