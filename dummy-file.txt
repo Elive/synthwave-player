@@ -1690,3 +1690,4 @@ clear sessions on login
 require login feature
 user-specific tag and rating privileges
 route admin through generic login
+fix websocket
