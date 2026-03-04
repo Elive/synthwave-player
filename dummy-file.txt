@@ -1688,3 +1688,4 @@ added user management accounts creation
 invalidate other sessions on login
 clear sessions on login
 require login feature
+user-specific tag and rating privileges
