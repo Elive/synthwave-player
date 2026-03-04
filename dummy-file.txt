@@ -1695,3 +1695,4 @@ unfinished fix for admin-mode have access to tracklists
 removed duplicate login/logout code
 removed redundant db session check
 added detailed permissions for tags and ratings
+now using names to check for privileges
