@@ -1682,3 +1682,4 @@ generalized friends music config
 hash admin passwords and migrate old ones
 renamed config groups
 users_ configurations
+list_name_value
