@@ -1701,3 +1701,4 @@ removed the separate admin login path
 brought back the is_admin logic
 fixes
 cleaned up the user privilege levels
+improved the login process
