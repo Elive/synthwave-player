@@ -1698,3 +1698,4 @@ added detailed permissions for tags and ratings
 now using names to check for privileges
 cleaned up the user data structure on login
 removed the separate admin login path
+brought back the is_admin logic
