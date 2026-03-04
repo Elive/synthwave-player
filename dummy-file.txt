@@ -1686,3 +1686,4 @@ list_name_value
 added list_name_password for credentials
 added user management accounts creation
 invalidate other sessions on login
+clear sessions on login
