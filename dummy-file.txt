@@ -1691,3 +1691,4 @@ require login feature
 user-specific tag and rating privileges
 route admin through generic login
 fix websocket
+unfinished fix for admin-mode have access to tracklists
