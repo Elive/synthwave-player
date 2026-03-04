@@ -1683,3 +1683,4 @@ hash admin passwords and migrate old ones
 renamed config groups
 users_ configurations
 list_name_value
+added list_name_password for credentials
