@@ -1679,3 +1679,4 @@ force equalizer and crossfadesongs when Elsurf and surf
 fix for race condition loading the interface
 include libs for the reload
 generalized friends music config
+hash admin passwords and migrate old ones
