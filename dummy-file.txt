@@ -1718,3 +1718,4 @@ remember Hero state opened close to re-use it
 rememeber lyrics open/close state
 Hero mode more responsive
 message warn
+small improvements
