@@ -1713,3 +1713,4 @@ perfect inline editing tags clicking behaviour
 conf
 fix for tags updating
 show and use stars in hero player
+remove volume bar for Hero
