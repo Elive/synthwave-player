@@ -1715,3 +1715,4 @@ fix for tags updating
 show and use stars in hero player
 remove volume bar for Hero
 remember Hero state opened close to re-use it
+rememeber lyrics open/close state
