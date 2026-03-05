@@ -1719,3 +1719,4 @@ rememeber lyrics open/close state
 Hero mode more responsive
 message warn
 small improvements
+can now turn off visual effects in hero mode
