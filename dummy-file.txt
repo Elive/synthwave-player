@@ -1711,3 +1711,4 @@ add font configurator for user for lyrics too
 do not popout menu when selecting items like font size
 perfect inline editing tags clicking behaviour
 conf
+fix for tags updating
