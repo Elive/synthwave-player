@@ -1723,3 +1723,4 @@ can now turn off visual effects in hero mode
 removed SONGS_PER_PAGE since it's now automatic
 removed the old spinner
 fixed a bug to allow proper random playlists
+fix next song in randomized playlists
