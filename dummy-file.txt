@@ -1725,3 +1725,4 @@ removed the old spinner
 fixed a bug to allow proper random playlists
 fix next song in randomized playlists
 conf updated songs to load
+multiple improvements
