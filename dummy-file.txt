@@ -1727,3 +1727,4 @@ fix next song in randomized playlists
 conf updated songs to load
 multiple improvements
 improved scripts launchers
+nodisplay server desktop file
