@@ -1739,3 +1739,4 @@ remove deprecated intromodal
 only run upnp test when enabling it
 multiple improvements
 improved installations
+wait for admin password or 60s before to start the first scanning
