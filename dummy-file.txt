@@ -1735,3 +1735,4 @@ wait before to show the update checker
 don't show viral banner on private networks
 systemd fixes
 startup fixes
+remove deprecated intromodal
