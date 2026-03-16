@@ -1729,3 +1729,4 @@ multiple improvements
 improved scripts launchers
 nodisplay server desktop file
 updated debian dependencies
+updated desktop files
