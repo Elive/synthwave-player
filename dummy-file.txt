@@ -1728,3 +1728,4 @@ conf updated songs to load
 multiple improvements
 improved scripts launchers
 nodisplay server desktop file
+updated debian dependencies
