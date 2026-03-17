@@ -1743,3 +1743,4 @@ wait for admin password or 60s before to start the first scanning
 do not reload interface on unneeded conf changes
 show processing directory in progress messages
 cleanup memleaks
+improved pro version detection
