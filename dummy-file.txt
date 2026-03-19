@@ -1747,3 +1747,4 @@ improved pro version detection
 much improved synthwave-player script
 stop animations on hidden tabs and pause lyrics
 database scanning fixes
+ignore temp files and faster playlist parsing
