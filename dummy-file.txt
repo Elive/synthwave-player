@@ -1745,3 +1745,4 @@ show processing directory in progress messages
 cleanup memleaks
 improved pro version detection
 much improved synthwave-player script
+stop animations on hidden tabs and pause lyrics
