@@ -1753,3 +1753,4 @@ refactor: split the library into multiple files
 reordered music and playlists
 improved search
 improved search
+improved the library
