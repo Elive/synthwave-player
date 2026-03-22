@@ -1761,3 +1761,4 @@ update sidebars dynamically when needed
 added dates in changelog entries
 added dates in changelog
 hero: center back the width of scrolling
+removed extra padding in mobile hero
