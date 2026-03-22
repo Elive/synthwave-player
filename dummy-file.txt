@@ -1750,3 +1750,4 @@ database scanning fixes
 ignore temp files and faster playlist parsing
 fixed some library scanning issues
 refactor: split the library into multiple files
+reordered music and playlists
