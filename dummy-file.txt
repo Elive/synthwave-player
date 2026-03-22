@@ -1770,3 +1770,4 @@ added star controls to desktop fullscreen cover
 titles and artists can now contain html
 clear library view when sorting or shuffling
 improved how lists are sorted naturally
+fixed a memory leak
