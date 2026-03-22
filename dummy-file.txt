@@ -1759,3 +1759,4 @@ database is now way faster
 fix: fixed the database scanner
 update sidebars dynamically when needed
 added dates in changelog entries
+added dates in changelog
