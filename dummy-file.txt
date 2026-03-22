@@ -1763,3 +1763,4 @@ added dates in changelog
 hero: center back the width of scrolling
 removed extra padding in mobile hero
 update marquees when resizing window
+removed horizontal padding on mobile
