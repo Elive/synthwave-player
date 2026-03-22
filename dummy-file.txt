@@ -1766,3 +1766,4 @@ update marquees when resizing window
 removed horizontal padding on mobile
 adjusted mobile hero spacing
 style: use disc image when no cover is found
+added star controls to desktop fullscreen cover
