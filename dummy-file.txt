@@ -1777,3 +1777,4 @@ filters and shuffle now update instantly
 don't lose sort order when searching
 modals now work with the enter key
 made modals and inputs easier to use
+fix: Refine server connection and local server startup logic
