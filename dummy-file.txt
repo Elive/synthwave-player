@@ -1773,3 +1773,4 @@ improved how lists are sorted naturally
 fixed a memory leak
 fixed double timers on server and websocket
 tweaks for tab visibility and performance
+filters and shuffle now update instantly
