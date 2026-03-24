@@ -1780,3 +1780,4 @@ made modals and inputs easier to use
 fix: Refine server connection and local server startup logic
 use elsurf for live mode
 fix
+adjusted playback error timeout
