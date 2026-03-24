@@ -1792,3 +1792,4 @@ fix: Reduce playback error ignore time
 feat: sidebars now update based on active filters
 feat: choose if sidebars use AND or OR logic
 new disc design
+style: adjusted size and opacity for album/genre text
