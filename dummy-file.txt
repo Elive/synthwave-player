@@ -1785,3 +1785,4 @@ better natural sort for radio items
 switch to chrome for stability, resources, and visuals
 mouse wheel support for the progress bar
 keyboard shortcut for ratings
+use alt key to set ratings
