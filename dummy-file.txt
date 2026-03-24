@@ -1793,3 +1793,4 @@ feat: sidebars now update based on active filters
 feat: choose if sidebars use AND or OR logic
 new disc design
 style: adjusted size and opacity for album/genre text
+small tweaks to the disc image
