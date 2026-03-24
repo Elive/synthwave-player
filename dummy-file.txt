@@ -1788,3 +1788,4 @@ keyboard shortcut for ratings
 use alt key to set ratings
 show genre in the player footer
 added 0-star filter and unrated songs
+fix: Reduce playback error ignore time
