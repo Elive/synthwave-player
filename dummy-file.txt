@@ -1787,3 +1787,4 @@ mouse wheel support for the progress bar
 keyboard shortcut for ratings
 use alt key to set ratings
 show genre in the player footer
+added 0-star filter and unrated songs
