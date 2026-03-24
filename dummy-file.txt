@@ -1790,3 +1790,4 @@ show genre in the player footer
 added 0-star filter and unrated songs
 fix: Reduce playback error ignore time
 feat: sidebars now update based on active filters
+feat: choose if sidebars use AND or OR logic
