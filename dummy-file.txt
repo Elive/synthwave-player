@@ -1783,3 +1783,4 @@ fix
 adjusted playback error timeout
 better natural sort for radio items
 switch to chrome for stability, resources, and visuals
+mouse wheel support for the progress bar
