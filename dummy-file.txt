@@ -1798,3 +1798,4 @@ added loading bars and status for mobile
 feat: can now rescan songs offline once the server is back
 fix directory purge logic
 fix
+small ui
