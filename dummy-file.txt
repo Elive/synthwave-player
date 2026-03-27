@@ -1801,3 +1801,4 @@ fix
 small ui
 better error message when the browser blocks encryption
 cleaned up the premium naming
+added a setting to toggle downloads
