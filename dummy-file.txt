@@ -1800,3 +1800,4 @@ fix directory purge logic
 fix
 small ui
 better error message when the browser blocks encryption
+cleaned up the premium naming
