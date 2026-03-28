@@ -1808,3 +1808,4 @@ added custom cover art to downloads
 add watermarked covers in the settings
 make silent the external command
 branding in footer and links updated
+volume scrollbar a little longer
