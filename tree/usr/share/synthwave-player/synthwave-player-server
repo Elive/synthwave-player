@@ -712,6 +712,7 @@ get '/' => sub {
         friends_music                 => \@FRIENDS_MUSIC,
         app_version                   => $APP_VERSION,
         is_pro                        => $IS_PRO ? 1 : 0,
+        is_elive                      => -f '/etc/elive-version' ? 1 : 0,
         upnp_error_message            => $UPNP_ERROR_MESSAGE,
         periodic_update_check_hours   => $PERIODIC_UPDATE_CHECK_HOURS,
         admin_password_is_set         => (defined $SynthwavePlayer::Config::ADMIN_PASSWORD && $SynthwavePlayer::Config::ADMIN_PASSWORD ne '') ? 1 : 0,

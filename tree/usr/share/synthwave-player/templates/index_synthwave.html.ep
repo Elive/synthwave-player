@@ -75,7 +75,7 @@
                 <p class="text-sm">This is someone music server. Create yours with your own curated music with this Music Player made by Elive Linux.</p>
             </div>
             <div class="flex items-center gap-4">
-                <a href="https://synthwaveplayer.elivelinux.org" target="_blank" class="bg-white text-fuchsia-600 px-3 py-1 rounded-md text-sm font-bold hover:bg-cyan-200 transition-colors">Set up yours</a>
+                <a href="https://synthwaveplayer.elivecd.org" target="_blank" class="bg-white text-fuchsia-600 px-3 py-1 rounded-md text-sm font-bold hover:bg-cyan-200 transition-colors">Set up yours</a>
                 <button @click="viralBannerVisible = false; localStorage.setItem('hideViralBanner', 'true')" class="text-white hover:text-gray-200">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -193,17 +193,17 @@
                 </div>
             </template>
             <% unless ($is_pro) { %>
-                <div @click="window.open('https://synthwaveplayer.elivelinux.org', '_blank'); $data.menuPopup.hide()" class="px-4 py-2 text-sm text-cyan-300 hover:bg-cyan-400/20 cursor-pointer flex items-center gap-2">
+                <div x-show="!adminMode && !window.SWP_CONFIG.is_private_network" @click="window.open('https://synthwaveplayer.elivecd.org', '_blank'); $data.menuPopup.hide()" class="px-4 py-2 text-sm text-cyan-300 hover:bg-cyan-400/20 cursor-pointer flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                     </svg>
                     <span>Download your own player</span>
                 </div>
-                <div @click="window.open('https://www.patreon.com/c/elive', '_blank'); $data.menuPopup.hide()" class="px-4 py-2 text-sm text-amber-300 hover:bg-cyan-400/20 cursor-pointer flex items-center gap-2">
+                <div x-show="adminMode" @click="window.open('https://www.patreon.com/c/elive', '_blank'); $data.menuPopup.hide()" class="px-4 py-2 text-sm text-amber-300 hover:bg-cyan-400/20 cursor-pointer flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" /></svg>
                     <span>Support Updates</span>
                 </div>
-                <div class="border-t border-fuchsia-500/20 mx-2 my-1"></div>
+                <div x-show="adminMode || (!adminMode && !window.SWP_CONFIG.is_private_network)" class="border-t border-fuchsia-500/20 mx-2 my-1"></div>
             <% } %>
             <% if ($enable_cover_art) { %>
             <div class="px-4 py-2 text-sm text-gray-200 hover:bg-cyan-400/20 cursor-pointer" data-action-id="config-cover-art">
@@ -295,6 +295,10 @@
                         <span class="text-xs text-gray-500" x-text="appVersion"></span>
                     </div>
                     <div @click="openBugReportModal(); $data.menuPopup.hide()" class="px-4 py-2 text-sm text-gray-200 hover:bg-cyan-400/20 cursor-pointer">🐞 Report a Bug</div>
+                    <div @click="window.open('https://synthwaveplayer.elivecd.org/#pro', '_blank'); $data.menuPopup.hide()" class="px-4 py-2 text-sm text-amber-400 hover:bg-cyan-400/20 cursor-pointer flex items-center gap-2">
+                        <span x-html="shareIcons.star" class="text-amber-400"></span>
+                        <span>Get the Pro Version</span>
+                    </div>
                     <div @click="logoutAdmin(); $data.menuPopup.hide()" class="px-4 py-2 text-sm text-amber-400 hover:bg-cyan-400/20 cursor-pointer">Logout Admin</div>
                 </div>
             </template>
@@ -1228,6 +1232,7 @@ window.SWP_CONFIG = {
     scroll_to_song_align_mobile: <%= $scroll_to_song_align_mobile %>,
     scroll_to_song_align_desktop: <%= $scroll_to_song_align_desktop %>,
     is_pro: <%= $is_pro ? 'true' : 'false' %>,
+    is_elive: <%= $is_elive ? 'true' : 'false' %>,
     is_admin: <%= $is_admin ? 'true' : 'false' %>,
     periodic_update_check_hours: <%= $periodic_update_check_hours %>,
     min_search_length: <%= $min_search_length %>,

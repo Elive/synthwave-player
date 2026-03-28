@@ -695,9 +695,16 @@
                     Ignore Update
                 </button>
                 <% if ($is_private_network) { %>
-                <button @click="window.open(updateInfo.download_url, '_blank')" type="button" class="bg-cyan-500/80 hover:bg-cyan-500 rounded-lg px-6 py-2 text-white font-bold shadow-lg shadow-cyan-500/50 transform hover:scale-105 transition-all">
-                    Download Update
-                </button>
+                    <template x-if="is_pro || !is_elive">
+                        <button @click="window.open(updateInfo.download_url, '_blank')" type="button" class="bg-cyan-500/80 hover:bg-cyan-500 rounded-lg px-6 py-2 text-white font-bold shadow-lg shadow-cyan-500/50 transform hover:scale-105 transition-all">
+                            Download Update
+                        </button>
+                    </template>
+                    <template x-if="!is_pro && is_elive">
+                        <div class="bg-cyan-500/20 border border-cyan-500/50 rounded-lg px-4 py-2 text-cyan-400 text-sm font-bold">
+                            Please update your Elive system to get the latest version of the player.
+                        </div>
+                    </template>
                 <% } %>
             </div>
         </div>
