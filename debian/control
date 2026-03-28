@@ -38,8 +38,7 @@ Description: A music player server with a synthwave-themed web interface
 
 Package: synthwave-player
 Architecture: all
-Depends: ${misc:Depends},
-         synthwave-player-server (= ${binary:Version})
+Depends: ${misc:Depends}
 Recommends: web-launcher | google-chrome-stable | chromium | firefox,
          zenity,
          netcat-openbsd | netcat-traditional
