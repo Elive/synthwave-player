@@ -409,6 +409,7 @@ helper rate_limiter => sub {
 # WebSocket for real-time notifications
 # Note: In multi-worker mode, each worker maintains its own WebSocket connections.
 websocket '/api/ws' => sub ($c) {
+    $c->inactivity_timeout(3600);
 
     my $db = $c->app->db;
     my $address = $c->remote_address_with_port;
