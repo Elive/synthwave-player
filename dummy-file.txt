@@ -1805,3 +1805,4 @@ added a setting to toggle downloads
 fixed a bunch of variable declarations
 show install prompt for mobile hero player if missing
 added custom cover art to downloads
+add watermarked covers in the settings
