@@ -1,0 +1,21 @@
+{
+    "name": "Synthwave Player",
+    "short_name": "Synthwave Player",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#1a0229",
+    "theme_color": "#1a0229",
+    "description": "My personal Music Player unlike any other and full of unique features",
+    "icons": [
+        {
+            "src": "/icon.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "/icon.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ]
+}

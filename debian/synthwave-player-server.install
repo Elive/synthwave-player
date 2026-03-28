@@ -1,0 +1,4 @@
+tree/usr/bin/synthwave-player-server usr/bin
+tree/usr/share/synthwave-player usr/share
+tree/usr/share/applications/synthwave-player-server.desktop usr/share/applications
+tree/usr/share/synthwave-player/pixmaps/synthwave-player-server.png usr/share/icons/hicolor/scalable/apps

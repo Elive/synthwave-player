@@ -1,0 +1,18 @@
+[Unit]
+Description=Synthwave Player Server
+# Ensure the network is up before starting the server
+After=network.target
+
+[Service]
+# Simple type as hypnotoad -f keeps the process in the foreground for systemd
+Type=simple
+WorkingDirectory=/usr/share/synthwave-player
+# Start the Mojolicious server using hypnotoad
+ExecStart=/usr/bin/hypnotoad -f /usr/share/synthwave-player/synthwave-player-server
+# Stop the server gracefully using the stop signal (-s)
+ExecStop=/usr/bin/hypnotoad -s /usr/share/synthwave-player/synthwave-player-server
+# Automatically restart the service if it crashes
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

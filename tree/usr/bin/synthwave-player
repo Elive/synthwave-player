@@ -1,0 +1,342 @@
+#!/bin/bash
+# SOURCE="$0"
+# source /usr/lib/elive-tools/functions 2>/dev/null || true
+# EL_REPORTS="1"
+# el_make_environment
+# . gettext.sh
+# TEXTDOMAIN=""
+# export TEXTDOMAIN
+
+debug() {
+    if ((dry_run)); then
+        echo "[DRY-RUN] $1"
+    else
+        if [[ "$EL_DEBUG" -gt 2 ]]; then
+            echo "[DEBUG] $1" >&2
+        fi
+    fi
+}
+
+# Update: do not stop the server when existing this tool, because a web launched runs on background most of the times so we have no way to know when has finished
+# stop_server(){
+#     # Avoid recursion if called from trap
+#     trap - INT TERM EXIT
+#     debug "stopping the server to free up memory, if you want to keep it opened run: synthwave-player-server --daemon"
+#     synthwave-player-server --stop
+# }
+
+# Trap signals to ensure cleanup
+# trap stop_server INT TERM EXIT
+
+
+main(){
+    # Parse arguments
+    dry_run=0
+    for arg in "$@"; do
+        if [ "$arg" == "--dry-run" ]; then
+            dry_run=1
+        fi
+    done
+
+    # Default connection settings
+    host="localhost"
+    # Attempt to read the configured port from JSON, fallback to 8160
+    port="$( jq '.SERVER_PORT' ~/.config/synthwave-player/server-config.json 2>/dev/null || echo "8160" )"
+    debug "Configured port: $port"
+
+    if grep -qs "boot=live" /proc/cmdline; then
+        is_live=1
+    fi
+
+    if grep -qsE "^(my | |)\\\$IS_PRO = 1(;)?$" "/usr/share/synthwave-player/synthwave-player-server" ; then
+        is_pro=1
+    fi
+
+    # Discovery logic
+    discovered_servers=()
+
+    # 1. Check network via Avahi
+    if command -v "avahi-browse" >/dev/null 2>&1; then
+        # Format: +;interface;protocol;name;type;domain
+        # After -r (resolve): =;interface;protocol;name;type;domain;hostname;address;port;txt
+        while IFS=';' read -r type _ _ _ _ _ d_hostname d_addr d_port _; do
+            if [ "$type" = "=" ] && [ -n "$d_addr" ] && [ -n "$d_port" ]; then
+                # Use hostname if available for .local preference, otherwise IP
+                target_host="${d_hostname:-$d_addr}"
+                debug "Avahi discovered: $target_host:$d_port"
+                discovered_servers+=("$target_host:$d_port")
+            fi
+        done < <(avahi-browse -t -r -p _http._tcp 2>/dev/null | grep 'Synthwave\\032Player' )
+    fi
+
+    # Remove duplicates and empty entries
+    discovered_servers=($(printf "%s\n" "${discovered_servers[@]}" | grep -v '^$' | sort -u))
+
+    # Group discovered addresses by host name
+    declare -A host_addresses
+    for s in "${discovered_servers[@]}"; do
+        h_addr="${s%:*}"
+        h_port="${s##*:}"
+        h_name="${h_addr%.local}"
+        # Store all addresses found for this host
+        host_addresses["$h_name"]+="$s "
+    done
+
+    # For each host, pick the best reachable address: .local > IPv4 > IPv6
+    declare -A best_addr
+    for h_name in "${!host_addresses[@]}"; do
+        addrs=(${host_addresses[$h_name]})
+
+        # 1. Try .local
+        for s in "${addrs[@]}"; do
+            h_addr="${s%:*}"
+            if [[ "$h_addr" == *.local ]] && ping -c 1 -W 1 "$h_addr" >/dev/null 2>&1; then
+                best_addr["$h_name"]="$s"
+                break
+            fi
+        done
+        [ -n "${best_addr[$h_name]}" ] && continue
+
+        # 2. Try IPv4
+        for s in "${addrs[@]}"; do
+            h_addr="${s%:*}"
+            if [[ "$h_addr" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]] && ping -c 1 -W 1 "$h_addr" >/dev/null 2>&1; then
+                best_addr["$h_name"]="$s"
+                break
+            fi
+        done
+        [ -n "${best_addr[$h_name]}" ] && continue
+
+        # 3. Try IPv6
+        for s in "${addrs[@]}"; do
+            h_addr="${s%:*}"
+            # If it's not .local and not IPv4, assume IPv6 (or other)
+            if [[ "$h_addr" != *.local ]] && [[ ! "$h_addr" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+                # Note: ping -6 might be needed depending on environment, but ping usually handles it
+                if ping -c 1 -W 1 "$h_addr" >/dev/null 2>&1; then
+                    best_addr["$h_name"]="$s"
+                    break
+                fi
+            fi
+        done
+    done
+
+    # Rebuild the list with only the best address per host
+    discovered_servers=("${best_addr[@]}")
+
+    # Filter out addresses pointing to this same machine to avoid confusion with the "Local" option
+    local_hostname=$(hostname)
+    filtered_servers=()
+    for s in "${discovered_servers[@]}"; do
+        if [[ "$s" != "$local_hostname"* ]] && [[ "$s" != "localhost"* ]] && [[ "$s" != "127.0.0.1"* ]]; then
+            filtered_servers+=("$s")
+        fi
+    done
+    discovered_servers=("${filtered_servers[@]}")
+
+    # Decision logic based on discovery
+    local_option="Run music player from this machine"
+
+    # Check if local server is already running
+    local_running=0
+    if command -v "nc" >/dev/null 2>&1; then
+        if nc -z "localhost" "$port" >/dev/null 2>&1; then
+            local_running=1
+        fi
+    fi
+
+    if [ ${#discovered_servers[@]} -gt 0 ]; then
+        # Servers found, ask user
+        if command -v "zenity" >/dev/null 2>&1; then
+            selection_list=(TRUE "$local_option")
+            for s in "${discovered_servers[@]}"; do
+                selection_list+=(FALSE "$s")
+            done
+
+            choice=$(zenity --list --title="Select Synthwave Player Server" \
+                --text="Music servers discovered on the network.\nWhich one would you like to connect to?" \
+                --radiolist --column="" --column="Server Address" \
+                "${selection_list[@]}" --height=300 --width=400)
+
+            if [ $? -eq 0 ] && [ -n "$choice" ]; then
+                if [ "$choice" == "$local_option" ]; then
+                    host="localhost"
+                else
+                    port="${choice##*:}"
+                    host="${choice%:$port}"
+                fi
+            else
+                exit 0
+            fi
+        fi
+    elif [ ${#discovered_servers[@]} -eq 0 ] && [ "$local_running" -eq 1 ]; then
+        # No network servers, but local is already running
+        host="localhost"
+    elif [ ${#discovered_servers[@]} -eq 1 ]; then
+        # Exactly one server found, connect to it
+        port="${discovered_servers[0]##*:}"
+        host="${discovered_servers[0]%:$port}"
+    fi
+
+    debug "Final server selection: $host:$port"
+
+    # Final check/fallback if no server is reachable
+    if command -v "nc" >/dev/null 2>&1; then
+        local_attempted=0
+        while ! nc -z "$host" "$port" >/dev/null 2>&1; do
+            # If we picked a remote server and it's not reachable, don't try to start a local one,
+            # just jump to the manual entry/error handling.
+            if [ "$host" != "localhost" ] && [ "$host" != "127.0.0.1" ]; then
+                break
+            fi
+
+            if ! command -v "zenity" >/dev/null 2>&1; then
+                echo "Error: Could not connect to server at $host:$port." >&2
+                exit 1
+            fi
+
+            if [ -x "/usr/bin/synthwave-player-server" ] && [ "$local_attempted" -eq 0 ]; then
+                local_attempted=1
+                if ! ((is_live)) && ((is_pro)) ; then
+                    if ((!dry_run)) && command -v systemctl >/dev/null 2>&1 && systemctl --user list-units >/dev/null 2>&1; then
+                        if zenity --question --title="Enable on boot?" --text="Do you want to start the music server automatically on every boot?"; then
+                            systemctl --user enable synthwave-player-server.service >/dev/null 2>&1
+                        fi
+                    fi
+                fi
+
+                if ((dry_run)); then
+                    echo "[DRY-RUN] Would start server: synthwave-player-server --daemon"
+                else
+                    synthwave-player-server --daemon
+                fi
+
+                # show a waiting if more than 2 seconds passed without being able to connect
+                for i in {1..30}; do
+                    if nc -z "127.0.0.1" "$port" >/dev/null 2>&1; then
+                        break
+                    fi
+                    if [[ "$i" -gt 2 ]]; then
+                        if ((!dry_run)) && command -v "zenity" >/dev/null 2>&1; then
+                            (
+                            for i in {1..30}; do
+                                if nc -z "127.0.0.1" "$port" >/dev/null 2>&1; then
+                                    break
+                                fi
+                                echo "pulse"
+                                echo "# Waiting for music server to initialize... ($i/30s)"
+                                sleep 1
+                            done
+                            ) | zenity --progress --title="Initializing Server" --pulsate --auto-close --no-cancel --width=450 >/dev/null 2>&1
+                        fi
+                        break
+                    fi
+                    sleep 1
+                done
+
+                host="localhost"
+                # Check again after starting local server
+                if nc -z "$host" "$port" >/dev/null 2>&1; then
+                    break
+                fi
+            fi
+
+            # Manual entry fallback
+            if ((dry_run)); then
+                echo "[DRY-RUN] Could not connect to server at $host:$port. Stopping loop."
+                break
+            fi
+
+            text="Could not connect to server at $host:$port.\n\nPlease enter the server address (e.g. 127.0.0.1:${port})"
+            text+="\n\nTip: You can also use the machine name (hostname), or 'hostname.local' if your network has mDNS support."
+
+            new_input="$(zenity --entry --title="Connect to Remote Server" --text="$text")"
+
+            if [ $? -eq 0 ] && [ -n "$new_input" ]; then
+                if [[ "$new_input" =~ (.*):([0-9]+)$ ]]; then
+                    host="${BASH_REMATCH[1]}"
+                    port="${BASH_REMATCH[2]}"
+                else
+                    host="$new_input"
+                fi
+            else
+                exit 0
+            fi
+
+            # After manual entry, we break the loop to either succeed or fail in the next step
+            break
+        done
+    fi
+
+    # Construct the final URL for the web client
+    if [[ "$host" =~ ^https?:// ]]; then
+        # If the user provided a full URL, use it as is
+        url="$host"
+        # Append port if it's not the default for the protocol and not already present
+        if [[ ! "$host" =~ :[0-9]+$ ]]; then
+             if [[ "$host" =~ ^http:// ]] && [ "$port" != "80" ]; then url="$url:$port"; fi
+             if [[ "$host" =~ ^https:// ]] && [ "$port" != "443" ]; then url="$url:$port"; fi
+        fi
+    else
+        # If host is a bare hostname (no dots), check for mDNS support and append .local
+        if [[ ! "$host" =~ \. ]] && [[ "$host" != "localhost" ]]; then
+            if ls /var/lib/dpkg/info/libnss-mdns*.list >/dev/null 2>&1; then
+                host="${host}.local"
+            fi
+        fi
+
+        # Determine protocol: IPs use http, domains (containing dots) use https
+        if [[ "$host" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]] || [[ "$host" == "localhost" ]] || [[ "$host" =~ \.local$ ]]; then
+            url="http://$host:$port"
+        else
+            url="https://$host:$port"
+        fi
+    fi
+
+    ## Calculate window dimensions based on screen resolution if the helper tool exists
+    # width_arg=""
+    # height_arg=""
+    # window_size_arg=""
+    # resolution="$(el_resolution_get 2>/dev/null || true )"
+    # if [[ "$resolution" =~ ([0-9]+)x([0-9]+) ]]; then
+    #     width="${BASH_REMATCH[1]}"
+    #     height="${BASH_REMATCH[2]}"
+    #     window_width="$((width * 80 / 100))"
+    #     window_height="$((height * 80 / 100))"
+    #     width_arg="--width=${window_width}"
+    #     height_arg="--height=${window_height}"
+    #     window_size_arg="--window-size=${window_width},${window_height}"
+    # fi
+
+    if ((dry_run)); then
+        echo "[DRY-RUN] Final URL: $url"
+        # echo "[DRY-RUN] Window dimensions: ${width_arg} ${height_arg}"
+        exit 0
+    fi
+
+    # Execute the browser with the calculated URL and dimensions
+    if ((is_live)) && command -v "web-launcher" >/dev/null 2>&1; then
+        web-launcher --incognito --temp-profile --app="$url"
+    elif command -v "web-launcher" >/dev/null 2>&1; then
+        web-launcher --app="$url"
+    elif command -v "google-chrome" >/dev/null 2>&1; then
+        google-chrome --app="$url"
+    elif command -v "chromium" >/dev/null 2>&1; then
+        chromium --app="$url"
+    elif command -v firefox >/dev/null 2>&1; then
+        firefox "$url"
+    elif command -v "elsurf" >/dev/null 2>&1; then
+        # elsurf "$url" --geometry ${window_width}x${window_height}
+        elsurf "$url"
+    elif command -v "surf" >/dev/null 2>&1; then
+        surf "$url"
+    fi
+
+}
+
+#
+#  MAIN
+#
+main "$@"
+
+# vim: set foldmethod=marker :

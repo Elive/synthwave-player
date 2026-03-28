@@ -1,0 +1,1008 @@
+#!/usr/bin/env perl
+
+use Mojolicious::Lite -signatures;
+use File::HomeDir;
+use File::Basename qw(basename dirname);
+use File::Spec;
+use MP3::Tag;
+# Enable writing ID3v2.4 tags (use at your own risk as per MP3::Tag docs)
+MP3::Tag->config(write_v24 => 1);
+use URI::Escape qw(uri_escape);
+use Mojo::File qw(path);
+use Try::Tiny;
+use Mojo::JSON qw(to_json decode_json);
+use Mojo::SQLite;
+use Cwd qw(abs_path);
+use File::Temp qw(tempfile);
+use Config;
+use Mojo::UserAgent;
+use Mojo::URL;
+use utf8;
+use Encode qw(decode encode);
+use Digest::SHA;
+# disabled by default: used only for debug or dev purposes:
+# use HTML::Strip;
+
+# User's note: changing this variable won't change the application pro / lite, they are two different application / code, this variable is only used for minor cosmetics.
+my $IS_PRO = 0;
+
+# Load custom modules
+use lib dirname(abs_path($0)) . '/lib';
+use SynthwavePlayer::Config;
+use SynthwavePlayer::Network qw(is_private_ip setup_upnp check_port_is_available remove_from_ip_cache compile_regex check_rate_limit _apply_rate_limit check_admin process_login get_login_lockout process_logout);
+use SynthwavePlayer::Lyrics qw(fetch_online_lyrics_async get_local_lyrics_data);
+use SynthwavePlayer::Utils qw(:DEFAULT _natural_compare _is_matched realpath _get_safe_song_path _get_cover_art_data _markdown_to_html_basic _get_update_info _stash_notification SONG_ID SONG_TITLE SONG_ARTIST SONG_ALBUM SONG_GENRE SONG_DURATION SONG_RATING SONG_LOCATION SONG_TRACKNUM SONG_BITRATE _calculate_source_hash);
+use SynthwavePlayer::Library qw(_broadcast_library_update _broadcast_lyrics_update _broadcast_config_update _find_song_id_by_path _process_playlist_entry
+_find_song_by_partial_id _broadcast_status_update _update_song_stats _check_and_set_idle_state _get_lyrics register_library_features init_database init_sql_handle);
+use SynthwavePlayer::Library::Scanner qw(_start_library_parsing _process_file_chunk _parse_playlists _scan_music_directories);
+use SynthwavePlayer::Library::Watcher qw(_setup_config_watcher _setup_library_watcher _setup_database_watcher);
+use SynthwavePlayer::Search qw(_get_processed_songs _get_initial_song_ids_from_context _normalize_for_search rank_search_results search_songs);
+
+# Set paths for templates and static files
+
+# Set paths for templates and static files
+my $base_path;
+my $script_dir = dirname(abs_path($0));
+my $dev_base_path = path($script_dir, '..', 'share', 'synthwave-player');
+
+if (app->mode eq 'development' && -d $dev_base_path->to_string) {
+    $base_path = $dev_base_path;
+} else {
+    $base_path = path('/usr/share/synthwave-player');
+}
+push @{app->static->paths}, $base_path->child('public')->to_string;
+push @{app->renderer->paths}, $base_path->child('templates')->to_string;
+app->log->debug("Template search paths: " . join(", ", @{app->renderer->paths}));
+
+# Check for --port argument from command line
+my $cli_port;
+for (my $i = 0; $i < @ARGV; $i++) {
+    if ($ARGV[$i] =~ /^--port=(\d+)$/) {
+        $cli_port = $1;
+        splice(@ARGV, $i, 1);
+        last;
+    }
+    elsif ($ARGV[$i] eq '--port' && defined $ARGV[$i+1] && $ARGV[$i+1] =~ /^\d+$/) {
+        $cli_port = $ARGV[$i+1];
+        splice(@ARGV, $i, 2);
+        last;
+    }
+}
+
+# Load all configuration from defaults and user overrides
+# This ensures the config file exists and is populated before the server starts listening
+_load_configuration(app);
+app->secrets([$ADMIN_PASSWORD || 'synthwave-player-default-secret']);
+
+# Register library features (hooks, helpers, routes)
+register_library_features(app);
+
+# Session security and persistence
+app->sessions->cookie_name('synthwave_player');
+# Make sessions persistent (10 years)
+app->sessions->default_expiration(315360000);
+
+# Set port, giving command-line argument precedence over config file
+$APP_PORT = $cli_port || $SERVER_PORT;
+$ENV{MOJO_LISTEN} = "http://*:$APP_PORT";
+
+# This hook runs once in each worker process after it's been forked.
+# Note: In multi-worker mode, each worker runs this independently.
+# The sync_library_to_config helper handles its own locking to prevent races.
+hook startup => sub {
+    my $app = shift;
+    _load_configuration($app);
+    $app->secrets([$SynthwavePlayer::Config::ADMIN_PASSWORD || 'synthwave-player-default-secret']);
+
+    # Check for configuration changes while offline or if DB was recreated.
+    # Use a small random delay to stagger workers and reduce DB contention
+    my $delay = int(rand(2)) + 1;
+    Mojo::IOLoop->singleton->timer($delay => sub {
+        my $current_hash = $app->get_config_hash;
+
+        try {
+            my $db = $app->sql->db;
+            my $stored_hash_row = $db->query("SELECT value FROM scan_state WHERE key = 'config_hash'")->array;
+            my $stored_hash = $stored_hash_row ? ($stored_hash_row->[0] // '') : '';
+
+            if ($current_hash ne $stored_hash) {
+                my $is_new_db = !$stored_hash;
+                $app->log->info($is_new_db ? "New database detected. Initializing library..." : "Configuration change detected offline. Synchronizing...");
+
+                if ($is_new_db) {
+                    $app->db->{new_db_notification} = 1;
+                }
+
+                # Trigger synchronization. We use the app helper.
+                # We pass empty arrays for 'old' as the helper now queries the DB for removals.
+                # The helper handles its own locking to prevent multi-worker races.
+                if ($app->sync_library_to_config([], \@SynthwavePlayer::Config::MUSIC_DIRECTORIES, [], \@SynthwavePlayer::Config::FRIENDS_MUSIC)) {
+                    $db->query("INSERT OR REPLACE INTO scan_state (key, value) VALUES ('config_hash', ?)", $current_hash);
+                }
+            }
+        } catch {
+            if ($_ =~ /rollback ineffective/i || $_ =~ /database is locked/i) {
+                $app->log->debug("Database busy during startup config check, will retry on next dispatch.");
+            } else {
+                $app->log->error("Database error during startup config check: $_");
+            }
+        };
+    });
+};
+
+# Trust X-Forwarded-For header from our Nginx proxy.
+hook before_dispatch => sub {
+    my $c = shift;
+    if (my $proto = $c->req->headers->header('X-Forwarded-Proto')) {
+        $c->req->url->scheme($proto);
+    }
+    if (my $forwarded_for = $c->req->headers->header('X-Forwarded-For')) {
+        my @ips = split /\s*,\s*/, $forwarded_for;
+        $c->tx->remote_address($ips[0]) if @ips;
+    }
+
+    # Ensure config is fresh. This handles synchronization between worker processes.
+    # _load_configuration now checks mtime internally for efficiency.
+    _load_configuration($c->app);
+
+
+    # Check if music directories changed (e.g. manual config file edit)
+    state $last_seen_hash;
+    my $current_hash = $c->get_config_hash;
+
+    if (!$last_seen_hash || $current_hash ne $last_seen_hash) {
+        try {
+            my $db = $c->app->sql->db;
+            my $stored_hash_row = $db->query("SELECT value FROM scan_state WHERE key = 'config_hash'")->array;
+            my $stored_hash = $stored_hash_row ? ($stored_hash_row->[0] // '') : '';
+
+            if ($current_hash ne $stored_hash) {
+                # Attempt synchronization. The helper handles its own locking/concurrency logic.
+                $c->app->log->info("Configuration change detected. Synchronizing...");
+
+                # Get old directories from DB to compare
+                my $old_dirs = $db->query("SELECT path FROM configured_directories")->arrays->map(sub { $_->[0] })->to_array;
+
+                if ($c->sync_library_to_config($old_dirs, \@SynthwavePlayer::Config::MUSIC_DIRECTORIES, [], \@SynthwavePlayer::Config::FRIENDS_MUSIC)) {
+                    $db->query("INSERT OR REPLACE INTO scan_state (key, value) VALUES ('config_hash', ?)", $current_hash);
+                }
+                # Update local state regardless of whether this specific worker got the lock.
+                # This prevents other workers from spamming "Another worker is scanning".
+                $last_seen_hash = $current_hash;
+            } else {
+                $last_seen_hash = $current_hash;
+            }
+        } catch {
+            # Ignore DB busy errors here, it will be retried on next dispatch
+            if ($_ !~ /rollback ineffective/i && $_ !~ /database is locked/i) {
+                $c->app->log->error("Database error during dispatch config check: $_");
+            }
+        };
+    }
+
+    # Sync in-memory loading state with DB for multi-worker consistency
+    $c->sync_loading_state_from_db();
+
+    # Periodically suggest SQLite to release memory if idle
+    state $last_shrink = time();
+    if (time() - $last_shrink > 300) {
+        try { $c->app->sql->db->query('PRAGMA shrink_memory') };
+        $last_shrink = time();
+    }
+
+    # Check if playlists were marked out of date by another worker
+    try {
+        my $ood = $c->app->sql->db->query("SELECT value FROM scan_state WHERE key = 'playlists_out_of_date'")->array;
+        if ($ood && $ood->[0]) {
+            $c->app->db->{playlists_out_of_date}->{_global_} = 1;
+        }
+    } catch {};
+
+    # Show notification if database was recreated
+    if ($c->app->db->{new_db_notification}) {
+        _stash_notification($c, 'database_recreated', "The music database was missing or deleted. It has been recreated and a full scan is starting.");
+        delete $c->app->db->{new_db_notification};
+    }
+};
+
+# Determine PID file path for Hypnotoad
+my $pid_file;
+my $uid = $>;
+my $run_dir = "/run/user/$uid";
+if (-d $run_dir && -w $run_dir) {
+    $pid_file = "$run_dir/synthwave-player-server.pid";
+} else {
+    # Use a predictable but user-specific filename in /tmp
+    my $user = getpwuid($uid) || $uid;
+    $pid_file = "/tmp/.synthwave-player-server-$user.pid";
+}
+
+my $pid_avahi_file = $pid_file;
+$pid_avahi_file =~ s/\.pid$/_avahi.pid/;
+
+# Save PID for non-hypnotoad environments (morbo, perl, etc.)
+# We delay this slightly to avoid interfering with hypnotoad's startup checks
+Mojo::IOLoop->next_tick(sub {
+    if (!$ENV{HYPNOTOAD_PID} && !$ENV{HYPNOTOAD_APP}) {
+        if (open my $fh, '>', $pid_file) {
+            print $fh $$;
+            close $fh;
+        }
+    }
+});
+
+# Handle termination signals to ensure cleanup
+my $cleanup_done = 0;
+my $cleanup_routine = sub {
+    return if $cleanup_done++;
+    if (defined $pid_file && -f $pid_file) {
+        # Only remove if it's our own PID file (not overwritten by another process)
+        if (open my $fh, '<', $pid_file) {
+            my $stored_pid = <$fh>;
+            close $fh;
+            if ($stored_pid && $stored_pid == $$) {
+                unlink $pid_file;
+
+                # Also cleanup Avahi process if we are the primary process exiting
+                if (defined $pid_avahi_file && -f $pid_avahi_file) {
+                    if (open my $afh, '<', $pid_avahi_file) {
+                        my $avahi_pid = <$afh>;
+                        close $afh;
+                        if ($avahi_pid && $avahi_pid =~ /^\d+$/) {
+                            kill('TERM', $avahi_pid) || kill('KILL', $avahi_pid);
+                        }
+                        unlink $pid_avahi_file;
+                    }
+                }
+            }
+        }
+    }
+    exit 0 if $_[0]; # Exit if called from signal
+};
+
+$SIG{TERM} = $SIG{INT} = sub { $cleanup_routine->(1) };
+
+# Ensure PID file is removed on exit (global cleanup)
+END {
+    $cleanup_routine->();
+}
+
+# Hypnotoad (production server) configuration
+plugin Config => {
+    default => {
+        hypnotoad => {
+            pid_file => $pid_file,
+            listen  => ["http://*:$APP_PORT"],
+            workers => $SERVER_WORKERS,
+            heartbeat_timeout => 300
+        }
+    }
+};
+
+# Add custom MIME type for Opus files
+app->types->type(opus => 'audio/opus');
+
+# --- End Configuration ---
+
+# --- Source Hash for Auto-Reload ---
+# Calculate a hash of the source code to detect updates.
+my $SOURCE_HASH = _calculate_source_hash(
+    abs_path($0),
+    dirname(abs_path($0)) . '/lib',
+    $base_path->child('public')->to_string
+);
+$SOURCE_HASH = substr($SOURCE_HASH, 0, 16); # Use first 16 chars for brevity
+app->log->debug("Server Source Hash: $SOURCE_HASH");
+
+# --- Database & State ---
+# Helper to generate a consistent hash of the current music configuration
+helper get_config_hash => sub ($c) {
+    return SynthwavePlayer::Library::_get_config_hash(
+        \@SynthwavePlayer::Config::MUSIC_DIRECTORIES,
+        \@SynthwavePlayer::Config::FRIENDS_MUSIC
+    );
+};
+
+# Helper to get remote address with port for private network checks
+helper remote_address_with_port => sub ($c) {
+    my $ip = $c->tx->remote_address;
+    my $port = $c->tx->remote_port;
+    return $port ? "$ip:$port" : $ip;
+};
+
+# Helper to determine if the current user has administrative privileges
+helper is_admin => sub ($c) {
+    # Check if the session is explicitly marked as admin (via admin password login)
+    # This is the "Admin Mode" which should have full access.
+    return check_admin($c, $SynthwavePlayer::Config::ADMIN_PASSWORD);
+};
+
+helper sql => sub {
+    state $db_path = File::Spec->catfile(_get_cache_dir(), 'library.db');
+    state $sql;
+
+    # Detect if database file was deleted while server is running
+    # Note: force_db_reconnect is per-process, set by _setup_database_watcher
+    if ($sql && (!-f $db_path || app->db->{force_db_reconnect})) {
+        app->log->warn("Database file '$db_path' was deleted or reconnection forced. Re-initializing...");
+        $sql = undef;
+        app->db->{new_db_notification} = 1;
+        delete app->db->{force_db_reconnect};
+    }
+
+    # Always check if DB file exists before creating connection
+    if (!$sql && !-f $db_path) {
+        app->log->info("Database file not found, will be created at: $db_path");
+    }
+
+    return $sql if $sql;
+
+    $sql = do {
+        my $s = Mojo::SQLite->new("sqlite:$db_path");
+        init_sql_handle($s);
+
+        # Initialize database schema if needed (only once per process)
+        try {
+            init_database($s->db);
+        } catch {
+            # If it fails here, it's likely because another worker is already initializing it.
+            # We log it as a warning instead of a fatal error.
+            app->log->warn("Database initialization notice (might be locked by another worker): $_");
+        };
+
+        $s;
+    };
+
+    return $sql;
+};
+
+helper db => sub {
+    state $db = {
+        loading_status => { done => 0, total => 0, processed => 0, message => 'Initializing...', progress => 0 },
+        playlists_out_of_date => {},
+        websockets => {}
+    };
+    # Ensure websockets hash persists across helper calls but is initialized
+    $db->{websockets} //= {};
+    return $db;
+};
+
+# User agent helper
+helper ua => sub {
+    state $ua = Mojo::UserAgent->new(
+        inactivity_timeout => 20,
+        request_timeout    => 20,
+        max_redirects      => 10,
+        name               => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
+    );
+};
+
+# Rate limiter helper
+helper rate_limiter => sub {
+    my $c = shift;
+    my $config = {
+        private_networks            => \@PRIVATE_NETWORKS,
+        rate_limit_window           => $RATE_LIMIT_WINDOW,
+        global_rate_limit_window    => $GLOBAL_RATE_LIMIT_WINDOW,
+        global_rate_limit_requests  => $GLOBAL_RATE_LIMIT_REQUESTS,
+        max_simultaneous_ips        => $MAX_SIMULTANEOUS_IPS,
+        rate_limit_requests         => $RATE_LIMIT_REQUESTS,
+    };
+
+    my ($ok, $error) = check_rate_limit(
+        $c->tx->remote_address,
+        $c->remote_address_with_port,
+        $c->app->log,
+        $config
+    );
+
+    if (!$ok) {
+        _stash_notification($c, 'rate_limit_error', $error);
+        return 0;
+    }
+
+    return 1;
+};
+
+# --- Routes ---
+
+# WebSocket for real-time notifications
+# Note: In multi-worker mode, each worker maintains its own WebSocket connections.
+websocket '/api/ws' => sub ($c) {
+
+    my $db = $c->app->db;
+    my $address = $c->remote_address_with_port;
+    my $worker_id = $$; # Process ID for debugging
+    $c->app->log->debug("WebSocket client connected from $address (worker: $worker_id)");
+    $db->{websockets}{$c->tx} = $c;
+
+    # Send current source hash to client immediately so it can detect if it needs to reload
+    $c->send({json => {
+        event       => 'version',
+        source_hash => $SOURCE_HASH,
+        version     => $APP_VERSION
+    }});
+
+    # Send a ping and version every 15 seconds to keep the connection alive and detect updates
+    my $ping_timer = Mojo::IOLoop->singleton->recurring(15 => sub {
+        try {
+            # Cleanup stale websocket references from the global hash
+            # This prevents memory leaks if the 'finish' event fails to fire
+            for my $tx (keys %{$db->{websockets}}) {
+                delete $db->{websockets}{$tx} if !$tx || $tx->is_finished;
+            }
+
+            $c->send({json => { event => 'ping' }});
+            $c->send({json => {
+                event       => 'version',
+                source_hash => $SOURCE_HASH,
+                version     => $APP_VERSION
+            }});
+        } catch {};
+    });
+
+    $c->on(finish => sub {
+        Mojo::IOLoop->singleton->remove($ping_timer) if $ping_timer;
+        delete $db->{websockets}{$c->tx};
+        remove_from_ip_cache($address) if $address;
+        $c->app->log->debug("WebSocket client from $address disconnected (worker: $worker_id)");
+    });
+};
+
+# API: GET /api/config - Returns user configuration details
+get '/api/config' => sub ($c) {
+    my $address = $c->remote_address_with_port;
+    my $is_private = is_private_ip($address, \@PRIVATE_NETWORKS, $c->app->log);
+    my $is_admin = $c->is_admin;
+
+    unless ($is_admin || ($is_private && $ALLOW_LOCAL_NETWORK_EDITING && $ADMIN_PASSWORD)) {
+        return $c->render(text => 'Forbidden', status => 403);
+    }
+
+    # Always re-read configuration file to allow manual modifications
+    _load_configuration($c->app);
+
+    my $current_config = _get_config_values_for_client();
+
+    $c->render(json => {
+        settings => \%CONFIG_VARS,
+        values   => $current_config,
+        path     => $USER_CONFIG_FILE,
+        default_music_dir => _get_xdg_dir('MUSIC')
+    });
+};
+
+# API: POST /api/config - Saves user configuration
+post '/api/config' => sub ($c) {
+    my $address = $c->remote_address_with_port;
+    my $is_private = is_private_ip($address, \@PRIVATE_NETWORKS, $c->app->log);
+    my $is_admin = $c->is_admin;
+
+    unless ($is_admin || ($is_private && $ALLOW_LOCAL_NETWORK_EDITING && $ADMIN_PASSWORD)) {
+        return $c->render(text => 'Forbidden', status => 403);
+    }
+
+    my $new_values = $c->req->json;
+
+    # 0. Keep track of old directories to detect removals
+    my @old_dirs = @SynthwavePlayer::Config::MUSIC_DIRECTORIES;
+    my @old_friends = @SynthwavePlayer::Config::FRIENDS_MUSIC;
+
+    # 1. Update and save configuration
+    try {
+        my $current_config = _update_config($c->app, $new_values);
+        # Sync library state immediately
+        $c->app->sync_library_to_config(\@old_dirs, $current_config->{MUSIC_DIRECTORIES}, \@old_friends, $current_config->{FRIENDS_MUSIC});
+
+        # Update the stored hash so the watcher/dispatch doesn't trigger it again
+        my $new_hash = $c->get_config_hash;
+        $c->app->sql->db->query("INSERT OR REPLACE INTO scan_state (key, value) VALUES ('config_hash', ?)", $new_hash);
+    } catch {
+        return $c->render(json => { success => 0, message => "Failed to save configuration: $_" }, status => 500);
+    };
+
+    # The file watcher will also pick up the change as a safety net.
+    $c->render(json => { success => 1, message => "Configuration saved. The page will now reload." });
+};
+
+# API: POST /api/admin/set-password - Sets the initial admin password
+post '/api/admin/set-password' => sub ($c) {
+    my $address = $c->remote_address_with_port;
+    unless ($ALLOW_ADMIN_FROM_ANY_NETWORK || is_private_ip($address, \@PRIVATE_NETWORKS, $c->app->log)) {
+        return $c->render(text => 'Forbidden', status => 403);
+    }
+
+    # Ensure we have the latest config before checking if password is set
+    _load_configuration($c->app) if !$SynthwavePlayer::Config::ADMIN_PASSWORD || $SynthwavePlayer::Config::ADMIN_PASSWORD eq '';
+
+    # This endpoint is only for setting the initial password
+    return $c->render(json => { success => 0, message => 'Password is already set.' }) if $SynthwavePlayer::Config::ADMIN_PASSWORD && $SynthwavePlayer::Config::ADMIN_PASSWORD ne '';
+
+    my $params = $c->req->json;
+    my $pass = $params->{password};
+
+    unless ($pass && length($pass) >= 4) { # Basic validation
+        return $c->render(json => { success => 0, message => 'Password must be at least 4 characters.' });
+    }
+
+    # Update and save configuration
+    try {
+        # Set a flag to prevent the file watcher from triggering a global reload
+        # since we are handling the state change locally in the frontend.
+        $c->app->db->{suppress_config_broadcast} = 1;
+        _update_config($c->app, { ADMIN_PASSWORD => $pass });
+        # Keep the suppression active long enough for the watcher's 2s timer to fire
+        Mojo::IOLoop->singleton->timer(5 => sub { delete $c->app->db->{suppress_config_broadcast} });
+    } catch {
+        return $c->render(json => { success => 0, message => "Failed to write to config file: $_" }, status => 500);
+    };
+
+    return $c->render(json => { success => 1, message => 'Admin password set successfully.' });
+};
+
+# API: POST /api/admin/login - Authenticates a user for admin mode
+post '/api/admin/login' => sub ($c) {
+    my $ip = $c->tx->remote_address;
+    my $address = $c->remote_address_with_port;
+    unless ($ALLOW_ADMIN_FROM_ANY_NETWORK || is_private_ip($address, \@PRIVATE_NETWORKS, $c->app->log)) {
+        return $c->render(text => 'Forbidden', status => 403);
+    }
+
+    # Ensure we have the latest config before checking if password is set
+    _load_configuration($c->app) if !$SynthwavePlayer::Config::ADMIN_PASSWORD || $SynthwavePlayer::Config::ADMIN_PASSWORD eq '';
+
+    unless ($SynthwavePlayer::Config::ADMIN_PASSWORD && $SynthwavePlayer::Config::ADMIN_PASSWORD ne '') {
+        return $c->render(json => { success => 0, message => 'Admin password is not set.' });
+    }
+
+    # Check for active lockout
+    if (my $lockout_until = get_login_lockout($ip)) {
+        return $c->render(json => {
+            success => 0,
+            message => 'Too many failed attempts. Access restricted.',
+            lockout_until => $lockout_until
+        });
+    }
+
+    # Tell Mojolicious we will render later
+    $c->render_later;
+
+    # Pause to slow down brute-force attacks. This happens on every attempt.
+    Mojo::IOLoop->singleton->timer(2 => sub {
+        my $params = $c->req->json;
+        my $hashed_input = $params->{password} // '';
+
+        my ($success, $message, $lockout_until) = process_login($c, $hashed_input, $SynthwavePlayer::Config::ADMIN_PASSWORD);
+
+        $c->render(json => {
+            success => $success,
+            message => $message,
+            is_admin => $success,
+            lockout_until => $lockout_until
+        });
+    });
+};
+
+# API: POST /api/admin/logout - Logs out the admin user
+post '/api/admin/logout' => sub ($c) {
+    process_logout($c);
+    $c->render(json => { success => 1, message => 'Logged out.' });
+};
+
+# API: POST /api/admin/setup_upnp - Attempts to configure UPnP port forwarding
+post '/api/admin/setup_upnp' => sub ($c) {
+    return $c->render(text => 'Forbidden', status => 403) unless $c->is_admin;
+
+    my $port = $SynthwavePlayer::Config::SERVER_PORT || 8160;
+    my $error = setup_upnp($port, $c->app->log);
+
+    if ($error) {
+        return $c->render(json => { success => 0, message => $error });
+    }
+    return $c->render(json => { success => 1, message => 'UPnP port forwarding configured successfully.' });
+};
+
+# API: GET /api/version - Returns the current server source hash
+get '/api/version' => sub ($c) {
+    $c->render(json => { source_hash => $SOURCE_HASH });
+};
+
+# API: GET /api/check_update - Checks for new versions on GitHub
+get '/api/check_update' => sub ($c) {
+    my $address = $c->remote_address_with_port;
+    my $is_private = is_private_ip($address, \@PRIVATE_NETWORKS, $c->app->log);
+    my $is_admin = $c->is_admin;
+
+    unless ($is_admin || ($is_private && $ALLOW_LOCAL_NETWORK_EDITING && $ADMIN_PASSWORD)) {
+        return $c->render(text => 'Forbidden', status => 403);
+    }
+
+    my $info = _get_update_info($c->app);
+    if ($info->{error}) {
+        return $c->render(json => { error => $info->{error} }, status => 500);
+    }
+    # The URL for "Install update" button should be the release page not the download URL
+    $info->{url} = "https://github.com/Elive/synthwave-player/releases/latest";
+    $info->{patreon_url} = "https://www.patreon.com/c/elive";
+    return $c->render(json => $info);
+};
+
+# GET / - The main application page
+get '/' => sub {
+    my $c = shift;
+    my $ip = $c->tx->remote_address;
+    my $address = $c->remote_address_with_port;
+    my $is_private_network = is_private_ip($address, \@PRIVATE_NETWORKS, $c->app->log);
+    if ($ENABLE_DEBUG_LOGGING) {
+        my $network_location = $is_private_network ? 'local network' : 'remote';
+        my $ua = $c->req->headers->user_agent // 'Unknown';
+        # $c->app->log->debug('');
+        # $c->app->log->debug('------------------------------------------------------------');
+        $c->app->log->debug("--- New client connected from $ip ($network_location) ---");
+        $c->app->log->debug("User-Agent: $ua");
+        # $c->app->log->debug('------------------------------------------------------------');
+    }
+    my $website_domain = $c->req->headers->host || $c->req->url->host || 'localhost';
+    $website_domain =~ s/:\d+$//;
+
+    # --- OG Tags for Song Sharing ---
+    my $og_data = {};
+    if (my $partial_id = $c->param('song')) {
+        if ($partial_id =~ /^[0-9a-f]{1,16}$/i) {
+            my ($song, $full_id) = _find_song_by_partial_id($c, $partial_id);
+            if ($song) {
+                my $protocol = $c->req->url->scheme;
+                my $host = $c->req->headers->host || $c->req->url->host || "localhost:$APP_PORT";
+                my $song_url = Mojo::URL->new->scheme($protocol)->host($host)->path('/')->query({ song => $full_id });
+
+                $og_data = {
+                    title       => $song->{title},
+                    description => "Listen to " . $song->{title} . " by " . $song->{artist},
+                    image       => Mojo::URL->new->scheme($protocol)->host($host)->path("/cover/$full_id")->to_string,
+                    url         => $song_url->to_string,
+                };
+            }
+        }
+    }
+
+    # --- Content Security Policy ---
+    my @csp_directives;
+
+    if ($ENABLE_RADIO_STATIONS_HTTP) {
+        push @csp_directives, "media-src 'self' http: https: blob:";
+    }
+
+    if (@csp_directives) {
+        $c->res->headers->header('Content-Security-Policy', join('; ', @csp_directives));
+    }
+
+    $c->render(
+        'index_synthwave',
+        og_data                       => $og_data,
+        ui_font_size_desktop          => $UI_FONT_SIZE_DESKTOP,
+        ui_font_size_mobile           => $UI_FONT_SIZE_MOBILE,
+        ui_font_family                => $UI_FONT_FAMILY,
+        lyrics_font_size_desktop      => $LYRICS_FONT_SIZE_DESKTOP,
+        lyrics_font_size_mobile       => $LYRICS_FONT_SIZE_MOBILE,
+        lyrics_font_family            => $LYRICS_FONT_FAMILY,
+        welcome_message               => $WELCOME_MESSAGE,
+        enable_cover_art              => $ENABLE_COVER_ART ? 1 : 0,
+        enable_online_lyrics_search   => $ENABLE_ONLINE_LYRICS_SEARCH ? 1 : 0,
+        website_title                 => $WEBSITE_TITLE,
+        website_domain                => $website_domain,
+        protocol                      => $c->req->url->scheme,
+        is_private_network            => $is_private_network ? 1 : 0,
+        is_admin                      => $c->is_admin ? 1 : 0,
+        default_sort_by               => $DEFAULT_SORT_BY,
+        default_sort_order            => $DEFAULT_SORT_ORDER,
+        scroll_to_song_align_mobile   => $SCROLL_TO_SONG_ALIGN_MOBILE,
+        scroll_to_song_align_desktop  => $SCROLL_TO_SONG_ALIGN_DESKTOP,
+        songs_per_page                => $SONGS_PER_PAGE,
+        min_search_length             => $MIN_SEARCH_LENGTH,
+        previous_button_restart_seconds => $PREVIOUS_BUTTON_RESTART_SECONDS,
+        ignore_playback_errors_ms     => $IGNORE_PLAYBACK_ERRORS_MS,
+        notification_visible_ms       => $NOTIFICATION_VISIBLE_MS,
+        sidebar_auto_collapse_delay_ms => $SIDEBAR_AUTO_COLLAPSE_DELAY_MS,
+        initial_songs_to_load_mobile  => $INITIAL_SONGS_TO_LOAD_MOBILE,
+        initial_songs_to_load_desktop => $INITIAL_SONGS_TO_LOAD_DESKTOP,
+        songs_to_load_on_scroll_mobile => $SONGS_TO_LOAD_ON_SCROLL_MOBILE,
+        songs_to_load_on_scroll_desktop => $SONGS_TO_LOAD_ON_SCROLL_DESKTOP,
+        show_playback_speed_min_minutes => $SHOW_PLAYBACK_SPEED_MIN_MINUTES,
+        friends_music                 => \@FRIENDS_MUSIC,
+        app_version                   => $APP_VERSION,
+        is_pro                        => $IS_PRO ? 1 : 0,
+        upnp_error_message            => $UPNP_ERROR_MESSAGE,
+        periodic_update_check_hours   => $PERIODIC_UPDATE_CHECK_HOURS,
+        admin_password_is_set         => (defined $SynthwavePlayer::Config::ADMIN_PASSWORD && $SynthwavePlayer::Config::ADMIN_PASSWORD ne '') ? 1 : 0,
+        allow_admin_from_any_network  => $ALLOW_ADMIN_FROM_ANY_NETWORK ? 1 : 0,
+        allow_local_network_editing   => ($ALLOW_LOCAL_NETWORK_EDITING && defined $SynthwavePlayer::Config::ADMIN_PASSWORD && $SynthwavePlayer::Config::ADMIN_PASSWORD ne '') ? 1 : 0,
+        show_playlists_out_of_date_warning => $SHOW_PLAYLISTS_OUT_OF_DATE_WARNING ? 1 : 0,
+        source_hash                     => $SOURCE_HASH,
+        songs_per_page                  => $SONGS_PER_PAGE,
+    );
+};
+
+
+# API: GET /api/status - Reports the library loading progress
+get '/api/status' => sub ($c) {
+    # No rate limiting needed for status endpoint
+    $c->sync_loading_state_from_db();
+    $c->render(json => $c->app->db->{loading_status});
+};
+
+# API: GET /api/library - Returns a paginated, filtered, and sorted song library as JSON
+get '/api/library' => sub ($c) {
+    return unless _apply_rate_limit($c);
+
+    my $db = $c->app->db;
+    return $c->render(json => { songs => [], total => 0 }) unless $db->{loading_status}{done};
+
+    my $initial_song_ids = _get_initial_song_ids_from_context($c);
+
+    my $result = _get_processed_songs($c, $initial_song_ids, undef);
+    $c->render(json => $result);
+};
+
+# API: GET /api/playlist/:name - Returns a paginated, filtered, and sorted song list for a playlist
+get '/api/playlist/:name' => sub ($c) {
+    return unless _apply_rate_limit($c);
+
+    my $db = $c->app->db;
+    return $c->render(json => { songs => [], total => 0 }) unless $db->{loading_status}{done};
+
+    my $playlist_name = $c->param('name');
+    my $playlist_song_ids = SynthwavePlayer::Library::get_playlist_songs($c->app, $playlist_name);
+
+    unless (@$playlist_song_ids) {
+        return $c->reply->not_found;
+    }
+
+    my $result = _get_processed_songs($c, $playlist_song_ids, undef);
+    $c->render(json => $result);
+};
+
+# API: GET /api/search?q=... - Returns a paginated, filtered, and sorted list of songs matching a query
+get '/api/search' => sub ($c) {
+    return unless _apply_rate_limit($c);
+
+    my $db = $c->app->db;
+    return $c->render(json => { songs => [], total => 0 }) unless $db->{loading_status}{done};
+
+    my $query = $c->param('q');
+    my $result = search_songs($c, $query);
+    $c->render(json => $result);
+};
+
+# API: GET /api/song/:id - Returns metadata for a single song
+get '/api/song/:id' => sub ($c) {
+    return unless _apply_rate_limit($c);
+
+    my $partial_id = $c->param('id');
+
+    # Validate that ID is a hex hash
+    unless ($partial_id && $partial_id =~ /^[0-9a-f]{1,16}$/i) {
+        $c->app->log->error("Invalid song ID format in API request: '$partial_id'");
+        return $c->reply->not_found;
+    }
+
+    my ($song, $full_id) = _find_song_by_partial_id($c, $partial_id);
+    unless ($song) {
+        $c->app->log->warn("API request for unknown song ID: $partial_id");
+        return $c->reply->not_found;
+    }
+
+    $song->{is_radio} = $song->{location} =~ /^https?:\/\//i ? 1 : 0;
+    $c->render(json => $song);
+};
+
+# API: GET /api/playlists - Returns the playlist structure as JSON
+get '/api/playlists' => sub ($c) {
+    return unless _apply_rate_limit($c);
+    return $c->render(json => { names => [], info => {} }) unless $c->app->db->{loading_status}{done};
+    my $ratings = $c->param('ratings');
+    $c->render(json => SynthwavePlayer::Library::get_playlists($c->app, undef, $ratings));
+};
+
+# API: GET /api/genres - Returns a list of all unique genres
+get '/api/genres' => sub ($c) {
+    return unless _apply_rate_limit($c);
+    return $c->render(json => []) unless $c->app->db->{loading_status}{done};
+    my $ratings = $c->param('ratings');
+    $c->render(json => SynthwavePlayer::Library::get_genres($c->app, undef, $ratings));
+};
+
+# API: GET /api/artists - Returns a list of all unique artists
+get '/api/artists' => sub ($c) {
+    return unless _apply_rate_limit($c);
+    return $c->render(json => []) unless $c->app->db->{loading_status}{done};
+    my $ratings = $c->param('ratings');
+    $c->render(json => SynthwavePlayer::Library::get_artists($c->app, undef, $ratings));
+};
+
+# API: GET /api/albums - Returns a list of all unique albums
+get '/api/albums' => sub ($c) {
+    return unless _apply_rate_limit($c);
+    return $c->render(json => []) unless $c->app->db->{loading_status}{done};
+    my $ratings = $c->param('ratings');
+    $c->render(json => SynthwavePlayer::Library::get_albums($c->app, undef, $ratings));
+};
+
+
+# API: POST /api/song/:id/stats - Updates song statistics (play/skip)
+post '/api/song/:id/stats' => sub ($c) {
+    return unless _apply_rate_limit($c);
+    my $id = $c->param('id');
+    my $type = $c->req->json->{type}; # 'play' or 'skip'
+
+    return $c->render(json => { error => 'Invalid type' }, status => 400)
+        unless $type && ($type eq 'play' || $type eq 'skip');
+
+    _update_song_stats($c->app, $id, $type);
+    $c->render(json => { success => 1 });
+};
+
+# API: POST /api/log - Generic logging endpoint for client actions
+post '/api/log' => sub ($c) {
+    return unless _apply_rate_limit($c);
+
+    if ($ENABLE_VERBOSE_LOGGING) {
+        my $ip = $c->tx->remote_address;
+        my $params = $c->req->json;
+        my $message = $params->{message} // '';
+        if ($message) {
+            $c->app->log->info(" -> $message from $ip");
+        }
+    }
+    $c->render(text => '', status => 204); # No Content
+};
+
+# API: GET /api/cover_exists/:id - Checks if cover art exists for a song
+get '/api/cover_exists/:id' => sub ($c) {
+    return unless _apply_rate_limit($c);
+
+    my $partial_id = $c->param('id');
+
+    # Validate that ID is a hex hash
+    unless ($partial_id && $partial_id =~ /^[0-9a-f]{1,16}$/i) {
+        return $c->render(json => { exists => 0 });
+    }
+
+    my ($song_arr, $full_id) = _find_song_by_partial_id($c, $partial_id);
+    unless ($song_arr) {
+        return $c->render(json => { exists => 0 });
+    }
+
+    my $cover_info = _get_cover_art_data($c, $full_id);
+
+    if ($cover_info) {
+        return $c->render(json => { exists => 1 });
+    } else {
+        return $c->render(json => { exists => 0 });
+    }
+};
+
+# API: GET /api/lyrics/:id - Extracts and returns lyrics for a song
+get '/api/lyrics/:id' => sub ($c) {
+    return unless _apply_rate_limit($c);
+    my $partial_id = $c->param('id');
+    unless ($partial_id && $partial_id =~ /^[0-9a-f]{1,16}$/i) {
+        return $c->reply->not_found;
+    }
+
+    my ($song, $id) = _find_song_by_partial_id($c, $partial_id);
+    unless ($song) {
+        return $c->render(json => { lyrics => undef });
+    }
+
+    my $lyrics = _get_lyrics($c->app, $id, $song);
+    return $c->render(json => { lyrics => $lyrics });
+};
+
+# GET /audio/:id - Streams the audio file for a given song ID
+get '/audio/:id' => sub ($c) {
+    return unless _apply_rate_limit($c);
+
+    my $partial_id = $c->param('id');
+
+    # Validate that ID is a hex hash
+    unless ($partial_id && $partial_id =~ /^[0-9a-f]{1,16}$/i) {
+        $c->app->log->error("Invalid song ID format: '$partial_id'");
+        return $c->reply->not_found;
+    }
+
+    my ($song, $full_id) = _find_song_by_partial_id($c, $partial_id);
+    return $c->reply->not_found unless $song;
+
+    # Radio streams are now handled client-side.
+    if ($song->{location} =~ /^https?:\/\//i) {
+        $c->app->log->warn("Request for radio stream URL received on server, which should be handled client-side. ID: $full_id");
+        return $c->reply->not_found;
+    }
+
+    # For local files, validate path and stream
+    my $safe_path = _get_safe_song_path($c, $full_id);
+    unless ($safe_path) {
+        if (my $msg = $c->stash('error_notification')) {
+            $c->res->headers->header('X-Error-Notification', uri_escape($msg));
+        }
+        return $c->reply->not_found;
+    }
+
+    if ($c->param('download')) {
+        my $temp_dir = File::Spec->catdir(_get_cache_dir(), 'downloads');
+        mkdir $temp_dir unless -d $temp_dir;
+
+        # Cleanup old downloads (older than 1 hour)
+        if (opendir(my $dh, $temp_dir)) {
+            while (my $file = readdir($dh)) {
+                next if $file =~ /^\./;
+                my $path = File::Spec->catfile($temp_dir, $file);
+                unlink $path if (stat($path))[9] < time - 3600;
+            }
+            closedir($dh);
+        }
+
+        my ($fh, $temp_file) = tempfile(DIR => $temp_dir, SUFFIX => '.mp3');
+        close $fh;
+
+        require File::Copy;
+        if (File::Copy::copy($safe_path, $temp_file)) {
+                my $covers_dir = $base_path->child('covers')->to_string;
+                if (-d $covers_dir) {
+                    if (opendir(my $cdh, $covers_dir)) {
+                        my @covers = grep { /\.(jpg|jpeg|png)$/i } readdir($cdh);
+                        closedir($cdh);
+
+                        if (@covers) {
+                            my $random_cover = File::Spec->catfile($covers_dir, $covers[rand @covers]);
+                            # Use eyeD3 to inject the random cover
+                            system("eyeD3", "--quiet", "--no-color", "--add-image", "$random_cover:FRONT_COVER", $temp_file, "1>/dev/null 2>&1");
+                    }
+                }
+            }
+            $c->res->headers->content_type('audio/mpeg');
+            return $c->reply->file($temp_file);
+        }
+    }
+
+    if ($ENABLE_VERBOSE_LOGGING) {
+        my $ip = $c->tx->remote_address;
+        $c->app->log->info(" -> Streaming song: \"$song->{title}\" by \"$song->{artist}\" to $ip");
+    }
+
+    # Explicitly create a file asset for streaming.
+    # Mojolicious will automatically handle Range requests for seeking.
+    $c->res->headers->content_type('audio/mpeg'); # Default to mpeg, browser will correct if needed
+    my $asset = Mojo::Asset::File->new(path => $safe_path);
+    $c->reply->asset($asset);
+};
+
+# GET /cover/:id - Extracts and streams the cover art for a given song ID using MP3::Tag
+get '/cover/:id' => sub ($c) {
+    return unless _apply_rate_limit($c);
+
+    my $partial_id = $c->param('id');
+
+    # Validate that ID is a hex hash
+    unless ($partial_id && $partial_id =~ /^[0-9a-f]{1,16}$/i) {
+        $c->app->log->error("Invalid cover art ID format: '$partial_id'");
+        return $c->reply->not_found;
+    }
+
+    my ($song, $full_id) = _find_song_by_partial_id($c, $partial_id);
+    return $c->reply->not_found unless $song;
+
+    my $cover_info = _get_cover_art_data($c, $full_id);
+
+    if ($cover_info) {
+        my $format = $cover_info->{mime_type};
+        $format =~ s/image\///;
+        return $c->render(data => $cover_info->{data}, format => $format);
+    } else {
+        return $c->reply->not_found;
+    }
+};
+
+
+app->start;
+

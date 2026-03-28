@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-900">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title><%= $website_title %></title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad1' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%23ff00de;'/><stop offset='100%' style='stop-color:%2300d9ff;'/></linearGradient></defs><rect x='0' y='0' width='100' height='100' rx='15' fill='%231a0229'/><text x='50%' y='52%' fill='url(%23grad1)' stroke='white' stroke-width='3' stroke-linejoin='round' paint-order='stroke' dominant-baseline='middle' text-anchor='middle' font-size='90' font-family='monospace' font-weight='bold'>M</text></svg>">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#1a0229">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    % my @gfonts;
+    % for my $f ($ui_font_family, $lyrics_font_family) {
+    %   next if !$f || $f =~ /^(?:serif|sans-serif|monospace|cursive|fantasy|system-ui|Sans)$/i;
+    %   push @gfonts, "family=" . ($f =~ s/ /+/gr);
+    % }
+    % if (@gfonts) {
+    <link href="https://fonts.googleapis.com/css2?<%= join('&', @gfonts) %>&display=swap" rel="stylesheet">
+    % }
+    <!-- Social Media Share Tags -->
+    % if (my $title = $og_data->{title}) {
+    <meta property="og:title" content="<%= $title %>" />
+    <meta property="og:type" content="music.song" />
+    <meta property="og:url" content="<%= $og_data->{url} %>" />
+    <meta property="og:image" content="<%= $og_data->{image} %>" />
+    <meta property="og:description" content="<%= $og_data->{description} %>" />
+    % } else {
+    <meta property="og:title" content="<%= $website_title %>" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="<%= $protocol %>://<%= $website_domain %>" />
+    <meta property="og:image" content="https://raw.githubusercontent.com/Elive/synthwave-player/635ed6447d45256f54e9d6099d1052e0c2a41deb/media/synthwave-player-multiple-interfaces.png" />
+    <meta property="og:description" content="My personal Music Player full of unique features" />
+    % }
+    <script src="/tailwindcss.min.js?v=<%= $app_version %>"></script>
+    <script src="/fuse.min.js?v=<%= $app_version %>"></script>
+    <script src="/menu-popup.js?v=<%= $app_version %>"></script>
+    <script defer src="/alpinejs.min.js?v=<%= $app_version %>"></script>
+    <link rel="stylesheet" href="/synthwaveplayer.css?v=<%= $app_version %>">
+</head>
+<body x-data="musicPlayer()" x-init="init()" @contextmenu.prevent
+    @visibilitychange.window="if (document.hidden) { userPausedDisc = true } else { userPausedDisc = false }"
+    class="select-none antialiased" :class="{'effects-disabled': !enableVisualEffects, 'modal-open': isModalOpen}"
+    style="--font-size-desktop: <%= $ui_font_size_desktop %>;
+           --font-size-mobile: <%= $ui_font_size_mobile %>;
+           --ui-font-family: '<%= $ui_font_family %>';
+           --ui-font-family-safe: '<%= $ui_font_family =~ s/ /-/gr %>';
+           --lyrics-font-size-desktop: <%= $lyrics_font_size_desktop %>;
+           --lyrics-font-size-mobile: <%= $lyrics_font_size_mobile %>;
+           --lyrics-font-family: '<%= $lyrics_font_family %>';
+           --lyrics-font-family-safe: '<%= $lyrics_font_family =~ s/ /-/gr %>';">
+    <svg class="absolute w-0 h-0">
+        <defs>
+            <linearGradient id="grad-fuchsia-cyan" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#f0f" />
+                <stop offset="100%" stop-color="#0ff" />
+            </linearGradient>
+        </defs>
+    </svg>
+    <!-- Viral Discovery Banner -->
+    <% if (!$is_private_network) { %>
+    <div x-show="viralBannerVisible" x-cloak
+         x-transition:enter="transition ease-out duration-1000"
+         x-transition:enter-start="opacity-0 -translate-y-full"
+         x-transition:enter-end="opacity-100 translate-y-0"
+         x-transition:leave="transition ease-in duration-300"
+         x-transition:leave-start="opacity-100 translate-y-0"
+         x-transition:leave-end="opacity-0 -translate-y-full"
+         class="fixed top-0 left-0 right-0 z-[9999] bg-gradient-to-r from-fuchsia-600 to-cyan-500 text-white text-center py-2 px-4 glassmorphism">
+        <div class="flex justify-between items-center">
+            <div class="flex-grow">
+                <p class="font-bold">Make your Personal Spotify</p>
+                <p class="text-sm">This is someone music server. Create yours with your own curated music with this Music Player made by Elive Linux.</p>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="https://synthwaveplayer.elivelinux.org" target="_blank" class="bg-white text-fuchsia-600 px-3 py-1 rounded-md text-sm font-bold hover:bg-cyan-200 transition-colors">Set up yours</a>
+                <button @click="viralBannerVisible = false; localStorage.setItem('hideViralBanner', 'true')" class="text-white hover:text-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    <% } %>
+
+    <!-- Notification Toasts -->
+    <div class="fixed top-24 inset-x-4 sm:inset-x-auto sm:right-4 z-[9999] sm:w-[30rem] space-y-2">
+        <template x-for="notification in notifications" :key="notification.id">
+            <div x-show="notification.visible"
+                x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="opacity-0 transform translate-x-full"
+                x-transition:enter-end="opacity-100 transform translate-x-0"
+                x-transition:leave="transition ease-in duration-300"
+                x-transition:leave-start="opacity-100 transform translate-x-0"
+                x-transition:leave-end="opacity-0 transform translate-x-full"
+                class="notification-toast rounded-lg shadow-lg text-white flex items-start p-4"
+                :class="{
+                    'notification-info': notification.type === 'info',
+                    'notification-success': notification.type === 'success',
+                    'notification-warning': notification.type === 'warning',
+                    'notification-error': notification.type === 'error'
+                }">
+                <div class="flex-grow">
+                    <template x-if="notification.url">
+                        <div>
+                            <span x-text="notification.message"></span>
+                            <a :href="notification.url" target="_blank" @click.stop="removeNotification(notification.id)" class="block cursor-pointer mt-2">
+                                <span class="inline-block bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-1 px-3 rounded text-sm" x-text="notification.type === 'success' ? 'Install Update' : 'Click to open'"></span>
+                            </a>
+                        </div>
+                    </template>
+                    <template x-if="!notification.url">
+                        <div x-text="notification.message"></div>
+                    </template>
+                </div>
+                <button @click="removeNotification(notification.id)" class="ml-2 -mr-1 -mt-1 p-1 rounded-full hover:bg-white/20 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+        </template>
+    </div>
+
+    <!-- Menu Templates (Hidden until triggered by JS) -->
+    <!-- Moved inside Alpine scope to preserve reactivity -->
+    <div id="menu-host">
+    <div id="menu-templates" class="hidden" x-cloak>
+        <!-- Share Menu -->
+        <div id="menu-tpl-share" class="py-1">
+            <template x-for="item in shareMenuItems" :key="item.actionId">
+                <div class="w-full">
+                    <div x-show="item.type === 'separator'" class="border-t border-fuchsia-500/20 mx-2 my-1"></div>
+                    <div x-show="!item.type"
+                         @click="item.disabled ? null : (item.action(), $data.menuPopup.hide())"
+                         class="w-full px-4 py-2 flex items-center gap-3 text-sm text-gray-200 hover:bg-cyan-400/20 cursor-pointer"
+                         :class="{'opacity-50 cursor-not-allowed': item.disabled}">
+                        <span x-show="item.icon" x-html="item.icon" class="w-5 h-5 text-cyan-400"></span>
+                        <span x-text="item.label"></span>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+        <!-- Friends Menu -->
+        <div id="menu-tpl-friends" class="py-1">
+            <template x-if="window.SWP_FRIENDS && window.SWP_FRIENDS.length > 0">
+                <template x-for="friend in window.SWP_FRIENDS" :key="friend.name">
+                    <div @click="window.open(friend.value, '_blank'); $data.menuPopup.hide()"
+                         class="px-4 py-2 text-sm text-gray-200 hover:bg-cyan-400/20 cursor-pointer"
+                         x-text="friend.name">
+                    </div>
+                </template>
+            </template>
+            <template x-if="!window.SWP_FRIENDS || window.SWP_FRIENDS.length === 0">
+                <div x-show="adminMode" @click="openUserSettingsModal(); $data.menuPopup.hide()" class="px-4 py-2 text-sm text-gray-200 hover:bg-cyan-400/20 cursor-pointer">
+                    Configure Friends' Music
+                </div>
+            </template>
+        </div>
+
+        <!-- Context Menu -->
+        <div id="menu-tpl-context" class="py-1">
+            <template x-for="(item, index) in getContextMenuItems(menuData.type, menuData.data)" :key="item.actionId || index">
+                <div class="w-full">
+                    <div x-show="item.type === 'separator'" class="border-t border-fuchsia-500/20 mx-2 my-1"></div>
+                    <div x-show="!item.type"
+                         @click="item.disabled ? null : (item.action($event), $data.menuPopup.hide())"
+                         class="w-full px-4 py-2 flex items-center gap-3 text-sm text-gray-200 hover:bg-cyan-400/20 cursor-pointer"
+                         :class="{'opacity-50 cursor-not-allowed': item.disabled}">
+                        <span x-show="item.icon" x-html="item.icon" class="w-5 h-5 text-cyan-400"></span>
+                        <span x-text="item.label"></span>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+        <!-- Config Menu -->
+        <div id="menu-tpl-config" class="py-1 w-64">
+            <% if ($is_private_network || $allow_admin_from_any_network) { %>
+                <div x-show="!adminMode && adminLockoutUntil < (Date.now() / 1000)" @click="if (window.SWP_CONFIG.admin_password_is_set) { showAdminLoginModal = true; adminLoginError = ''; adminPassword = ''; $nextTick(() => $refs.adminPassInput.focus()); } else { showSetInitialPasswordModal = true; } $data.menuPopup.hide();" class="px-4 py-2 text-sm text-gray-200 hover:bg-cyan-400/20 cursor-pointer flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyan-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" /></svg>
+                    <span x-text="window.SWP_CONFIG.admin_password_is_set ? 'Enter Admin Mode...' : 'Set Admin Password...'"></span>
+                </div>
+            <% } %>
+            <template x-if="adminMode">
+                <div>
+                    <div @click="openUserSettingsModal(); $data.menuPopup.hide()" class="px-4 py-2 text-sm text-gray-200 hover:bg-cyan-400/20 cursor-pointer">
+                        Configure Server Settings
+                    </div>
+                    <div class="border-t border-fuchsia-500/20 mx-2 my-1"></div>
+                </div>
+            </template>
+            <% unless ($is_pro) { %>
+                <div @click="window.open('https://synthwaveplayer.elivelinux.org', '_blank'); $data.menuPopup.hide()" class="px-4 py-2 text-sm text-cyan-300 hover:bg-cyan-400/20 cursor-pointer flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    <span>Download your own player</span>
+                </div>
+                <div @click="window.open('https://www.patreon.com/c/elive', '_blank'); $data.menuPopup.hide()" class="px-4 py-2 text-sm text-amber-300 hover:bg-cyan-400/20 cursor-pointer flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" /></svg>
+                    <span>Support Updates</span>
+                </div>
+                <div class="border-t border-fuchsia-500/20 mx-2 my-1"></div>
+            <% } %>
+            <% if ($enable_cover_art) { %>
+            <div class="px-4 py-2 text-sm text-gray-200 hover:bg-cyan-400/20 cursor-pointer" data-action-id="config-cover-art">
+                <label class="flex items-center cursor-pointer"><input type="checkbox" x-model="enableCoverArt" class="mr-2 h-4 w-4 accent-cyan-500 rounded border-cyan-500 bg-transparent"> Enable Cover Art</label>
+            </div>
+            <% } %>
+            <div class="px-4 py-2 text-sm text-gray-200 hover:bg-cyan-400/20 cursor-pointer" data-action-id="config-visual-effects">
+                <label class="flex items-center cursor-pointer"><input type="checkbox" x-model="enableVisualEffects" class="mr-2 h-4 w-4 accent-cyan-500 rounded border-cyan-500 bg-transparent"> Visual Effects</label>
+            </div>
+            <% if ($enable_online_lyrics_search) { %>
+            <div class="px-4 py-2 text-sm text-gray-200 hover:bg-cyan-400/20 cursor-pointer" data-action-id="config-lyrics">
+                <label class="flex items-center cursor-pointer"><input type="checkbox" x-model="enableLyrics" class="mr-2 h-4 w-4 accent-cyan-500 rounded border-cyan-500 bg-transparent"> Enable Lyrics</label>
+            </div>
+            <% } %>
+            <div class="px-4 py-2 text-sm text-gray-200 hover:bg-cyan-400/20 cursor-pointer" data-action-id="config-track-number">
+                <label class="flex items-center cursor-pointer"><input type="checkbox" x-model="enableTrackNumber" class="mr-2 h-4 w-4 accent-cyan-500 rounded border-cyan-500 bg-transparent"> Show Track Number</label>
+            </div>
+            <div class="px-4 py-2 text-sm text-gray-200 hover:bg-cyan-400/20 cursor-pointer" data-action-id="config-bitrate">
+                <label class="flex items-center cursor-pointer"><input type="checkbox" x-model="enableBitrate" class="mr-2 h-4 w-4 accent-cyan-500 rounded border-cyan-500 bg-transparent"> Show Bitrate</label>
+            </div>
+            <div class="px-4 py-2 text-sm text-gray-200 hover:bg-cyan-400/20 cursor-pointer" data-action-id="config-rating-column">
+                <label class="flex items-center cursor-pointer"><input type="checkbox" x-model="enableRatingColumn" class="mr-2 h-4 w-4 accent-cyan-500 rounded border-cyan-500 bg-transparent"> Show Rating Column</label>
+            </div>
+            <div class="px-4 py-2 text-sm text-gray-200 hover:bg-cyan-400/20 cursor-pointer relative group" data-action-id="config-sidebar-logic" @mouseenter="positionTooltip($event)">
+                <label class="flex items-center cursor-pointer">
+                    <input type="checkbox" x-model="sidebarOrLogic" class="mr-2 h-4 w-4 accent-cyan-500 rounded border-cyan-500 bg-transparent">
+                    Additive Sidebar Filters (OR)
+                </label>
+                <span class="tooltip hidden lg:block !z-[10001] !w-64 !whitespace-normal !text-sm !leading-tight">When enabled, selecting items in different sidebars shows songs from ANY of them (OR). When disabled, it only shows songs matching ALL criteria (AND).</span>
+            </div>
+            <div class="border-t border-fuchsia-500/20 mx-2 my-1"></div>
+            <div class="px-4 py-2 text-sm text-gray-200 flex items-center justify-between w-full" data-action-id="ui-scale-edit">
+                <span>Font Size</span>
+                <div class="flex items-center gap-2">
+                    <button @click.stop="uiScale = Math.max(0.5, uiScale - 0.05); $nextTick(() => menuPopup.reposition())" class="w-6 h-6 flex items-center justify-center bg-gray-700 rounded hover:bg-gray-600">-</button>
+                    <div class="flex items-center">
+                        <input type="number"
+                               class="w-12 bg-gray-800 border border-gray-600 rounded text-center text-white text-xs p-1 focus:border-cyan-500 outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                               :value="Math.round(uiScale * 100)"
+                               @change="uiScale = Math.max(0.5, Math.min(2.0, $event.target.value / 100)); $nextTick(() => menuPopup.reposition())"
+                               @wheel.prevent.stop="uiScale = Math.max(0.5, Math.min(2.0, uiScale + ($event.deltaY < 0 ? 0.05 : -0.05))); $nextTick(() => menuPopup.reposition())"
+                               @click.stop>
+                        <span class="text-[10px] text-gray-500 ml-1">%</span>
+                    </div>
+                    <button @click.stop="uiScale = Math.min(2.0, uiScale + 0.05); $nextTick(() => menuPopup.reposition())" class="w-6 h-6 flex items-center justify-center bg-gray-700 rounded hover:bg-gray-600">+</button>
+                </div>
+            </div>
+            <div class="px-4 py-2 text-sm text-gray-200 flex items-center justify-between w-full" data-action-id="lyrics-scale-edit">
+                <span>Lyrics Size</span>
+                <div class="flex items-center gap-2">
+                    <button @click.stop="lyricsScale = Math.max(0.5, lyricsScale - 0.05); $nextTick(() => menuPopup.reposition())" class="w-6 h-6 flex items-center justify-center bg-gray-700 rounded hover:bg-gray-600">-</button>
+                    <div class="flex items-center">
+                        <input type="number"
+                               class="w-12 bg-gray-800 border border-gray-600 rounded text-center text-white text-xs p-1 focus:border-cyan-500 outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                               :value="Math.round(lyricsScale * 100)"
+                               @change="lyricsScale = Math.max(0.5, Math.min(2.0, $event.target.value / 100)); $nextTick(() => menuPopup.reposition())"
+                               @wheel.prevent.stop="lyricsScale = Math.max(0.5, Math.min(2.0, lyricsScale + ($event.deltaY < 0 ? 0.05 : -0.05))); $nextTick(() => menuPopup.reposition())"
+                               @click.stop>
+                        <span class="text-[10px] text-gray-500 ml-1">%</span>
+                    </div>
+                    <button @click.stop="lyricsScale = Math.min(2.0, lyricsScale + 0.05); $nextTick(() => menuPopup.reposition())" class="w-6 h-6 flex items-center justify-center bg-gray-700 rounded hover:bg-gray-600">+</button>
+                </div>
+            </div>
+            <div class="border-t border-fuchsia-500/20 mx-2 my-1"></div>
+            <div class="px-4 py-2 text-sm text-gray-200 flex items-center justify-between w-full" data-action-id="sidebar1-select">
+                <span>Sidebar 1</span>
+                <select x-model="sidebar1" @change="menuPopup.reposition()" class="synth-select ml-2 bg-gray-800 border border-gray-600 rounded-md text-white text-xs p-1">
+                    <option value="genre">Genres</option><option value="playlist">Playlists</option><option value="album">Albums</option><option value="artist">Artists</option><option value="none">None</option>
+                </select>
+            </div>
+            <div class="px-4 py-2 text-sm text-gray-200 flex items-center justify-between w-full" data-action-id="sidebar2-select">
+                <span>Sidebar 2</span>
+                <select x-model="sidebar2" @change="menuPopup.reposition()" class="synth-select ml-2 bg-gray-800 border border-gray-600 rounded-md text-white text-xs p-1">
+                    <option value="playlist">Playlists</option><option value="genre">Genres</option><option value="album">Albums</option><option value="artist">Artists</option><option value="none">None</option>
+                </select>
+            </div>
+            <div class="px-4 py-2 text-sm text-gray-200 flex items-center justify-between w-full" data-action-id="playback-speed-select">
+                <span>Playback Speed</span>
+                <select x-model="playbackSpeedControl" class="synth-select ml-2 bg-gray-800 border border-gray-600 rounded-md text-white text-xs p-1">
+                    <option value="auto">Auto</option>
+                    <option value="enabled">Enabled</option>
+                    <option value="disabled">Disabled</option>
+                </select>
+            </div>
+            <template x-if="adminMode">
+                <div class="border-t border-fuchsia-500/20 mx-2 my-1">
+                    <div @click="checkForUpdates(); $data.menuPopup.hide()" class="px-4 py-2 text-sm text-gray-200 hover:bg-cyan-400/20 cursor-pointer flex justify-between">
+                        <span>Check Updates</span>
+                        <span class="text-xs text-gray-500" x-text="appVersion"></span>
+                    </div>
+                    <div @click="openBugReportModal(); $data.menuPopup.hide()" class="px-4 py-2 text-sm text-gray-200 hover:bg-cyan-400/20 cursor-pointer">🐞 Report a Bug</div>
+                    <div @click="logoutAdmin(); $data.menuPopup.hide()" class="px-4 py-2 text-sm text-amber-400 hover:bg-cyan-400/20 cursor-pointer">Logout Admin</div>
+                </div>
+            </template>
+        </div>
+    </div>
+    </div>
+
+    <!-- Welcome Message -->
+    <% if ($welcome_message) { %>
+    <div x-data="{ showWelcome: true }" x-init="setTimeout(() => showWelcome = false, 3200)"
+         x-show="showWelcome"
+         class="fixed top-1/3 -translate-y-1/2 left-0 right-0 text-center text-8xl font-bold welcome-glow z-[9999] pointer-events-none"
+         style="animation: welcome-fly-by 3s ease-in-out forwards;">
+        <%= $welcome_message %>
+    </div>
+    <% } %>
+
+    <!-- View loading spinner -->
+    <div x-show="viewLoading" x-cloak
+         x-transition:enter="transition-opacity duration-300" x-transition:leave="transition-opacity duration-300"
+         class="fixed inset-0 bg-gray-900/70 flex justify-center items-start pt-[30vh] lg:items-center lg:pt-0 z-[9000]">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <div class="flex flex-col h-screen h-[100dvh]">
+        <!-- Main Content -->
+        <main class="flex-grow flex flex-col overflow-hidden">
+            <!-- Header -->
+            <header class="page-header flex flex-col md:flex-row justify-between items-center mb-4 relative z-20 px-4 md:px-6 lg:px-8 pt-4 md:pt-5 lg:pt-6">
+                <h1 class="header-title text-3xl md:text-5xl font-bold neon-text-pink mb-4 md:mb-0"><%= $website_title %></h1>
+                <div class="w-full md:w-1/2 relative z-[10]">
+                    <!-- Search bar -->
+                    <div @focusin="$el.classList.add('flickering')" @animationend="$el.classList.remove('flickering')" class="search-wrapper flex items-stretch border rounded-lg transition-all duration-300" :class="{'search-active': search && search.length > 0, 'glassmorphism border-[var(--color-cyan-glow)] shadow-[0_0_8px_var(--color-cyan-glow)]': enableVisualEffects, 'bg-black/30 border-fuchsia-500/50': !enableVisualEffects}">
+                        <input @contextmenu.stop type="text" name="search" x-model.debounce.300ms="search" placeholder="Scan the frequency..." class="flex-grow w-full pl-4 pr-2 py-1 md:py-2 md:text-lg bg-transparent focus:outline-none placeholder:text-gray-400">
+                        <button x-show="search" @click="search = ''" x-cloak class="flex-shrink-0 bg-red-600 hover:bg-red-700 text-white px-3 flex items-center rounded-r-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div x-show="!isMobileMode || !sidebarsHiddenOnMobileSearch" class="header-filters-container flex justify-end items-center gap-x-4 gap-y-1 mt-2 flex-wrap">
+                        <!-- Rating filter buttons -->
+                        <div class="flex items-center gap-2">
+                           <span class="header-rating-label text-gray-300 text-sm md:text-lg" x-text="isMobileMode ? 'Ratings' : 'Select Rating:'"></span>
+                           <template x-for="star in [5, 4, 3, 2, 1, 0]">
+                               <button @click="toggleRatingFilter(star)"
+                                       class="header-rating-button px-2 py-0.5 text-sm md:text-xl rounded-md transition-all duration-200 font-mono"
+                                       :class="ratingFilter.includes(star) ? 'text-cyan-300 neon-text-cyan bg-cyan-800/50' : 'text-gray-400 hover:bg-gray-600/50'">
+                                   <span x-text="star"></span><span class="star" x-show="star > 0">★</span>
+                               </button>
+                           </template>
+                        </div>
+
+                        <!-- Icon buttons on top of the page -->
+                        <div class="header-extra-buttons flex items-center gap-0.5 lg:gap-2">
+                            <!-- Menu for share button -->
+                            <div class="relative group" @mouseenter="positionTooltip($event); positionTooltip($event, '.tooltip-hint')" x-ref="shareButtonContainer">
+                                <button @click="toggleMenu('share', $event)" data-menu-anchor class="p-1 rounded-md hover:bg-cyan-500/10 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyan-500" viewBox="0 0 20 20" fill="currentColor"><path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" /></svg>
+                                </button>
+                                <span class="tooltip hidden lg:block">Share a link to this reality</span>
+                                <span x-show="showShareHint" x-cloak class="tooltip-hint absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 rounded-md text-sm pointer-events-none bg-fuchsia-700 border border-fuchsia-400 text-white z-50 opacity-100 whitespace-nowrap text-center">
+                                    Play the list with all your favorite options, then use this button to share it.
+                                </span>
+                            </div>
+
+                            <!-- Download song from icon button -->
+                            <div class="relative group" @mouseenter="positionTooltip($event)">
+                                <button @click="downloadSong(currentSong)" data-menu-anchor class="p-1 rounded-md hover:bg-cyan-500/10 transition-colors" :class="{'opacity-50 cursor-not-allowed': !currentSong || currentSong.is_radio}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyan-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                                </button>
+                                <span class="tooltip hidden lg:block">Download current song</span>
+                            </div>
+
+                            <div class="relative group" @mouseenter="positionTooltip($event)">
+                                <button @click="stopSong()" data-menu-anchor class="p-1 rounded-md hover:bg-cyan-500/10 transition-colors transform scale-110">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyan-500" viewBox="0 0 20 20" fill="currentColor"><path d="M5 5h10v10H5V5z"/></svg>
+                                </button>
+                                <span class="tooltip hidden lg:block">Stop playback and clear URL params</span>
+                            </div>
+                            <div class="relative group" @mouseenter="positionTooltip($event)" x-show="adminMode || <%= ($friends_music && @{$friends_music}) ? 'true' : 'false' %>">
+                                <button @click="toggleMenu('friends', $event)" data-menu-anchor class="p-1 rounded-md hover:bg-cyan-500/10 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                                    </svg>
+                                </button>
+                                <span class="tooltip hidden lg:block">Friends' Music</span>
+                            </div>
+
+
+                            <!-- Settings Menu -->
+                            <div class="relative group" @mouseenter="positionTooltip($event)">
+                                <button @click="toggleMenu('config', $event)" data-menu-anchor class="p-1 rounded-md hover:bg-cyan-500/10 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyan-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.532 1.532 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.532 1.532 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg>
+                                </button>
+                                <span class="tooltip hidden lg:block">Configuration</span>
+                            </div>
+                        </div>
+                        <!-- End of icon buttons on top of the page -->
+                    </div>
+                </div>
+            </header>
+
+
+            <!-- Main Content Area -->
+            <div x-show="canListen" class="flex flex-col lg:flex-row gap-2 lg:gap-2 px-4 md:px-6 lg:px-8 flex-grow overflow-hidden pb-20 lg:pb-40">
+                <!-- Sidebars Column -->
+                <div x-show="(!isMobileMode || !sidebarsHiddenOnMobileSearch) && (sidebar1 !== 'none' || sidebar2 !== 'none')"
+                     class="sidebars-container-wrapper w-full lg:w-[16%] xl:w-[13.3%] flex flex-col gap-4"
+                     x-ref="sidebarContainer">
+                    <template x-for="(sidebarType, index) in [sidebar1, sidebar2]" :key="index">
+                        <aside x-show="sidebarType !== 'none'"
+                                @mouseenter="if (!isMobileMode && !sidebarStates[index].collapsed) { clearTimeout(sidebarStates[index].collapseTimer); sidebarStates[index].expanded = true; clearTimeout(sidebarStates[1-index].collapseTimer); sidebarStates[1-index].expanded = false; hideCoverForGenreInteraction = (sidebarType === 'genre'); }"
+                                @mouseleave="if (!isMobileMode) { sidebarStates[index].collapseTimer = setTimeout(() => { sidebarStates[index].expanded = false; hideCoverForGenreInteraction = false; }, <%= $sidebar_auto_collapse_delay_ms %>); }"
+                                class="sidebar w-full rounded-lg md:rounded-xl px-2 md:py-1.5 md:px-3 flex flex-col min-h-0 transition-all duration-500 ease-in-out"
+                                :class="{
+                                    'glassmorphism': enableVisualEffects,
+                                    'bg-black/40 border border-fuchsia-500/20': !enableVisualEffects,
+                                    'small-font-sidebar': sidebarType === 'artist' || sidebarType === 'album',
+                                    'flex-1': !sidebarStates[index].collapsed && ((!isMobileMode && !sidebarStates[1-index].expanded) || (isMobileMode)),
+                                    'basis-48 flex-grow-0 flex-shrink-0': !isMobileMode && !sidebarStates[index].collapsed && sidebarStates[1-index].expanded && sidebarType !== 'none' && [sidebar1, sidebar2].filter(s => s !== 'none').length > 1
+                                }">
+
+                            <!-- Sidebar Content -->
+                            <div class="flex flex-col h-full" x-data="{
+                                get title() {
+                                    return { genre: 'Genres', playlist: 'Playlists', artist: 'Artists', album: 'Albums' }[sidebarType] || '';
+                                },
+                                get items() {
+                                    let list = { playlist: sortedPlaylists, genre: sortedGenres, artist: sortedArtists, album: sortedAlbums }[sidebarType] || [];
+                                    const searchTerm = sidebarStates[index].search.toLowerCase().trim();
+                                    if (!searchTerm) {
+                                        return list;
+                                    }
+                                    if (sidebarType === 'playlist') {
+                                        const filtered = {};
+                                        for (const name in list) {
+                                            if (Object.prototype.hasOwnProperty.call(list, name) && name.toLowerCase().includes(searchTerm)) {
+                                                filtered[name] = list[name];
+                                            }
+                                        }
+                                        return filtered;
+                                    } else {
+                                        return list.filter(item => item && item.toLowerCase().includes(searchTerm));
+                                    }
+                                },
+                                get selectedItems() {
+                                    return { playlist: selectedPlaylists, genre: selectedGenres, artist: selectedArtists, album: selectedAlbums }[sidebarType] || [];
+                                },
+                                toggleItem(name, event) {
+                                    if (sidebarType === 'playlist') return togglePlaylist(name, event);
+                                    if (sidebarType === 'genre') return toggleGenre(name, event);
+                                    if (sidebarType === 'artist') return toggleArtist(name, event);
+                                    if (sidebarType === 'album') return toggleAlbum(name, event);
+                                },
+                                clearItems() {
+                                    if (sidebarType === 'playlist') return clearPlaylists();
+                                    if (sidebarType === 'genre') return clearGenres();
+                                    if (sidebarType === 'artist') return clearArtists();
+                                    if (sidebarType === 'album') return clearAlbums();
+                                },
+                                get contextMenuType() {
+                                    return { playlist: 'playlist', genre: 'genre', artist: 'artist', album: 'album' }[sidebarType];
+                                }
+                            }">
+                                <h2 @click="sidebarStates[index].collapsed = !sidebarStates[index].collapsed; if (sidebarStates[index].collapsed) { sidebarStates[index].expanded = false; clearTimeout(sidebarStates[index].collapseTimer); } if (isMobileModeTiny) { sidebarStates[1-index].collapsed = sidebarStates[index].collapsed; }"
+                                    class="text-xl md:text-2xl font-normal neon-text-cyan pt-0.5 mb-0 md:mb-1.5 cursor-pointer flex justify-between items-center flex-shrink-0">
+                                    <span x-text="title"></span>
+                                    <div class="flex items-center gap-2">
+                                        <button @click.stop="sidebarStates[index].searchVisible = !sidebarStates[index].searchVisible; if (sidebarStates[index].searchVisible) { $nextTick(() => $refs.searchInput.focus()); }" class="text-gray-400 hover:text-white transition-colors">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
+                                        </button>
+                                        <span class="text-sm font-normal text-gray-400" x-text="(sidebarType === 'playlist' ? Object.keys(items).length : items.length)"></span>
+                                        <svg class="w-6 h-6 transform transition-transform" :class="{'rotate-180': sidebarStates[index].collapsed}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </h2>
+                                <div x-show="!sidebarStates[index].collapsed && sidebarStates[index].searchVisible" x-transition class="relative mb-1 px-1 md:px-0">
+                                    <input type="text" x-model.debounce.200ms="sidebarStates[index].search" placeholder="Search..." @click.stop @keydown.escape.prevent="sidebarStates[index].search = ''" x-ref="searchInput" class="sidebar-search-input w-full border rounded-md py-1 px-2 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500" :class="enableVisualEffects ? 'glassmorphism border-[var(--color-cyan-glow)] shadow-[0_0_5px_var(--color-cyan-glow)]' : 'bg-black/30 border-fuchsia-500/30'">
+                                    <button x-show="sidebarStates[index].search" @click="sidebarStates[index].search = ''" class="absolute right-1 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                                    </button>
+                                </div>
+                                <ul x-show="!sidebarStates[index].collapsed" @scroll="menuPopup.hide()" class="overflow-y-auto flex-grow">
+                                    <li @click="clearItems()" @contextmenu.prevent="openMenu('context', $event, { type: 'library' })" :class="{'bg-cyan-400/20': selectedItems.length === 0}" class="py-0 md:py-0.5 px-1 md:px-2 rounded-md cursor-pointer md:hover:bg-cyan-400/10 transition-colors">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke-width="2">
+                                            <path stroke="url(#grad-fuchsia-cyan)" stroke-linecap="round" stroke-linejoin="round" d="M4 12h2l2-7l4 14l3-9h3" />
+                                        </svg>
+                                        All
+                                    </li>
+                                    <template x-if="sidebarType === 'playlist'">
+                                        <template x-for="(songs, name) in items" :key="name">
+                                            <li @click="toggleItem(name, $event)" @contextmenu.prevent="openMenu('context', $event, { type: contextMenuType, data: name })" :class="{'bg-cyan-400/20': selectedItems.includes(name)}" class="py-0 md:py-0.5 px-1 md:px-2 rounded-md cursor-pointer md:hover:bg-cyan-400/10 transition-colors flex items-center gap-2">
+                                                <template x-if="playlistInfo[name] && playlistInfo[name].type === 'radio'">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                                        <circle fill="url(#grad-fuchsia-cyan)" cx="12" cy="12" r="2" />
+                                                        <path stroke="url(#grad-fuchsia-cyan)" stroke-linecap="round" stroke-linejoin="round" d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14" />
+                                                    </svg>
+                                                </template>
+                                                <span class="truncate" x-text="name"></span>
+                                            </li>
+                                        </template>
+                                    </template>
+                                    <template x-if="sidebarType !== 'playlist'">
+                                        <template x-for="item in items" :key="item">
+                                            <li @click="toggleItem(item, $event)" @contextmenu.prevent="openMenu('context', $event, { type: contextMenuType, data: item })" :class="{'bg-cyan-400/20': selectedItems.includes(item)}" class="py-0 md:py-0.5 px-1 md:px-2 rounded-md cursor-pointer md:hover:bg-cyan-400/10 transition-colors truncate" x-text="item"></li>
+                                        </template>
+                                    </template>
+                                </ul>
+                            </div>
+                        </aside>
+                    </template>
+                </div>
+                <div x-show="!isMobileMode && (sidebar1 !== 'none' || sidebar2 !== 'none')" class="sidebar-resizer hidden lg:block" @mousedown.stop.prevent="startSidebarResizing($event)"></div>
+
+                <!-- Song List / Tracklist -->
+                <div class="tracklist-container w-full lg:w-auto lg:flex-1 glassmorphism rounded-lg md:rounded-xl relative flex flex-col min-w-0 min-h-0 lg:-mb-40">
+                    <div class="p-1 md:py-1.5 md:px-3 flex justify-between items-center border-b border-fuchsia-500/20 flex-shrink-0">
+                        <h2 class="font-normal neon-text-cyan flex items-baseline gap-3" :class="viewTitleClasses">
+                            <span x-html="viewTitle"></span>
+                            <span x-show="shuffle !== 'off'" x-transition class="font-normal text-fuchsia-400" x-text="shuffle === 'list' ? '(shuffled)' : '(random)'"></span>
+                        </h2>
+                        <div class="flex items-center gap-4">
+                            <span class="text-gray-400 text-xs md:text-base" x-show="!loading" x-text="search.length >= 1 ? `${filteredSongs.length} songs found` : `${displayedSongCount} songs found`"></span>
+                            <div x-show="enableLyrics && currentSong && currentSong.lyrics" x-cloak class="relative group" @mouseenter="positionTooltip($event)">
+                                <button @click="showLyricsModal = !showLyricsModal; userClosedLyricsModal = !showLyricsModal" class="text-gray-200 hover:text-white transition-colors transform hover:scale-110 duration-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+                                        <path stroke="url(#grad-fuchsia-cyan)" stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                </button>
+                                <span class="tooltip hidden lg:block">Lyrics</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="overflow-y-auto overflow-x-hidden flex-grow relative" x-ref="songListContainer" @scroll="menuPopup.hide()" @scroll.debounce.150ms="handleScroll($event)">
+                        <div class="h-full">
+                            <!-- Song table -->
+                            <table class="tracklist-table w-full min-w-full table-fixed text-left">
+                            <thead class="sticky top-0 z-10 tracklist-header">
+                                <tr>
+                                    <template x-for="colId in columnOrder" :key="colId">
+                                        <th x-show="isColumnVisible(colId)"
+                                            :draggable="!isResizingColumn"
+                                            @dragstart="handleColumnDragStart($event, colId)"
+                                            @dragover="handleColumnDragOver($event, colId)"
+                                            @dragleave="handleColumnDragLeave($event, colId)"
+                                            @dragend="handleColumnDragEnd($event)"
+                                            @drop="handleColumnDrop($event, colId)"
+                                            class="relative py-1 px-2 md:py-1.5 md:px-3 text-base md:text-lg cursor-pointer transition-all duration-200 whitespace-nowrap"
+                                            :class="{
+                                                'neon-text-cyan': sortCol === colId && shuffle === 'off',
+                                                'tracklist-col-album': colId === 'album',
+                                                'tracklist-col-genre': colId === 'genre',
+                                                'tracklist-col-duration': colId === 'duration',
+                                                'text-right': colId === 'duration',
+                                                'w-8 md:w-12': colId === 'track_number',
+                                                'w-12 md:w-16': colId === 'bitrate',
+                                                'w-14 md:w-20': colId === 'duration',
+                                                'w-full': colId === 'title',
+                                                'w-1/3': colId === 'artist',
+                                                'w-1/4': colId === 'album' || colId === 'genre',
+                                                'w-20 md:w-28': colId === 'rating',
+                                                'opacity-50': draggedColumn === colId,
+                                                'column-drop-target': dragOverColumn === colId
+                                            }"
+                                            @click="sortBy(colId)">
+                                            <template x-if="colId === 'duration'">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.414-1.414L11 9.586V6z" clip-rule="evenodd" /></svg>
+                                            </template>
+                                            <span x-text="getColumnLabel(colId)"></span>
+                                            <span x-show="sortCol === colId && shuffle === 'off'" x-text="sortDir === 'asc' ? '▲' : '▼'"></span>
+                                            <div class="resizer" @mousedown.stop.prevent="startResizing($event)" @click.stop></div>
+                                        </th>
+                                    </template>
+                                </tr>
+                            </thead>
+                            <tbody class="table-hover" x-show="!loading">
+                                <template x-if="filteredSongs.length === 0">
+                                    <tr>
+                                        <td :colspan="columnOrder.filter(id => isColumnVisible(id)).length" class="text-center p-8 text-gray-400">
+                                            <div x-show="ratingFilter.length > 0 || selectedGenres.length > 0 || selectedPlaylists.length > 0">
+                                                <p class="mb-4" x-text="search.length > 1 ? 'No results for your search with the current filters.' : 'No tracks match the current filters.'"></p>
+                                                <p class="mb-2">Try removing these active filters:</p>
+                                                <div class="flex justify-center items-center gap-4 flex-wrap">
+                                                    <template x-if="search.length > 1">
+                                                        <button @click="search = ''" class="px-3 py-1 border border-fuchsia-500 bg-fuchsia-500/10 rounded-lg transition-all shadow-[0_0_4px_#d946ef] hover:shadow-[0_0_8px_#e879f9] hover:border-fuchsia-400 hover:bg-fuchsia-500/20">
+                                                            Search: "<span class="italic" x-text="search"></span>"
+                                                        </button>
+                                                    </template>
+                                                    <template x-if="ratingFilter.length > 0">
+                                                        <button @click="ratingFilter = []" class="px-3 py-1 border border-fuchsia-500 bg-fuchsia-500/10 rounded-lg transition-all shadow-[0_0_4px_#d946ef] hover:shadow-[0_0_8px_#e879f9] hover:border-fuchsia-400 hover:bg-fuchsia-500/20">
+                                                            Ratings
+                                                        </button>
+                                                    </template>
+                                                    <template x-if="selectedGenres.length > 0">
+                                                        <button @click="clearGenres()" class="px-3 py-1 border border-fuchsia-500 bg-fuchsia-500/10 rounded-lg transition-all shadow-[0_0_4px_#d946ef] hover:shadow-[0_0_8px_#e879f9] hover:border-fuchsia-400 hover:bg-fuchsia-500/20">
+                                                            Genres: <span x-text="selectedGenres.join(', ')"></span>
+                                                        </button>
+                                                    </template>
+                                                    <template x-if="selectedPlaylists.length > 0">
+                                                        <button @click="clearPlaylists()" class="px-3 py-1 border border-fuchsia-500 bg-fuchsia-500/10 rounded-lg transition-all shadow-[0_0_4px_#d946ef] hover:shadow-[0_0_8px_#e879f9] hover:border-fuchsia-400 hover:bg-fuchsia-500/20">
+                                                            Playlists: <span x-text="selectedPlaylists.join(', ')"></span>
+                                                        </button>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                            <div x-show="!(ratingFilter.length > 0 || selectedGenres.length > 0 || selectedPlaylists.length > 0)">
+                                                <span x-text="search.length > 1 ? 'No tracks found for your search.' : 'No tracks found.'"></span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </template>
+                                <template x-for="(song, index) in songsToDisplay" :key="song.id + '-' + index">
+                                    <tr :id="'song-row-' + song.id" @click="handleSongClick(index, $event)" @contextmenu.prevent="openMenu('context', $event, { type: 'song', data: song })" :class="{ 'preloading-song-row': preloadingSongId === song.id, 'active-song-row': currentSong && currentSong.id === song.id && !preloadingSongId, 'active-song-unlisted': currentSong && currentSong.id === song.id && urlLoadedSongId === song.id, 'bg-cyan-500/20': currentSong && currentSong.id === song.id, 'bg-fuchsia-500/10': selectedIndex === index && !(currentSong && currentSong.id === song.id) }" class="border-t border-fuchsia-500/20 cursor-pointer transition-colors duration-200 text-sm md:text-base">
+                                        <template x-for="colId in columnOrder" :key="colId">
+                                            <td x-show="isColumnVisible(colId)"
+                                                class="px-2 py-0 md:px-4 md:py-0.5 group relative"
+                                                :class="{
+                                                    'text-gray-400 whitespace-nowrap': ['track_number', 'bitrate', 'duration'].includes(colId),
+                                                    'tracklist-col-album': colId === 'album',
+                                                    'tracklist-col-genre': colId === 'genre',
+                                                    'tracklist-col-duration text-right': colId === 'duration',
+                                                    'whitespace-nowrap font-mono': colId === 'rating'
+                                                }"
+                                                @dblclick.stop="['track_number', 'title', 'artist', 'album', 'genre'].includes(colId) && !isMobileMode && startEditingTag(song, colId, $event)">
+
+                                                <!-- Track Number -->
+                                                <template x-if="colId === 'track_number'">
+                                                    <div class="min-w-0">
+                                                        <div class="flex items-center justify-between min-w-0" x-show="editingTag.songId !== song.id || editingTag.field !== 'track_number'">
+                                                            <span x-text="song.track_number > 0 ? song.track_number : ''"></span>
+                                                            <svg @click.stop="isMobileMode ? startEditingTag(song, 'track_number', $event) : showNotification('Double-click the item to edit it.', 'info')" x-show="canEditTags" title="Double-click to edit" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transition-opacity cursor-pointer" :class="canEditTags && currentSong && currentSong.id === song.id && isMobileMode ? 'opacity-100' : 'opacity-0 group-hover:opacity-40'" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                                                        </div>
+                                                        <div class="relative" x-show="editingTag.songId === song.id && editingTag.field === 'track_number'">
+                                                            <input type="number" x-model="editingTag.value" :disabled="savingTag" @blur="saveTag()" @click.away="saveTag()" @keydown.enter="saveTag()" @keydown.escape="cancelEditingTag()" @click.stop class="bg-gray-900 text-white border border-cyan-500 rounded px-1 w-16 focus:ring-1 focus:ring-cyan-400 shadow-[0_0_5px_rgba(0,217,255,0.5)] outline-none">
+                                                            <template x-if="savingTag">
+                                                                <div class="absolute right-1 top-1/2 -translate-y-1/2"><svg class="animate-spin h-3 w-3 text-cyan-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg></div>
+                                                            </template>
+                                                        </div>
+                                                    </div>
+                                                </template>
+
+                                                <!-- Title -->
+                                                <template x-if="colId === 'title'">
+                                                    <div class="min-w-0">
+                                                        <div class="flex items-center justify-start gap-2 min-w-0" x-show="editingTag.songId !== song.id || editingTag.field !== 'title'">
+                                                            <template x-if="song.is_radio">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                                                    <circle fill="url(#grad-fuchsia-cyan)" cx="12" cy="12" r="2" />
+                                                                    <path stroke="url(#grad-fuchsia-cyan)" stroke-linecap="round" stroke-linejoin="round" d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14" />
+                                                                </svg>
+                                                            </template>
+                                                            <div class="flex items-center gap-2 truncate flex-grow">
+                                                                <div class="truncate" x-html="song.highlighted_title"></div>
+                                                            </div>
+                                                            <svg @click.stop="isMobileMode ? startEditingTag(song, 'title', $event) : showNotification('Double-click the item to edit it.', 'info')" x-show="canEditTags" title="Double-click to edit" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transition-opacity flex-shrink-0 cursor-pointer" :class="canEditTags && currentSong && currentSong.id === song.id && isMobileMode ? 'opacity-100' : 'opacity-0 group-hover:opacity-40'" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                                                        </div>
+                                                        <div class="relative" x-show="editingTag.songId === song.id && editingTag.field === 'title'">
+                                                            <input type="text" x-model="editingTag.value" :disabled="savingTag" @blur="saveTag()" @click.away="saveTag()" @keydown.enter="saveTag()" @keydown.escape="cancelEditingTag()" @click.stop class="bg-gray-900 text-white border border-cyan-500 rounded px-1 w-full focus:ring-1 focus:ring-cyan-400 shadow-[0_0_5px_rgba(0,217,255,0.5)] outline-none">
+                                                            <template x-if="savingTag">
+                                                                <div class="absolute right-2 top-1/2 -translate-y-1/2"><svg class="animate-spin h-4 w-4 text-cyan-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg></div>
+                                                            </template>
+                                                        </div>
+                                                    </div>
+                                                </template>
+
+                                                <!-- Artist -->
+                                                <template x-if="colId === 'artist'">
+                                                    <div class="min-w-0">
+                                                        <div class="flex items-center justify-between gap-2 min-w-0" x-show="editingTag.songId !== song.id || editingTag.field !== 'artist'">
+                                                            <div class="truncate" x-html="song.highlighted_artist"></div>
+                                                            <svg @click.stop="isMobileMode ? startEditingTag(song, 'artist', $event) : showNotification('Double-click the item to edit it.', 'info')" x-show="canEditTags" title="Double-click to edit" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transition-opacity flex-shrink-0 cursor-pointer" :class="canEditTags && currentSong && currentSong.id === song.id && isMobileMode ? 'opacity-100' : 'opacity-0 group-hover:opacity-40'" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                                                        </div>
+                                                        <div class="relative" x-show="editingTag.songId === song.id && editingTag.field === 'artist'">
+                                                            <input type="text" x-model="editingTag.value" :disabled="savingTag" @blur="saveTag()" @click.away="saveTag()" @keydown.enter="saveTag()" @keydown.escape="cancelEditingTag()" @click.stop class="bg-gray-900 text-white border border-cyan-500 rounded px-1 w-full focus:ring-1 focus:ring-cyan-400 shadow-[0_0_5px_rgba(0,217,255,0.5)] outline-none">
+                                                            <template x-if="savingTag">
+                                                                <div class="absolute right-2 top-1/2 -translate-y-1/2"><svg class="animate-spin h-4 w-4 text-cyan-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg></div>
+                                                            </template>
+                                                        </div>
+                                                    </div>
+                                                </template>
+
+                                                <!-- Album -->
+                                                <template x-if="colId === 'album'">
+                                                    <div class="min-w-0">
+                                                        <div class="flex items-center justify-between gap-2 min-w-0" x-show="editingTag.songId !== song.id || editingTag.field !== 'album'">
+                                                            <div class="truncate" x-html="song.highlighted_album"></div>
+                                                            <svg @click.stop="isMobileMode ? startEditingTag(song, 'album', $event) : showNotification('Double-click the item to edit it.', 'info')" x-show="canEditTags" title="Double-click to edit" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transition-opacity flex-shrink-0 cursor-pointer" :class="canEditTags && currentSong && currentSong.id === song.id && isMobileMode ? 'opacity-100' : 'opacity-0 group-hover:opacity-40'" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                                                        </div>
+                                                        <div class="relative" x-show="editingTag.songId === song.id && editingTag.field === 'album'">
+                                                            <input type="text" x-model="editingTag.value" :disabled="savingTag" @blur="saveTag()" @click.away="saveTag()" @keydown.enter="saveTag()" @keydown.escape="cancelEditingTag()" @click.stop class="bg-gray-900 text-white border border-cyan-500 rounded px-1 w-full focus:ring-1 focus:ring-cyan-400 shadow-[0_0_5px_rgba(0,217,255,0.5)] outline-none">
+                                                            <template x-if="savingTag">
+                                                                <div class="absolute right-2 top-1/2 -translate-y-1/2"><svg class="animate-spin h-4 w-4 text-cyan-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg></div>
+                                                            </template>
+                                                        </div>
+                                                    </div>
+                                                </template>
+
+                                                <!-- Genre -->
+                                                <template x-if="colId === 'genre'">
+                                                    <div class="min-w-0">
+                                                        <div class="flex items-center justify-between gap-2 min-w-0" x-show="editingTag.songId !== song.id || editingTag.field !== 'genre'">
+                                                            <div class="truncate" x-text="song.genre"></div>
+                                                            <svg @click.stop="isMobileMode ? startEditingTag(song, 'genre', $event) : showNotification('Double-click the item to edit it.', 'info')" x-show="canEditTags" title="Double-click to edit" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transition-opacity flex-shrink-0 cursor-pointer" :class="canEditTags && currentSong && currentSong.id === song.id && isMobileMode ? 'opacity-100' : 'opacity-0 group-hover:opacity-40'" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                                                        </div>
+                                                        <div class="relative" x-show="editingTag.songId === song.id && editingTag.field === 'genre'">
+                                                            <input type="text" x-model="editingTag.value" :disabled="savingTag" @blur="saveTag()" @click.away="saveTag()" @keydown.enter="saveTag()" @keydown.escape="cancelEditingTag()" @click.stop class="bg-gray-900 text-white border border-cyan-500 rounded px-1 w-full focus:ring-1 focus:ring-cyan-400 shadow-[0_0_5px_rgba(0,217,255,0.5)] outline-none">
+                                                            <template x-if="savingTag">
+                                                                <div class="absolute right-2 top-1/2 -translate-y-1/2"><svg class="animate-spin h-4 w-4 text-cyan-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg></div>
+                                                            </template>
+                                                        </div>
+                                                    </div>
+                                                </template>
+
+                                                <!-- Rating -->
+                                                <template x-if="colId === 'rating'">
+                                                    <div class="min-w-0">
+                                                        <template x-for="star in [1, 2, 3, 4, 5]">
+                                                            <span @click.stop="setSongRating(song, star)"
+                                                                  class="text-2xl md:text-3xl transition-colors duration-200"
+                                                                  :class="[
+                                                                      star <= song.rating ? 'text-cyan-400' : 'text-gray-600 hover:text-cyan-400/50',
+                                                                      canEditTags ? 'cursor-pointer' : 'cursor-default'
+                                                                  ]"
+                                                                  x-text="'★'"></span>
+                                                        </template>
+                                                    </div>
+                                                </template>
+
+                                                <!-- Bitrate -->
+                                                <template x-if="colId === 'bitrate'">
+                                                    <span x-text="song.bitrate && song.bitrate != 0 ? song.bitrate : ''"></span>
+                                                </template>
+
+                                                <!-- Duration -->
+                                                <template x-if="colId === 'duration'">
+                                                    <span x-text="formatTime(song.duration)"></span>
+                                                </template>
+                                            </td>
+                                        </template>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                        <div x-show="!loading && !viewLoading && filteredSongs.length > 0 && displayLimit >= filteredSongs.length" class="h-36 lg:h-40"></div>
+                        <div x-show="loading" class="flex flex-col justify-center items-center h-64 gap-4 px-4">
+                            <svg class="animate-spin h-10 w-10 text-cyan-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            <div class="w-full max-w-md bg-black/30 rounded-full h-4 border border-fuchsia-500/50 overflow-hidden">
+                                <div class="bg-gradient-to-r from-fuchsia-500 to-cyan-400 h-full rounded-full transition-all duration-300" :style="`width: ${loadingProgress}%`"></div>
+                            </div>
+                            <div class="text-cyan-400 neon-text-cyan text-center" x-html="loadingMessage"></div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+        <!-- Player Bar -->
+        <footer x-show="canListen" class="footer-player fixed bottom-0 left-0 right-0 h-auto lg:h-40 glassmorphism p-4 border-t-2 border-fuchsia-500/50 z-[9999]"
+                @touchstart="handleTouchStart($event)"
+                @touchend="handleTouchEnd($event)"
+                :class="{'is-playing': discVisible, 'is-expanded': mobilePlayerExpanded}">
+            <audio id="audio-player-A" x-ref="playerA" preload="none"
+                   @timeupdate="activePlayerRef === 'A' && updateProgress()"
+                   @ended="activePlayerRef === 'A' && playNext(false)"
+                   @loadedmetadata="onLoadedMetadata($event, 'A')"
+                   @error="handleAudioError('A')"></audio>
+            <audio id="audio-player-B" x-ref="playerB" preload="none"
+                   @timeupdate="activePlayerRef === 'B' && updateProgress()"
+                   @ended="activePlayerRef === 'B' && playNext(false)"
+                   @loadedmetadata="onLoadedMetadata($event, 'B')"
+                   @error="handleAudioError('B')"></audio>
+
+            <div class="flex flex-col lg:flex-row h-full w-full">
+                <!-- Mobile Player Layout -->
+                <div class="lg:hidden flex flex-col w-full h-full">
+                    <!-- Mini Player View (Collapsed) -->
+                    <div class="mobile-mini-controls" x-show="!mobilePlayerExpanded" @click="toggleMobilePlayer()">
+                        <div class="mini-progress-line" :style="`width: ${progressPercent}%`"></div>
+                        <div class="flex items-center gap-2 w-full">
+                            <div class="w-10 h-10 flex-shrink-0 relative" @click.stop="showCoverImage ? toggleFullscreenCover() : toggleMobilePlayer()">
+                                <img :src="currentSong ? (currentSong.is_radio ? '/coverart-fallback-radio.webp' : (!songsWithNoCover.has(currentSong.id) ? '/cover/' + currentSong.id : '/coverart-fallback.webp')) : '/coverart-fallback.webp'"
+                                     class="w-full h-full rounded-md object-cover">
+                            </div>
+                            <div class="mobile-mini-info">
+                                <div class="flex items-center">
+                                    <div class="marquee-container">
+                                        <div class="marquee-content">
+                                            <p class="text-sm font-bold neon-text-pink inline" x-text="currentSong ? currentSong.title : 'Not Playing'"></p>
+                                            <span x-show="playbackRate !== 1.0" class="mobile-mini-speed-badge" x-text="playbackRate.toFixed(1) + 'x'"></span>
+                                            <!-- Duplicate for seamless loop -->
+                                            <template x-if="$el.closest('.animate-marquee')">
+                                                <span class="inline">
+                                                    <span class="mx-4">|</span>
+                                                    <p class="text-sm font-bold neon-text-pink inline" x-text="currentSong ? currentSong.title : 'Not Playing'"></p>
+                                                </span>
+                                            </template>
+                                        </div>
+                                    </div>
+                                    <div x-show="isPlaying" class="mobile-mini-wave">
+                                        <span></span><span></span><span></span>
+                                    </div>
+                                </div>
+                                <div class="marquee-container">
+                                    <div class="marquee-content">
+                                        <p class="text-xs text-gray-400 inline" x-text="currentSong ? currentSong.artist : ''"></p>
+                                        <template x-if="$el.closest('.animate-marquee')">
+                                            <span class="inline">
+                                                <span class="mx-4">|</span>
+                                                <p class="text-xs text-gray-400 inline" x-text="currentSong ? currentSong.artist : ''"></p>
+                                            </span>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center flex-shrink-0">
+                                <button @click.stop="playPrev()" class="p-1 text-gray-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 5h2v14h-2V5zm12 0L8 12l10 7V5z"/></svg>
+                                </button>
+                                <button @click.stop="togglePlay()" class="p-1 text-cyan-400">
+                                    <svg x-show="!isPlaying" xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5.14v14l11-7-11-7z"/></svg>
+                                    <svg x-show="isPlaying" xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                                </button>
+                                <button @click.stop="playNext(true)" class="p-1 text-gray-400">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 5l10 7-10 7V5zm12 0h-2v14h2V5z"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Full Player View (Expanded Hero) -->
+                    <div class="mobile-full-player" x-show="mobilePlayerExpanded">
+                        <!-- Dynamic Background for Mobile Hero -->
+                        <img x-show="mobilePlayerExpanded"
+                             :src="currentSong ? (currentSong.is_radio ? '/coverart-fallback-radio.webp' : (!songsWithNoCover.has(currentSong.id) ? '/cover/' + currentSong.id : '/disc.png')) : '/disc.png'"
+                             class="mobile-hero-bg lg:hidden">
+                        <div class="w-full flex justify-between items-center px-4 pt-2 cursor-pointer relative z-10" @click="toggleMobilePlayer()">
+                            <button class="text-gray-400 p-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div class="mobile-drag-handle flex-grow mx-4"></div>
+                            <div class="w-12 flex justify-end">
+                                <button x-show="!isStandalone" @click.stop="showInstallInstructions()" class="text-cyan-400 p-2 hover:text-cyan-300 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Hero Disc -->
+                        <div x-show="!loading" class="mobile-hero-disc" @click.stop="toggleDiscRotation()" @contextmenu.prevent>
+                            <div class="w-full h-full rounded-full border-4 border-fuchsia-500/30 p-1 shadow-[0_0_50px_rgba(255,0,222,0.3)]">
+                                <img :src="currentSong ? (currentSong.is_radio ? '/coverart-fallback-radio.webp' : (!songsWithNoCover.has(currentSong.id) ? '/cover/' + currentSong.id : '/disc.png')) : '/disc.png'"
+                                     class="w-full h-full rounded-full object-cover pointer-events-none select-none"
+                                     draggable="false"
+                                     @contextmenu.prevent
+                                     :class="{
+                                         'disc-spin': true,
+                                         'disc-paused': !isPlaying || userPausedDisc
+                                     }">
+                            </div>
+                        </div>
+
+                        <!-- Loading State for Mobile Hero -->
+                        <div x-show="loading" class="flex-grow flex flex-col justify-center items-center gap-6 px-8 relative z-10">
+                            <div class="loading-spinner !w-16 !h-16"></div>
+                            <div class="w-full max-w-xs bg-black/30 rounded-full h-3 border border-fuchsia-500/50 overflow-hidden">
+                                <div class="bg-gradient-to-r from-fuchsia-500 to-cyan-400 h-full rounded-full transition-all duration-300" :style="`width: ${loadingProgress}%`"></div>
+                            </div>
+                            <div class="text-cyan-400 neon-text-cyan text-center text-lg font-bold" x-html="loadingMessage"></div>
+                        </div>
+
+                        <!-- Info -->
+                        <div x-show="!loading" class="mobile-hero-info" :class="{'disc-paused': !isWindowFocused || userPausedDisc}">
+                            <div class="w-full overflow-hidden">
+                                <div class="marquee-container">
+                                    <div class="marquee-content">
+                                        <h2 class="font-bold neon-text-pink mb-1 inline-block" x-text="currentSong ? currentSong.title : ''"></h2>
+                                        <template x-if="$el.closest('.animate-marquee')">
+                                            <span class="inline">
+                                                <span class="mx-4">|</span>
+                                                <h2 class="font-bold neon-text-pink mb-1 inline-block" x-text="currentSong ? currentSong.title : ''"></h2>
+                                            </span>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-full overflow-hidden">
+                                <div class="marquee-container">
+                                    <div class="marquee-content">
+                                        <p class="text-lg text-cyan-400 inline-block" x-text="currentSong ? currentSong.artist : ''"></p>
+                                        <template x-if="$el.closest('.animate-marquee')">
+                                            <span class="inline">
+                                                <span class="mx-4">|</span>
+                                                <p class="text-lg text-cyan-400 inline-block" x-text="currentSong ? currentSong.artist : ''"></p>
+                                            </span>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                            <div x-show="currentSong && (currentSong.album || currentSong.genre)" class="w-full overflow-hidden mt-1 opacity-70">
+                                <div :class="(currentSong && ((currentSong.album || '').length + (currentSong.genre || '').length) > 55) ? 'marquee-container' : ''">
+                                    <div class="marquee-content">
+                                        <p class="text-base italic inline-block" x-text="currentSong ? currentSong.album : ''"></p>
+                                        <span x-show="currentSong && currentSong.album && currentSong.genre" class="mx-2">|</span>
+                                        <p class="text-base inline-block" x-text="currentSong ? currentSong.genre : ''"></p>
+                                        <template x-if="$el.closest('.animate-marquee')">
+                                            <span class="inline">
+                                                <span class="mx-4">|</span>
+                                                <p class="text-base italic inline-block" x-text="currentSong ? currentSong.album : ''"></p>
+                                                <span x-show="currentSong && currentSong.album && currentSong.genre" class="mx-2">|</span>
+                                                <p class="text-base inline-block" x-text="currentSong ? currentSong.genre : ''"></p>
+                                            </span>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rating (Mobile Hero) -->
+                        <div x-show="!loading && enableRatingColumn && currentSong && !currentSong.is_radio" class="flex justify-center gap-1 mt-2 mb-1">
+                            <template x-for="star in [1, 2, 3, 4, 5]">
+                                <span @click.stop="setSongRating(currentSong, star)"
+                                      class="text-4xl transition-colors duration-200"
+                                      :class="[
+                                          star <= (currentSong ? currentSong.rating : 0) ? 'text-cyan-400 star-active-anim' : 'text-gray-600',
+                                          canRateSongs ? 'cursor-pointer' : 'cursor-default'
+                                      ]"
+                                      x-text="'★'"></span>
+                            </template>
+                        </div>
+
+                        <!-- Progress -->
+                        <div x-show="!loading" class="w-full px-0 mt-1 mb-0 relative z-20">
+                            <input type="range" min="0" :max="duration" x-model="currentTime" @input="seek($event)" @wheel="adjustProgressWithWheel($event)" class="w-full mb-0" :style="`--progress: ${progressPercent}%`">
+                            <div class="flex justify-between text-sm md:text-base text-gray-400 font-mono">
+                                <span x-text="formatTime(currentTime)"></span>
+                                <span x-text="formatTime(duration)"></span>
+                            </div>
+                        </div>
+
+                        <!-- Controls -->
+                        <div x-show="!loading" class="mobile-hero-controls mb-1">
+                            <button @click="if(Date.now() - _lastHoldEnd > 300) { playPrev() }" @mousedown="handleButtonPress('prev')" @touchstart.passive="handleButtonPress('prev')" @mouseup="handleButtonRelease('prev')" @touchend.passive="handleButtonRelease('prev')" @mouseleave="clearHold()" class="text-gray-300 p-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="currentColor" viewBox="0 0 24 24"><path d="M6 5h2v14h-2V5zm12 0L8 12l10 7V5z"/></svg>
+                            </button>
+                            <button @click="togglePlay()" class="bg-fuchsia-600 p-6 rounded-full shadow-[0_0_20px_rgba(255,0,222,0.6)]">
+                                <svg x-show="!isPlaying" xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5.14v14l11-7-11-7z"/></svg>
+                                <svg x-show="isPlaying" xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                            </button>
+                            <button @click="if(Date.now() - _lastHoldEnd > 300) { playNext(true) }" @mousedown="handleButtonPress('next')" @touchstart.passive="handleButtonPress('next')" @mouseup="handleButtonRelease('next')" @touchend.passive="handleButtonRelease('next')" @mouseleave="clearHold()" class="text-gray-300 p-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="currentColor" viewBox="0 0 24 24"><path d="M6 5l10 7-10 7V5zm12 0h-2v14h2V5z"/></svg>
+                            </button>
+                        </div>
+
+
+                        <!-- Extra Actions -->
+                        <div x-show="!loading" class="flex justify-around w-full mt-1 px-2 opacity-70">
+                            <button @click="toggleShuffle()" :class="shuffle !== 'off' ? 'text-cyan-400 neon-text-cyan' : 'text-gray-400'">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 4l3 3l-3 3M18 20l3-3l-3-3M3 7h3a5 5 0 0 1 5 5a5 5 0 0 0 5 5h5M3 17h3a5 5 0 0 0 5-5a5 5 0 0 1 5-5h5" stroke="currentColor" />
+                                    <text x="12" y="23" font-size="10" font-family="monospace" font-weight="bold" fill="currentColor" text-anchor="middle" x-show="shuffle === 'random'">R</text>
+                                </svg>
+                            </button>
+                            <button @click="toggleRepeat()" :class="repeat !== 'off' ? 'text-cyan-400 neon-text-cyan' : 'text-gray-400'">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                    <path x-show="repeat === 'one'" stroke-linecap="round" stroke-linejoin="round" d="M11 11l1-1v4" />
+                                </svg>
+                            </button>
+                            <button @click="showLyricsModal = true; mobilePlayerExpanded = false; fullscreenCoverVisible = false" class="text-gray-300" :class="{'opacity-50': !currentSong || !currentSong.lyrics}">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                            </button>
+                            <button @click="downloadSong(currentSong)" class="text-gray-300" :class="{'opacity-50': !currentSong || currentSong.is_radio}">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Desktop Player Layout -->
+                <div class="hidden lg:flex flex-col justify-center h-full w-full gap-y-2">
+                    <!-- Top Row: Info, Controls, Volume -->
+                    <div class="flex items-center w-full">
+                        <!-- Album Art & Info -->
+                        <div class="flex items-center lg:w-1/4 lg:relative">
+                            <!-- Cover art feature (Desktop) -->
+                            <div x-show="enableCoverArt && currentSong && showCoverImage && !hideCoverForGenreInteraction" x-cloak class="player-cover-art-desktop hidden lg:block w-80 h-64 absolute -top-40 left-9"
+                                 x-transition:enter="transition-opacity duration-1000" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                                 x-transition:leave="transition-opacity duration-1000" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+                                <div class="w-full h-full relative">
+                                    <!-- The disc image -->
+                                    <div x-show="showCoverImage" class="absolute left-[0.8rem] top-[0.8rem] w-[14.4rem] h-[14.4rem] transition-transform duration-500 ease-out" :class="{'translate-x-[42%]': discVisible}">
+                                        <div x-ref="disc"
+                                             @click.stop="toggleDiscGlow()"
+                                             class="w-full h-full bg-no-repeat bg-center bg-cover rounded-full transition-opacity duration-500 cursor-pointer transition-shadow duration-[300ms]"
+                                             style="background-image: url('/disc.png');"
+                                             :style="discVisible ? { 'box-shadow': isStopping ? 'none' : discGlows[discGlowIndex] } : {}"
+                                             :class="{'disc-spin': isPlaying && discVisible}">
+                                        </div>
+                                    </div>
+                                    <!-- The cover art image -->
+                                    <div @click="toggleFullscreenDesktopCover()"
+                                         @contextmenu.prevent="openMenu('context', $event, { type: 'song', data: currentSong })"
+                                         class="absolute left-0 top-0 w-64 h-64 rounded-lg shadow-lg shadow-black/50 cursor-pointer z-10 transition-transform duration-500 ease-out"
+                                         :class="{'-translate-x-[10%]': discVisible && showCoverImage, 'glassmorphism': !showCoverImage, 'cover-shiny-parent': showCoverImage}">
+                                        <img x-show="showCoverImage"
+                                             :src="coverArtSong ? (coverArtSong.is_radio ? '/coverart-fallback-radio.webp' : (!songsWithNoCover.has(coverArtSong.id) ? '/cover/' + coverArtSong.id : '/coverart-fallback.webp')) : '/coverart-fallback.webp'"
+                                             @error="if (coverArtSong) songsWithNoCover.add(coverArtSong.id)"
+                                             class="absolute inset-0 w-full h-full rounded-lg transition-opacity duration-500 bg-transparent"
+                                             alt="Album Cover">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Player Info (Desktop) -->
+                            <div class="desktop-player-info hidden lg:block" :class="{'pl-96': enableCoverArt && currentSong && showCoverImage}">
+                                <p class="text-lg font-bold truncate" x-html="currentSong ? currentSong.title : ''"></p>
+                                <p class="text-md text-gray-300 truncate" x-html="currentSong ? currentSong.artist : ''"></p>
+                            </div>
+                        </div>
+
+                        <!-- Player Controls (Desktop) -->
+                        <div class="lg:w-1/2 flex justify-center">
+                            <div class="w-full flex items-center justify-between">
+                                <div class="flex-1 flex items-center gap-6 justify-end">
+                                    <div class="relative group" @mouseenter="positionTooltip($event)">
+                                        <button @click="toggleShuffle()" :class="{'neon-text-cyan': shuffle !== 'off'}" class="hover:text-white transition-colors transform hover:scale-110 duration-200">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+                                                <g :stroke="shuffle !== 'off' ? '#00d9ff' : 'url(#grad-fuchsia-cyan)'">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 4l3 3l-3 3" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 20l3 -3l-3 -3" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 7h3a5 5 0 0 1 5 5a5 5 0 0 0 5 5h5" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 17h3a5 5 0 0 0 5 -5a5 5 0 0 1 5 -5h5" />
+                                                </g>
+                                                <text x="12" y="23" font-size="12" font-family="monospace" font-weight="bold" fill="#f0f" text-anchor="middle" x-show="shuffle === 'random'" class="neon-text-pink">R</text>
+                                            </svg>
+                                        </button>
+                                        <span class="tooltip hidden lg:block" x-text="shuffle === 'off' ? 'Shuffle: Off' : (shuffle === 'list' ? 'Shuffle: List' : 'Shuffle: Random')"></span>
+                                    </div>
+                                    <div class="relative group" @mouseenter="positionTooltip($event)">
+                                        <button @click="playPrev()" class="text-gray-200 hover:text-white transition-colors transform hover:scale-110 duration-200">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" viewBox="0 0 24 24">
+                                                <path fill="url(#grad-fuchsia-cyan)" d="M6 5h2v14h-2V5zm12 0L8 12l10 7V5z" />
+                                            </svg>
+                                        </button>
+                                        <span class="tooltip hidden lg:block">Previous Song</span>
+                                    </div>
+                                </div>
+                                <div class="flex-shrink-0 mx-6">
+                                    <div class="relative group" @mouseenter="positionTooltip($event)">
+                                        <button @click="togglePlay()" class="bg-fuchsia-500/80 hover:bg-fuchsia-500 rounded-full p-3 text-white shadow-lg shadow-fuchsia-500/50 transform hover:scale-110 transition-all">
+                                            <svg x-show="!isPlaying" xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M8 5.14v14l11-7-11-7z"/>
+                                            </svg>
+                                            <svg x-show="isPlaying" xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                                            </svg>
+                                        </button>
+                                        <span class="tooltip hidden lg:block" x-text="isPlaying ? 'Pause' : 'Play'"></span>
+                                    </div>
+                                </div>
+                                <div class="flex-1 flex items-center gap-8 justify-start">
+                                    <div class="relative group" @mouseenter="positionTooltip($event)">
+                                        <button @click="playNext(true)" class="text-gray-200 hover:text-white transition-colors transform hover:scale-110 duration-200">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" viewBox="0 0 24 24">
+                                                <path fill="url(#grad-fuchsia-cyan)" d="M6 5l10 7-10 7V5zm12 0h-2v14h2V5z" />
+                                            </svg>
+                                        </button>
+                                        <span class="tooltip hidden lg:block">Next Song</span>
+                                    </div>
+                                    <div class="relative group" @mouseenter="positionTooltip($event)">
+                                        <button @click="toggleRepeat()" :class="{'neon-text-cyan': repeat !== 'off'}" class="hover:text-white transition-colors transform hover:scale-110 duration-200">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+                                                <g :stroke="repeat !== 'off' ? '#00d9ff' : 'url(#grad-fuchsia-cyan)'">
+                                                    <!-- Repeat All/Off icon -->
+                                                    <g x-show="repeat !== 'one'">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h10v3l4-4-4-4v3H5v6h2V7z"/>
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 17H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/>
+                                                    </g>
+                                                    <!-- Repeat One icon -->
+                                                    <g x-show="repeat === 'one'">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h10v3l4-4-4-4v3H5v6h2V7z"/>
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 17H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/>
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12.5 13.5v-3.5L11 11.5"/>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </button>
+                                        <span class="tooltip hidden lg:block" x-text="repeat === 'off' ? 'Repeat: Off' : (repeat === 'all' ? 'Repeat: All' : 'Repeat: One')"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Volume Control (Desktop) -->
+                        <div class="lg:w-1/4 flex flex-col items-end gap-2">
+                            <div class="flex items-center gap-2">
+                                <div class="relative group" @mouseenter="positionTooltip($event)">
+                                    <!-- Volume icon when not muted -->
+                                    <template x-if="!muted && volume > 0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer" viewBox="0 0 24 24" @click="toggleMute()">
+                                            <path fill="url(#grad-fuchsia-cyan)" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                                        </svg>
+                                    </template>
+                                    <!-- Muted icon -->
+                                    <template x-if="muted || volume === 0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer" viewBox="0 0 24 24" @click="toggleMute()">
+                                            <defs>
+                                                <linearGradient id="grad-muted" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                    <stop offset="0%" stop-color="#777" />
+                                                    <stop offset="100%" stop-color="#777" />
+                                                </linearGradient>
+                                            </defs>
+                                            <path fill="url(#grad-muted)" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                                        </svg>
+                                    </template>
+                                    <span class="tooltip hidden lg:block">Mute</span>
+                                </div>
+                                <div class="relative flex items-center group">
+                                     <input @contextmenu.stop type="range" min="0" max="1" step="0.01" x-model="volume" @input="changeVolume($event)" @mousedown="showVolumeTooltip = true" @mouseup="showVolumeTooltip = false" @mouseleave="showVolumeTooltip = false" @mousemove="updateVolumeTooltip($event)" @wheel="adjustVolumeWithWheel($event)" class="w-44" :style="`--progress: ${volume * 100}%`">
+                                     <span class="tooltip lg:block" x-show="showVolumeTooltip" x-text="Math.round(volume * 100) + '%'"></span>
+                                </div>
+                            </div>
+                            <div class="relative group" @mouseenter="positionTooltip($event)" x-show="showPlaybackSpeedControl"
+                                x-transition:enter="speed-widget-appear-animation"
+                                x-transition:leave="speed-widget-disappear-animation">
+                                <button @click="cyclePlaybackRate()" @wheel.prevent="adjustPlaybackRateWithWheel($event)"
+                                        class="hover:text-white transition-colors transform hover:scale-110 duration-200 text-3xl font-bold w-24 h-12 flex items-center justify-center rounded-md"
+                                        :class="{'neon-text-cyan': playbackRate !== 1.0}">
+                                    <span x-text="playbackRate.toFixed(1) + 'x'"></span>
+                                </button>
+                                <span class="tooltip hidden lg:block">Playback Speed</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Progress Bar (Desktop) -->
+                    <div class="w-full flex justify-center">
+                        <div class="w-full lg:w-1/2 flex items-center gap-2">
+                            <span class="text-xs md:text-base text-gray-400" x-text="formatTime(currentTime)"></span>
+                            <input @contextmenu.stop type="range" min="0" :max="duration" x-model="currentTime" @input="seek($event)" @wheel="adjustProgressWithWheel($event)" class="w-full" :style="`--progress: ${progressPercent}%`">
+                            <span class="text-xs md:text-base text-gray-400" x-text="formatTime(duration)"></span>
+                        </div>
+                    </div>
+                    <!-- Desktop Footer Branding -->
+                    <% unless ($is_pro) { %>
+                    <div class="absolute bottom-2 right-4 hidden lg:block">
+                        <a href="https://www.elivecd.org/" target="_blank" class="text-[10px] text-gray-500 hover:text-fuchsia-400 transition-colors duration-300">
+                            Made with ❤️ by Elive Linux
+                        </a>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Fullscreen Cover Art Overlay -->
+    <div x-show="fullscreenCoverVisible || fullscreenDesktopCoverVisible"
+         x-transition:enter="transition ease-out duration-500"
+         x-transition:enter-start="opacity-0 scale-95"
+         x-transition:enter-end="opacity-100 scale-100"
+         x-transition:leave="transition ease-in duration-300"
+         x-transition:leave-start="opacity-100 scale-100"
+         x-transition:leave-end="opacity-0 scale-95"
+         class="fixed inset-0 z-[10000] bg-black/95 flex flex-col items-center justify-center p-4 cursor-pointer"
+         @click.self="hideFullscreenCover()">
+        <div class="relative max-w-4xl w-full group flex flex-col items-center" :class="fullscreenDesktopCoverVisible ? 'h-[85vh]' : 'aspect-square'">
+            <img :src="fullscreenCoverSong ? (fullscreenCoverSong.is_radio ? '/coverart-fallback-radio.webp' : (!songsWithNoCover.has(fullscreenCoverSong.id) ? '/cover/' + fullscreenCoverSong.id : '/coverart-fallback.webp')) : '/coverart-fallback.webp'"
+                 class="w-full object-contain rounded-lg shadow-2xl shadow-fuchsia-500/20"
+                 :class="fullscreenDesktopCoverVisible ? 'h-[70vh]' : 'h-full'"
+                 @error="if (fullscreenCoverSong) songsWithNoCover.add(fullscreenCoverSong.id)">
+
+            <!-- Rating Stars in Fullscreen -->
+            <div x-show="enableRatingColumn && fullscreenCoverSong && !fullscreenCoverSong.is_radio"
+                 class="flex justify-center gap-2 mt-6 relative z-20" @click.stop>
+                <template x-for="star in [1, 2, 3, 4, 5]">
+                    <span @click.stop="setSongRating(fullscreenCoverSong, star)"
+                          class="text-5xl md:text-6xl transition-colors duration-200"
+                          :class="[
+                              star <= (fullscreenCoverSong ? fullscreenCoverSong.rating : 0) ? 'text-cyan-400 star-active-anim' : 'text-gray-600 hover:text-cyan-400/50',
+                              canRateSongs ? 'cursor-pointer' : 'cursor-default'
+                          ]"
+                          x-text="'★'"></span>
+                </template>
+            </div>
+        </div>
+    </div>
+
+    <%= include 'partials/modals_synthwave' %>
+
+<script>
+window.SWP_FRIENDS = JSON.parse('<%== Mojo::Util::decode("UTF-8", Mojo::JSON::encode_json($friends_music || [])) =~ s/'/\\'/gr %>');
+window.SWP_CONFIG = {
+    has_registered_users: false,
+    default_sort_by: '<%= $default_sort_by %>',
+    default_sort_order: '<%= $default_sort_order %>',
+    initial_songs_to_load_mobile: <%= $initial_songs_to_load_mobile %>,
+    initial_songs_to_load_desktop: <%= $initial_songs_to_load_desktop %>,
+    ui_font_family: '<%= $ui_font_family %>',
+    lyrics_font_size_desktop: '<%= $lyrics_font_size_desktop %>',
+    lyrics_font_size_mobile: '<%= $lyrics_font_size_mobile %>',
+    lyrics_font_family: '<%= $lyrics_font_family %>',
+    songs_to_load_on_scroll_mobile: <%= $songs_to_load_on_scroll_mobile %>,
+    songs_to_load_on_scroll_desktop: <%= $songs_to_load_on_scroll_desktop %>,
+    app_version: '<%= $app_version %>',
+    show_playback_speed_min_minutes: <%= $show_playback_speed_min_minutes %>,
+    enable_online_lyrics_search: <%= $enable_online_lyrics_search ? 'true' : 'false' %>,
+    enable_cover_art: <%= $enable_cover_art ? 'true' : 'false' %>,
+    admin_password_is_set: <%= $admin_password_is_set ? 'true' : 'false' %>,
+    allow_admin_from_any_network: <%= $allow_admin_from_any_network ? 'true' : 'false' %>,
+    allow_local_network_editing: <%= $allow_local_network_editing ? 'true' : 'false' %>,
+    showSetInitialPasswordModal: <%= !$admin_password_is_set && ($is_private_network || $allow_admin_from_any_network) ? 'true' : 'false' %>,
+    showUpnpErrorModal: <%= ($upnp_error_message && $is_private_network) ? 'true' : 'false' %>,
+    is_private_network: <%= $is_private_network ? 'true' : 'false' %>,
+    is_admin: <%= $is_admin ? 'true' : 'false' %>,
+    ignore_playback_errors_ms: <%= $ignore_playback_errors_ms %>,
+    previous_button_restart_seconds: <%= $previous_button_restart_seconds %>,
+    scroll_to_song_align_mobile: <%= $scroll_to_song_align_mobile %>,
+    scroll_to_song_align_desktop: <%= $scroll_to_song_align_desktop %>,
+    is_pro: <%= $is_pro ? 'true' : 'false' %>,
+    is_admin: <%= $is_admin ? 'true' : 'false' %>,
+    periodic_update_check_hours: <%= $periodic_update_check_hours %>,
+    min_search_length: <%= $min_search_length %>,
+    songs_per_page: <%= $songs_per_page %>,
+    notification_visible_ms: <%= $notification_visible_ms %>,
+    show_playlists_out_of_date_warning: <%= $show_playlists_out_of_date_warning ? 'true' : 'false' %>,
+    source_hash: '<%= $source_hash %>',
+    current_user: '<%= session('user') || '' %>',
+};
+</script>
+<script src="/synthwaveplayer.js?v=<%= $app_version %>"></script>
+</body>
+</html>

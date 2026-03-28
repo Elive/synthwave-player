@@ -1,0 +1,6 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: synthwave-player
+Source: https://github.com/Elive/synthwave-player
+
+Files: *
+Copyright: Thanatermesis

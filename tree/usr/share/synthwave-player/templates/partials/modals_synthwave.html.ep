@@ -1,0 +1,704 @@
+
+    <!-- Lyrics Modal -->
+    <div id="lyrics-modal-container"
+         x-show="showLyricsModal" x-cloak
+         x-transition:enter="transition-all ease-out duration-300"
+         x-transition:enter-start="opacity-0 transform translate-x-full"
+         x-transition:enter-end="opacity-100 transform translate-x-0"
+         x-transition:leave="transition-all ease-in duration-300"
+         x-transition:leave-start="opacity-100 transform translate-x-0"
+         x-transition:leave-end="opacity-0 transform translate-x-full"
+         @click="if (isMobileDevice) hideFullscreenCover()"
+         @keydown.escape.window="showLyricsModal = false; userClosedLyricsModal = true; menuPopup.hide()"
+         class="fixed top-24 right-6 md:right-8 lg:right-10 bottom-36 lg:bottom-44 w-[65%] lg:w-[40%] glassmorphism z-30 flex flex-col min-h-0 rounded-lg md:rounded-xl lyrics-modal-glow">
+        <div @click.stop class="p-1 md:p-3 relative text-center border-b border-fuchsia-500/20 flex-shrink-0">
+            <h3 class="text-lg md:text-xl font-bold neon-text-cyan truncate px-12" x-text="currentSong ? `${currentSong.title} - ${currentSong.artist}` : 'Lyrics'"></h3>
+            <button @click="showLyricsModal = false; userClosedLyricsModal = true" class="absolute top-1/2 right-2 -translate-y-1/2 p-2 text-gray-200 hover:text-white hover:bg-white/20 rounded-full transition-colors z-10">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <div class="overflow-y-auto flex-grow relative p-4 md:p-8 lyrics-scroll-container" x-ref="lyricsContainer">
+            <div class="whitespace-pre-wrap lyrics-content" x-html="lyricsModalContent"></div>
+            <div class="h-36 lg:h-40"></div>
+        </div>
+    </div>
+
+    <!-- Equalizer Panel -->
+    <div x-show="showEqualizer && enableEqualizer" x-cloak
+            @click.away="showEqualizer = false"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 transform translate-y-full"
+            x-transition:enter-end="opacity-100 transform translate-y-0"
+            x-transition:leave="transition ease-in duration-300"
+            x-transition:leave-start="opacity-100 transform translate-y-0"
+            x-transition:leave-end="opacity-0 transform translate-y-full"
+            class="fixed bottom-[9.5rem] lg:bottom-[10.5rem] left-1/2 -translate-x-1/2 w-full max-w-3xl z-[9999]">
+        <div class="glassmorphism rounded-lg md:rounded-xl p-4 mx-4 border border-[var(--color-cyan-glow)] shadow-[0_0_8px_var(--color-cyan-glow)]">
+            <!-- EQ Controls -->
+            <div class="flex items-center justify-between mb-2 flex-wrap gap-2">
+                <div class="flex items-center flex-wrap gap-1">
+                    <span class="text-sm text-gray-400 mr-2">Presets:</span>
+                    <button @click="resetEq()" class="px-2 py-1 text-xs rounded-md bg-fuchsia-600 hover:bg-fuchsia-700">Reset</button>
+                    <template x-for="presetName in Object.keys(eqPresets)" :key="presetName">
+                        <button @click="applyEqPreset(presetName)"
+                                class="px-2 py-1 text-xs rounded-md"
+                                :class="activeEqPreset === presetName ? 'bg-cyan-500 text-white' : 'bg-gray-700 hover:bg-gray-600'">
+                            <span x-text="presetName"></span>
+                        </button>
+                    </template>
+                </div>
+            </div>
+
+            <!-- EQ Sliders -->
+            <div class="flex justify-around items-center gap-2">
+                <!-- Preamp slider -->
+                <div class="flex flex-col items-center gap-1">
+                    <div class="h-40 w-8 flex justify-center items-center">
+                        <input type="range" min="-12" max="12" step="1" x-model.number="preampGain" @wheel.prevent="preampGain = Math.max(-12, Math.min(12, preampGain - Math.sign($event.deltaY))); handleSliderGlow($event, 'fuchsia')" @input="handleSliderGlow($event, 'fuchsia')" class="w-40 h-2 -rotate-90 appearance-none bg-gray-700 rounded-lg cursor-pointer accent-fuchsia-500 slider-control">
+                    </div>
+                    <span class="text-xs">Pre</span>
+                    <span class="text-xs font-bold" x-text="preampGain.toFixed(0) + 'dB'" :class="{'neon-text-cyan': preampGain !== 0}"></span>
+                </div>
+
+                <!-- Vertical Separator -->
+                <div class="border-l border-fuchsia-500/30 h-40"></div>
+
+                <!-- EQ band sliders -->
+                <template x-for="(freq, index) in eqFrequencies" :key="index">
+                    <div class="flex flex-col items-center gap-1">
+                        <div class="h-40 w-8 flex justify-center items-center">
+                             <input type="range" min="-12" max="12" step="1" x-model.number="eqGains[index]" @wheel.prevent="eqGains[index] = Math.max(-12, Math.min(12, eqGains[index] - Math.sign($event.deltaY))); handleSliderGlow($event, 'cyan')" @input="handleSliderGlow($event, 'cyan')" class="w-40 h-2 -rotate-90 appearance-none bg-gray-700 rounded-lg cursor-pointer accent-cyan-500 slider-control">
+                        </div>
+                        <span class="text-xs" x-text="freq >= 1000 ? (freq/1000).toFixed(0) + 'k' : freq"></span>
+                        <span class="text-xs font-bold" x-text="eqGains[index].toFixed(0) + 'dB'" :class="{'neon-text-cyan': eqGains[index] !== 0}"></span>
+                    </div>
+                </template>
+                <!-- Vertical Separator -->
+                <div class="border-l border-fuchsia-500/30 h-40"></div>
+                <!-- Balance slider -->
+                <div class="flex flex-col items-center gap-1">
+                    <div class="h-40 w-8 flex justify-center items-center">
+                         <input type="range" min="-100" max="100" step="1" x-model.number="stereoBalance" @wheel.prevent="stereoBalance = Math.max(-100, Math.min(100, stereoBalance - Math.sign($event.deltaY) * 5)); handleSliderGlow($event, 'fuchsia')" @input="handleSliderGlow($event, 'fuchsia')" class="w-40 h-2 -rotate-90 appearance-none bg-gray-700 rounded-lg cursor-pointer accent-fuchsia-500 slider-control">
+                    </div>
+                    <span class="text-xs">Balance</span>
+                    <span class="text-xs font-bold" x-text="formatBalance(stereoBalance)" :class="{'neon-text-cyan': stereoBalance !== 0}"></span>
+                </div>
+                <!-- Bass Boost slider -->
+                <div class="flex flex-col items-center gap-1">
+                    <div class="h-40 w-8 flex justify-center items-center">
+                         <input type="range" min="0" max="8" step="0.1" x-model.number="bassBoost" @wheel.prevent="bassBoost = parseFloat(Math.max(0, Math.min(8, bassBoost - (Math.sign($event.deltaY) * 0.1))).toFixed(1)); handleSliderGlow($event, 'fuchsia')" @input="handleSliderGlow($event, 'fuchsia')" class="w-40 h-2 -rotate-90 appearance-none bg-gray-700 rounded-lg cursor-pointer accent-fuchsia-500 slider-control">
+                    </div>
+                    <span class="text-xs">Bass</span>
+                    <span class="text-xs font-bold" x-text="bassBoost.toFixed(1) + 'dB'" :class="{'neon-text-cyan': bassBoost !== 0}"></span>
+                </div>
+                <!-- Stereo Width slider -->
+                <div class="flex flex-col items-center gap-1">
+                    <div class="h-40 w-8 flex justify-center items-center">
+                         <input type="range" min="0" max="20" step="1" x-model.number="stereoWidth" @wheel.prevent="stereoWidth = Math.max(0, Math.min(20, stereoWidth - Math.sign($event.deltaY) * 1)); handleSliderGlow($event, 'fuchsia')" @input="handleSliderGlow($event, 'fuchsia')" class="w-40 h-2 -rotate-90 appearance-none bg-gray-700 rounded-lg cursor-pointer accent-fuchsia-500 slider-control">
+                    </div>
+                    <span class="text-xs">Stereo+</span>
+                    <span class="text-xs font-bold" x-text="stereoWidth.toFixed(0) + 'ms'" :class="{'neon-text-cyan': stereoWidth !== 0}"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Fullscreen Mobile Cover Art -->
+    <div x-show="fullscreenCoverVisible && fullscreenCoverSong && isMobileMode && !hideCoverForGenreInteraction"
+         @keydown.escape.window="hideFullscreenCover(); menuPopup.hide()"
+         x-cloak
+         class="fixed inset-0 z-[9998] flex items-start justify-center origin-top pointer-events-none"
+         x-transition:enter="transition ease-out duration-700"
+         x-transition:enter-start="opacity-0 transform scale-0"
+         x-transition:enter-end="opacity-100 transform scale-100"
+         x-transition:leave="transition ease-in duration-300"
+         x-transition:leave-start="opacity-100 transform scale-100"
+         x-transition:leave-end="opacity-0 transform scale-0">
+        <div @click="hideFullscreenCover()" @contextmenu.prevent="openMenu('context', $event, { type: 'song', data: fullscreenCoverSong })" class="w-full aspect-square pointer-events-auto cursor-pointer">
+            <img :src="fullscreenCoverSong ? (fullscreenCoverSong.is_radio ? '/coverart-fallback-radio.webp' : (!songsWithNoCover.has(fullscreenCoverSong.id) ? '/cover/' + fullscreenCoverSong.id : '/coverart-fallback.webp')) : '/coverart-fallback.webp'"
+                 @load="if (fullscreenCoverSong && isMobileMode && !userHidMobileCover) fullscreenCoverVisible = true"
+                 @error="if(fullscreenCoverSong) songsWithNoCover.add(fullscreenCoverSong.id)"
+                 alt="Fullscreen Album Cover"
+                 class="w-full h-full rounded-2xl cover-glow">
+        </div>
+    </div>
+
+    <!-- Fullscreen Desktop Cover Art -->
+    <div x-show="fullscreenDesktopCoverVisible && fullscreenCoverSong && !hideCoverForGenreInteraction"
+         @click="toggleFullscreenDesktopCover()"
+         @contextmenu.prevent="openMenu('context', $event, { type: 'song', data: fullscreenCoverSong })"
+         @keydown.escape.window="fullscreenDesktopCoverVisible = false; menuPopup.hide()"
+         x-cloak
+         class="fixed inset-0 z-[9998] bg-black/80 backdrop-blur-sm cursor-pointer pb-14"
+         x-transition:enter="transition-opacity ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition-opacity ease-in duration-300"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0">
+        <div class="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 h-2/3 cover-shiny-parent rounded-2xl">
+            <img :src="fullscreenCoverSong ? (fullscreenCoverSong.is_radio ? '/coverart-fallback-radio.webp' : (!songsWithNoCover.has(fullscreenCoverSong.id) ? '/cover/' + fullscreenCoverSong.id : '/coverart-fallback.webp')) : '/coverart-fallback.webp'"
+                 @error="if(fullscreenCoverSong) songsWithNoCover.add(fullscreenCoverSong.id)"
+                 alt="Fullscreen Album Cover"
+                 class="h-full w-auto rounded-2xl cover-glow">
+        </div>
+    </div>
+
+    <!-- Autoplay Confirmation Modal -->
+    <div x-show="showAutoplayModal" x-cloak
+         @click="cancelAutoplay()"
+         @keydown.escape.window="cancelAutoplay()"
+         @keydown.enter.window="confirmAutoplay()"
+         class="fixed inset-0 bg-gray-900/80 flex justify-center items-start pt-8 md:pt-20 z-[10000] modal-content-host"
+         x-transition:enter="transition-opacity duration-300" x-transition:leave="transition-opacity duration-300">
+        <div @click.stop class="glassmorphism rounded-lg md:rounded-xl p-4 md:p-8 text-center max-w-sm mx-4 modal-content" style="border: 1px solid rgba(255, 0, 222, 0.2); box-shadow: none;">
+            <h3 class="text-2xl md:text-4xl font-bold neon-text-cyan mb-2 md:mb-4">Ready to rock?</h3>
+            <p class="text-gray-300 mb-4 md:mb-6">Press play to continue.</p>
+            <button @click="confirmAutoplay()"
+                    class="bg-fuchsia-500/80 hover:bg-fuchsia-500 rounded-lg px-4 py-2 md:px-8 md:py-3 text-white font-bold text-base md:text-lg shadow-lg shadow-fuchsia-500/50 transform hover:scale-105 transition-all">
+                Play
+            </button>
+        </div>
+    </div>
+
+    <!-- Add Music Modal -->
+    <div x-show="showAddMusicModal" x-cloak
+         @keydown.escape.window="showAddMusicModal = false"
+         @keydown.enter.window="showAddMusicModal = false"
+         class="fixed inset-0 bg-gray-900/80 flex justify-center items-start pt-8 md:pt-20 z-[10001] modal-content-host"
+         x-transition:enter="transition-opacity duration-300" x-transition:leave="transition-opacity duration-300">
+        <div class="glassmorphism rounded-lg md:rounded-xl p-4 md:p-8 text-center max-w-md mx-4 modal-content">
+            <h3 class="text-2xl md:text-4xl font-bold neon-text-cyan mb-2 md:mb-4">Manage Music Library</h3>
+            <p class="text-gray-300 mb-4">This player uses its own database. You can customize the music sources in your personal configuration file.</p>
+            <div class="text-left text-gray-200 mb-6">
+                <p class="mb-2 font-bold text-cyan-400">Manage your music files:</p>
+                <ol class="list-decimal list-inside space-y-1 text-sm">
+                    <li>Edit your 'Music Directories' in the server settings to specify where your music files are located.</li>
+                    <li>The player will automatically scan these directories recursively for supported audio files.</li>
+                    <li>For best results, ensure your music files are well-tagged with metadata (title, artist, album, genre).</li>
+                </ol>
+            </div>
+            <div class="text-left text-gray-200 mb-6 bg-black/20 p-3 rounded-md border border-fuchsia-500/20">
+                <p class="mb-2 font-bold text-cyan-400">Tip: Automatically tag your music files</p>
+                <p class="text-sm">Use the free software <a href="https://picard.musicbrainz.org/" target="_blank" class="text-cyan-400 hover:underline">Picard</a> to automatically tag your songs with correct metadata (title, artist, album, etc.) and even download cover art images. This will greatly improve your music library's organization and the player's display quality.</p>
+            </div>
+            <button @click="showAddMusicModal = false"
+                    class="bg-fuchsia-500/80 hover:bg-fuchsia-500 rounded-lg px-4 py-2 md:px-8 md:py-3 text-white font-bold text-base md:text-lg shadow-lg shadow-fuchsia-500/50 transform hover:scale-105 transition-all">
+                Got it
+            </button>
+        </div>
+    </div>
+
+
+
+    <!-- Online Server Info Modal -->
+    <div x-show="showOnlineServerModal" x-cloak
+         @click="showOnlineServerModal = false"
+         @keydown.escape.window="showOnlineServerModal = false"
+         @keydown.enter.window="showOnlineServerModal = false"
+         class="fixed inset-0 bg-gray-900/80 flex justify-center items-start pt-8 md:pt-20 z-[10001] modal-content-host"
+         x-transition:enter="transition-opacity duration-300" x-transition:leave="transition-opacity duration-300">
+        <div @click.stop class="glassmorphism rounded-lg md:rounded-xl p-4 md:p-8 text-center max-w-md mx-4 modal-content">
+            <h3 class="text-2xl md:text-4xl font-bold neon-text-cyan mb-2 md:mb-4">Online Server Setup</h3>
+            <p class="text-gray-300 mb-4">Instructions to enable your online server are included in the project's homepage for the Premium version.</p>
+            <div class="text-center text-gray-200 mb-6">
+                <a href="https://github.com/<%= $is_pro ? 'Elive-Premium' : 'Elive' %>/synthwave-player" target="_blank" class="text-cyan-400 hover:underline">https://github.com/<%= $is_pro ? 'Elive-Premium' : 'Elive' %>/synthwave-player</a>
+            </div>
+            <button @click="showOnlineServerModal = false"
+                    class="bg-fuchsia-500/80 hover:bg-fuchsia-500 rounded-lg px-4 py-2 md:px-8 md:py-3 text-white font-bold text-base md:text-lg shadow-lg shadow-fuchsia-500/50 transform hover:scale-105 transition-all">
+                Got it
+            </button>
+        </div>
+    </div>
+
+
+    <!-- UPnP Error Modal -->
+    <% if ($upnp_error_message && $is_private_network) { %>
+    <div x-show="showUpnpErrorModal" x-cloak
+         @click="showUpnpErrorModal = false"
+         @keydown.escape.window="showUpnpErrorModal = false"
+         @keydown.enter.window="showUpnpErrorModal = false"
+         class="fixed inset-0 bg-gray-900/80 flex justify-center items-start pt-8 md:pt-20 z-[10000] modal-content-host"
+         x-transition:enter="transition-opacity duration-300" x-transition:leave="transition-opacity duration-300">
+        <div @click.stop class="glassmorphism rounded-lg md:rounded-xl p-4 md:p-8 text-center max-w-md mx-4 modal-content">
+            <h3 class="text-2xl md:text-4xl font-bold text-amber-400 mb-2 md:mb-4">Online Server Warning</h3>
+            <p class="text-gray-300 mb-6"><%= $upnp_error_message %></p>
+            <button @click="showUpnpErrorModal = false"
+                    class="bg-fuchsia-500/80 hover:bg-fuchsia-500 rounded-lg px-4 py-2 md:px-8 md:py-3 text-white font-bold text-base md:text-lg shadow-lg shadow-fuchsia-500/50 transform hover:scale-105 transition-all">
+                Got it
+            </button>
+        </div>
+    </div>
+    <% } %>
+
+
+    <!-- Bug Report Premium Modal -->
+    <div x-show="showReportBugPremiumModal" x-cloak
+         @click="showReportBugPremiumModal = false"
+         @keydown.escape.window="showReportBugPremiumModal = false"
+         @keydown.enter.window="showReportBugPremiumModal = false"
+         class="fixed inset-0 bg-gray-900/80 flex justify-center items-start pt-8 md:pt-20 z-[10000] modal-content-host"
+         x-transition:enter="transition-opacity duration-300" x-transition:leave="transition-opacity duration-300">
+        <div @click.stop class="glassmorphism rounded-lg md:rounded-xl p-4 md:p-8 text-center max-w-md mx-4 modal-content">
+            <h3 class="text-2xl md:text-4xl font-bold neon-text-cyan mb-2 md:mb-4">Report a Bug</h3>
+            <p class="text-gray-300 mb-4">
+                <% if ($is_pro) { %>
+                    Is this bug related to the main application or specifically to the PRO version?
+                <% } else { %>
+                    Please describe the issue as best as possible, including the exact steps to reproduce it.
+                <% } %>
+            </p>
+            <div class="flex flex-col gap-4">
+                <% if ($is_pro) { %>
+                    <button @click="window.open('https://github.com/Elive/synthwave-player/issues', '_blank'); showReportBugPremiumModal = false"
+                            class="bg-cyan-500/80 hover:bg-cyan-500 rounded-lg px-4 py-2 md:px-8 md:py-3 text-white font-bold text-base md:text-lg shadow-lg shadow-cyan-500/50 transform hover:scale-105 transition-all">
+                        Report to Main Core (Suggested)
+                    </button>
+                    <button @click="window.open('https://github.com/Elive-Premium/synthwave-player/issues', '_blank'); showReportBugPremiumModal = false"
+                            class="bg-fuchsia-500/80 hover:bg-fuchsia-500 rounded-lg px-4 py-2 md:px-8 md:py-3 text-white font-bold text-base md:text-lg shadow-lg shadow-fuchsia-500/50 transform hover:scale-105 transition-all">
+                        Report PRO-specific Bug
+                    </button>
+                <% } else { %>
+                    <button @click="window.open('https://github.com/Elive/synthwave-player/issues', '_blank'); showReportBugPremiumModal = false"
+                            class="bg-cyan-500/80 hover:bg-cyan-500 rounded-lg px-4 py-2 md:px-8 md:py-3 text-white font-bold text-base md:text-lg shadow-lg shadow-cyan-500/50 transform hover:scale-105 transition-all">
+                        Open GitHub Issues
+                    </button>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Admin Login Modal -->
+    <div x-show="showAdminLoginModal" x-cloak
+         x-init="$watch('showAdminLoginModal', value => { if (value) { $nextTick(() => { const firstInput = $el.querySelector('input, textarea, select'); if (firstInput) firstInput.focus(); }); } })"
+         @keydown.escape.window="showAdminLoginModal = false"
+         class="fixed inset-0 bg-gray-900/80 flex justify-center items-start pt-8 md:pt-20 z-[10000] modal-content-host"
+         x-transition:enter="transition-opacity duration-300" x-transition:leave="transition-opacity duration-300">
+        <div @click.stop class="glassmorphism rounded-lg md:rounded-xl p-4 md:p-8 text-center max-w-sm mx-4 modal-content">
+            <h3 class="text-2xl md:text-4xl font-bold neon-text-cyan mb-2 md:mb-4">Admin Login</h3>
+            <p class="text-gray-300 mb-4">Enter password for user <span class="text-cyan-400 font-bold">admin</span> to access settings.</p>
+            <form @submit.prevent="loginAdmin()">
+                <div class="space-y-4 text-left">
+                    <div>
+                        <label for="admin-pass" class="block text-sm font-medium text-gray-300">Password</label>
+                        <input type="password" id="admin-pass" name="admin-password" x-model="adminPassword" @focus="$event.target.select()" autocomplete="current-password" required class="w-full mt-1 p-2 bg-gray-800 border border-gray-600 rounded-md text-white focus:ring-cyan-500 focus:border-cyan-500" x-ref="adminPassInput">
+                    </div>
+                </div>
+                <div x-show="adminLoginError" x-text="adminLoginError" class="mt-4 text-red-400"></div>
+                <div class="mt-6 flex justify-end gap-4">
+                    <button type="button" @click="showAdminLoginModal = false" class="bg-gray-600 hover:bg-gray-700 rounded-lg px-6 py-2 text-white font-bold transform hover:scale-105 transition-all">
+                        Cancel
+                    </button>
+                    <button type="submit" :disabled="adminLoginLoading" class="bg-fuchsia-500/80 hover:bg-fuchsia-500 rounded-lg px-6 py-2 text-white font-bold shadow-lg shadow-fuchsia-500/50 transform hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-wait">
+                        <span x-show="!adminLoginLoading">Login</span>
+                        <span x-show="adminLoginLoading">
+                            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Authenticating...
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Set Initial Admin Password Modal -->
+    <div x-show="showSetInitialPasswordModal" x-cloak
+         x-init="$watch('showSetInitialPasswordModal', value => { if (value) { $nextTick(() => { const firstInput = $el.querySelector('input, textarea, select'); if (firstInput) firstInput.focus(); }); } })"
+         @click="showSetInitialPasswordModal = false"
+         @keydown.escape.window="showSetInitialPasswordModal = false"
+         class="fixed inset-0 bg-gray-900/80 flex justify-center items-start pt-8 md:pt-20 z-[10000] modal-content-host"
+         x-transition:enter="transition-opacity duration-300" x-transition:leave="transition-opacity duration-300">
+        <div @click.stop class="glassmorphism rounded-lg md:rounded-xl p-4 md:p-8 text-center max-w-sm mx-4 modal-content">
+            <h3 class="text-2xl md:text-4xl font-bold neon-text-cyan mb-2 md:mb-4">Set Admin Password</h3>
+            <p class="text-gray-300 mb-4">To protect your server settings, please set a password for the <span class="text-cyan-400 font-bold">admin</span> user.</p>
+            <form @submit.prevent="setInitialAdminPassword()">
+                <div class="space-y-4 text-left">
+                    <div>
+                        <label for="initial-admin-pass" class="block text-sm font-medium text-gray-300">New Password</label>
+                        <input type="password" id="initial-admin-pass" name="new-admin-password" x-model="initialAdminPassword" @focus="$event.target.select()" autocomplete="current-password" required class="w-full mt-1 p-2 bg-gray-800 border border-gray-600 rounded-md text-white focus:ring-cyan-500 focus:border-cyan-500">
+                    </div>
+                    <div>
+                        <label for="initial-admin-pass-confirm" class="block text-sm font-medium text-gray-300">Confirm Password</label>
+                        <input type="password" id="initial-admin-pass-confirm" name="confirm-admin-password" x-model="initialAdminPasswordConfirm" @focus="$event.target.select()" autocomplete="current-password" required class="w-full mt-1 p-2 bg-gray-800 border border-gray-600 rounded-md text-white focus:ring-cyan-500 focus:border-cyan-500">
+                    </div>
+                </div>
+                <div x-show="initialPasswordError" x-text="initialPasswordError" class="mt-4 text-red-400"></div>
+                <div class="mt-6 flex justify-end gap-4">
+                    <button type="button" @click="showSetInitialPasswordModal = false" class="bg-gray-600 hover:bg-gray-700 rounded-lg px-6 py-2 text-white font-bold transform hover:scale-105 transition-all">
+                        Cancel
+                    </button>
+                    <button type="submit" :disabled="initialPasswordLoading" class="flex-grow bg-fuchsia-500/80 hover:bg-fuchsia-500 rounded-lg px-6 py-2 text-white font-bold shadow-lg shadow-fuchsia-500/50 transform hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-wait">
+                        <span x-show="!initialPasswordLoading">Set Password</span>
+                        <span x-show="initialPasswordLoading">
+                            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Saving...
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Server Settings Modal -->
+    <div x-show="showUserSettingsModal" x-cloak
+            x-init="$watch('showUserSettingsModal', value => { if (value) { $nextTick(() => { const firstInput = $el.querySelector('input, textarea, select'); if (firstInput) firstInput.focus(); }); } })"
+            @click="showUserSettingsModal = false"
+            @keydown.escape.window="showUserSettingsModal = false"
+            @keydown.enter.window="saveUserSettings"
+            class="fixed inset-0 bg-gray-900/80 flex justify-center items-start pt-8 md:pt-20 z-[10000] modal-content-host"
+            x-transition:enter="transition-opacity duration-300" x-transition:leave="transition-opacity duration-300">
+        <div @click.stop class="glassmorphism rounded-lg md:rounded-xl p-6 md:p-8 text-center max-w-2xl mx-4 w-full modal-content">
+            <h3 class="text-2xl md:text-4xl font-bold neon-text-cyan mb-2 md:mb-4">Server Settings</h3>
+            <div x-show="configLoading" class="text-center p-8">
+                <div class="loading-spinner mx-auto"></div>
+                <p class="mt-4 text-cyan-400">Loading settings...</p>
+            </div>
+            <form x-show="!configLoading" @submit.prevent="saveUserSettings" class="text-left space-y-2 max-h-[60vh] overflow-y-auto p-4 md:p-10">
+                <template x-for="(group, groupName) in groupedSettings" :key="groupName">
+                    <div class="mt-4 border-b border-fuchsia-500/10 pb-2" x-data="{ expanded: false }">
+                        <h4 @click="expanded = !expanded" class="text-xl font-bold text-cyan-400 neon-text-cyan mt-2 mb-2 pl-3 cursor-pointer flex justify-between items-center hover:bg-cyan-400/10 rounded-md p-2 transition-colors">
+                            <span x-text="groupName"></span>
+                            <svg class="w-6 h-6 transform transition-transform duration-300" :class="{'rotate-180': expanded}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </h4>
+                        <div x-show="expanded" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 transform -translate-y-2" x-transition:enter-end="opacity-100 transform translate-y-0" class="space-y-4 mt-4">
+                            <template x-if="groupName === 'Music Library'">
+                                <div class="p-3 rounded-md bg-black/20 border border-fuchsia-500/20">
+                                    <label class="font-bold text-gray-200">MUSIC LIBRARY</label>
+                                    <p class="text-xs text-gray-400 mb-2">Manage your music sources and database.</p>
+                                    <button type="button" @click="showAddMusicModal = true" class="px-3 py-1 bg-cyan-600 hover:bg-cyan-700 text-white rounded-md text-sm">Manage Music Library...</button>
+                                </div>
+                            </template>
+                            <template x-if="groupName === 'Networking'">
+                                <div class="p-3 rounded-md bg-black/20 border border-fuchsia-500/20">
+                                    <label class="font-bold text-gray-200">ONLINE SERVER</label>
+                                    <p class="text-xs text-gray-400 mb-2">Configure your server to be accessible from the internet.</p>
+                                    <button type="button" @click="showOnlineServerModal = true" class="px-3 py-1 bg-cyan-600 hover:bg-cyan-700 text-white rounded-md text-sm">Setup Online Server...</button>
+                                </div>
+                            </template>
+                            <template x-for="varName in group" :key="varName">
+                                <div x-show="isSettingVisible(varName)" class="p-3 rounded-md bg-black/20 border border-fuchsia-500/20">
+                                    <label :for="'config-' + varName" class="font-bold text-gray-200">
+                                        <span x-text="varName.replace(/_/g, ' ')"></span>
+                                        <template x-if="varName === 'ADMIN_PASSWORD'">
+                                            <span class="text-cyan-400 ml-1">(User: admin)</span>
+                                        </template>
+                                    </label>
+                                    <p class="text-xs text-gray-400 mb-2" x-text="userSettings.settings[varName] ? userSettings.settings[varName].comment : ''"></p>
+
+                                    <template x-if="userSettings.settings[varName] && (userSettings.settings[varName].type === 'scalar' || userSettings.settings[varName].type === 'boolean' || userSettings.settings[varName].type === 'list_name_value' || userSettings.settings[varName].type === 'list_name_password')">
+                                        <div x-data="{ inputType: _getSettingInputType(varName) }">
+                                            <!-- Boolean toggle -->
+                                            <template x-if="inputType === 'boolean'">
+                                                <label class="flex items-center cursor-pointer">
+                                                    <input type="checkbox" :id="'config-' + varName" x-model="userSettings.values[varName]" class="sr-only peer">
+                                                    <div class="relative w-11 h-6 bg-gray-600 rounded-full peer peer-focus:ring-4 peer-focus:ring-cyan-500/50 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cyan-500"></div>
+                                                    <span class="ms-3 text-sm font-medium text-gray-300" x-text="userSettings.values[varName] ? 'Enabled' : 'Disabled'"></span>
+                                                </label>
+                                            </template>
+                                            <!-- Sort by dropdown -->
+                                            <template x-if="inputType === 'sortBy'">
+                                                <select :id="'config-' + varName" :name="varName" x-model="userSettings.values[varName]" class="synth-select w-full mt-1 p-2 bg-gray-800 border border-gray-600 rounded-md text-white focus:ring-cyan-500 focus:border-cyan-500">
+                                                    <option value="title">Title</option>
+                                                    <option value="artist">Artist</option>
+                                                    <option value="album">Album</option>
+                                                    <option value="genre">Genre</option>
+                                                    <option value="duration">Duration</option>
+                                                    <option value="rating">Rating</option>
+                                                    <option value="track_number">Track Number</option>
+                                                </select>
+                                            </template>
+                                            <!-- Sort order dropdown -->
+                                            <template x-if="inputType === 'sortOrder'">
+                                                <select :id="'config-' + varName" :name="varName" x-model="userSettings.values[varName]" class="synth-select w-full mt-1 p-2 bg-gray-800 border border-gray-600 rounded-md text-white focus:ring-cyan-500 focus:border-cyan-500">
+                                                    <option value="asc">Ascending</option>
+                                                    <option value="desc">Descending</option>
+                                                </select>
+                                            </template>
+                                            <!-- Number input -->
+                                            <template x-if="inputType === 'number'">
+                                                <input :id="'config-' + varName" :name="varName" type="number" x-model.number="userSettings.values[varName]" @focus="$event.target.select()" step="any" class="w-full mt-1 p-2 bg-gray-800 border border-gray-600 rounded-md text-white focus:ring-cyan-500 focus:border-cyan-500">
+                                            </template>
+                                            <!-- Password input -->
+                                            <template x-if="inputType === 'password'">
+                                                <input :id="'config-' + varName" :name="varName" type="password" x-model="userSettings.values[varName]" placeholder="Enter new password to change" autocomplete="current-password" @focus="if (userSettings.values[varName] === '********') userSettings.values[varName] = ''; $event.target.select()" class="w-full mt-1 p-2 bg-gray-800 border border-gray-600 rounded-md text-white focus:ring-cyan-500 focus:border-cyan-500">
+                                            </template>
+                                            <!-- Text input -->
+                                            <template x-if="inputType === 'text'">
+                                                <input :id="'config-' + varName" :name="varName" type="text" x-model="userSettings.values[varName]" @focus="$event.target.select()" class="w-full mt-1 p-2 bg-gray-800 border border-gray-600 rounded-md text-white focus:ring-cyan-500 focus:border-cyan-500">
+                                            </template>
+                                            <!-- List Name-Value editor -->
+                                            <template x-if="inputType === 'listNameValue'">
+                                                <div class="space-y-2 mt-2">
+                                                    <template x-for="(item, index) in userSettings.values[varName]" :key="index">
+                                                        <div class="flex items-center gap-2">
+                                                            <input type="text" x-model="userSettings.values[varName][index].name" @focus="$event.target.select()" :placeholder="getArrayInputPlaceholder(varName, 'key')" class="w-1/3 p-2 bg-gray-800 border border-gray-600 rounded-md text-white focus:ring-cyan-500 focus:border-cyan-500">
+                                                            <input type="text" x-model="userSettings.values[varName][index].value" @focus="$event.target.select()" :placeholder="getArrayInputPlaceholder(varName, 'value')" class="w-2/3 p-2 bg-gray-800 border border-gray-600 rounded-md text-white focus:ring-cyan-500 focus:border-cyan-500">
+                                                            <button type="button" @click.prevent="userSettings.values[varName].splice(index, 1)" class="p-2 bg-red-600 hover:bg-red-700 text-white rounded-md flex-shrink-0">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>
+                                                            </button>
+                                                        </div>
+                                                    </template>
+                                                    <button type="button" @click.prevent="addArrayItem(varName)" class="mt-2 px-3 py-1 bg-cyan-600 hover:bg-cyan-700 text-white rounded-md text-sm" x-text="getArrayAddButtonText(varName)"></button>
+                                                </div>
+                                            </template>
+                                            <!-- List Name-Password editor -->
+                                            <template x-if="inputType === 'listNamePassword'">
+                                                <div class="space-y-2 mt-2">
+                                                    <template x-for="(item, index) in userSettings.values[varName]" :key="index">
+                                                        <div class="flex items-center gap-2">
+                                                            <input type="text" x-model="userSettings.values[varName][index].name" @focus="$event.target.select()" :placeholder="getArrayInputPlaceholder(varName, 'key')" class="w-1/3 p-2 bg-gray-800 border border-gray-600 rounded-md text-white focus:ring-cyan-500 focus:border-cyan-500">
+                                                            <input type="password" x-model="userSettings.values[varName][index].value" @focus="$event.target.select()" :placeholder="getArrayInputPlaceholder(varName, 'value')" class="w-2/3 p-2 bg-gray-800 border border-gray-600 rounded-md text-white focus:ring-cyan-500 focus:border-cyan-500">
+                                                            <button type="button" @click.prevent="userSettings.values[varName].splice(index, 1)" class="p-2 bg-red-600 hover:bg-red-700 text-white rounded-md flex-shrink-0">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>
+                                                            </button>
+                                                        </div>
+                                                    </template>
+                                                    <button type="button" @click.prevent="addArrayItem(varName)" class="mt-2 px-3 py-1 bg-cyan-600 hover:bg-cyan-700 text-white rounded-md text-sm" x-text="getArrayAddButtonText(varName)"></button>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </template>
+                                    <template x-if="userSettings.settings[varName] && userSettings.settings[varName].type === 'array'">
+                                        <!-- Array editor for directories and regexes -->
+                                        <div class="space-y-2 mt-2">
+                                            <template x-for="(item, index) in userSettings.values[varName]" :key="index">
+                                                <div class="flex items-center gap-2">
+                                                    <input type="text" x-model="userSettings.values[varName][index]"
+                                                           @focus="$event.target.select()"
+                                                           :placeholder="getArrayInputPlaceholder(varName)"
+                                                           class="flex-grow p-2 bg-gray-800 border border-gray-600 rounded-md text-white focus:ring-cyan-500 focus:border-cyan-500">
+                                                    <button type="button" @click.prevent="userSettings.values[varName].splice(index, 1)" class="p-2 bg-red-600 hover:bg-red-700 text-white rounded-md flex-shrink-0">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>
+                                                    </button>
+                                                </div>
+                                            </template>
+                                            <button type="button" @click.prevent="addArrayItem(varName)" class="mt-2 px-3 py-1 bg-cyan-600 hover:bg-cyan-700 text-white rounded-md text-sm" x-text="getArrayAddButtonText(varName)"></button>
+                                        </div>
+                                    </template>
+                                    <template x-if="!userSettings.settings[varName] || (userSettings.settings[varName].type !== 'scalar' && userSettings.settings[varName].type !== 'array' && userSettings.settings[varName].type !== 'boolean' && userSettings.settings[varName].type !== 'list_name_value' && userSettings.settings[varName].type !== 'list_name_password')">
+                                        <p class="text-sm text-amber-400 italic">This setting must be edited manually in the configuration file.</p>
+                                    </template>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </form>
+            <div x-show="!configLoading" class="flex justify-end gap-4 mt-6">
+                <button @click="showUserSettingsModal = false" type="button" class="bg-gray-600 hover:bg-gray-700 rounded-lg px-6 py-2 text-white font-bold transform hover:scale-105 transition-all">
+                    Cancel
+                </button>
+                <button @click="saveUserSettings" type="button" class="bg-fuchsia-500/80 hover:bg-fuchsia-500 rounded-lg px-6 py-2 text-white font-bold shadow-lg shadow-fuchsia-500/50 transform hover:scale-105 transition-all">
+                    Save Changes
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Metatags Modal -->
+    <div x-show="showMetadataModal" x-cloak
+         x-init="$watch('showMetadataModal', value => { if (value) { $nextTick(() => { const firstInput = $el.querySelector('input, textarea, select'); if (firstInput) firstInput.focus(); }); } })"
+         @click="if (!savingMetadata) showMetadataModal = false"
+         @keydown.escape.window="if (!savingMetadata) showMetadataModal = false"
+         @keydown.enter.window="if (canEditTags) saveMetadata(); else showMetadataModal = false"
+         class="fixed inset-0 bg-gray-900/80 flex justify-center items-start pt-8 md:pt-20 z-[10000] modal-content-host"
+         x-transition:enter="transition-opacity duration-300" x-transition:leave="transition-opacity duration-300">
+        <div @click.stop class="glassmorphism rounded-lg md:rounded-xl p-4 md:p-8 text-center max-w-2xl mx-4 w-full modal-content">
+            <h3 class="text-2xl md:text-4xl font-bold neon-text-cyan mb-2 md:mb-4" x-text="canEditTags ? 'Edit Metatags' : 'Song Metatags'"></h3>
+            <template x-if="metadataSong">
+            <div class="text-left space-y-4 max-h-[60vh] overflow-y-auto p-4 bg-black/20 rounded-md border border-fuchsia-500/20">
+                <!-- Editable Fields -->
+                <template x-if="canEditTags">
+                    <div class="space-y-4">
+                        <template x-for="key in ['title', 'artist', 'album', 'genre', 'album_artist', 'composer', 'track_number', 'disc_number', 'year', 'rating', 'comment', 'play_count', 'skip_count']" :key="'edit-'+key">
+                            <div class="flex flex-col md:flex-row md:items-center gap-1 md:gap-4 border-b border-fuchsia-500/10 pb-2">
+                                <span class="font-bold text-cyan-400 w-full md:w-1/3 capitalize" x-text="String(key).replace(/_/g, ' ')"></span>
+                                <div class="flex-grow">
+                                    <template x-if="key === 'rating'">
+                                        <div class="flex items-center gap-1 font-mono">
+                                            <template x-for="star in [1, 2, 3, 4, 5]">
+                                                <span @click="metadataEditForm.rating = star"
+                                                      class="text-2xl cursor-pointer transition-colors duration-200"
+                                                      :class="star <= metadataEditForm.rating ? 'text-cyan-400' : 'text-gray-600 hover:text-cyan-400/50'"
+                                                      x-text="'★'"></span>
+                                            </template>
+                                        </div>
+                                    </template>
+                                    <template x-if="['track_number', 'disc_number', 'play_count', 'skip_count'].includes(key)">
+                                        <input type="number" x-model.number="metadataEditForm[key]" @focus="$event.target.select()" class="w-full bg-gray-900 text-white border border-cyan-500/50 rounded px-2 py-1 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 outline-none">
+                                    </template>
+                                    <template x-if="key === 'year'">
+                                        <input type="text" :name="'metadata-' + key" x-model="metadataEditForm[key]" @focus="$event.target.select()" pattern="^\d{4}$" title="Year (YYYY)" class="w-full bg-gray-900 text-white border border-cyan-500/50 rounded px-2 py-1 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 outline-none">
+                                    </template>
+                                    <template x-if="key === 'comment'">
+                                        <textarea :name="'metadata-' + key" x-model="metadataEditForm[key]" @focus="$event.target.select()" rows="3" class="w-full bg-gray-900 text-white border border-cyan-500/50 rounded px-2 py-1 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 outline-none resize-y"></textarea>
+                                    </template>
+                                    <template x-if="!['rating', 'track_number', 'disc_number', 'year', 'comment', 'play_count', 'skip_count'].includes(key)">
+                                        <input type="text" :name="'metadata-' + key" x-model="metadataEditForm[key]" @focus="$event.target.select()" class="w-full bg-gray-900 text-white border border-cyan-500/50 rounded px-2 py-1 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 outline-none">
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+
+                <!-- Read-only Fields (or all fields if not editing) -->
+                <div :class="{'mt-8 pt-4 border-t border-fuchsia-500/30': canEditTags}">
+                    <h4 x-show="canEditTags" class="text-sm font-bold text-gray-400 mb-4 uppercase tracking-wider">Technical Details</h4>
+                    <template x-for="(value, key) in metadataSong" :key="'view-'+key">
+                        <div x-show="value !== null && value !== '' && !['highlighted_title', 'highlighted_artist', 'highlighted_album', 'lyrics', 'lyrics_html', 'title_html', 'artist_html', 'album_html'].includes(key) && (!canEditTags || !['title', 'artist', 'album', 'genre', 'album_artist', 'composer', 'track_number', 'disc_number', 'year', 'rating', 'comment', 'play_count', 'skip_count'].includes(key))"
+                             class="flex flex-col md:flex-row md:items-center gap-1 md:gap-4 border-b border-fuchsia-500/10 pb-2">
+                            <span class="font-bold text-cyan-400 w-full md:w-1/3 capitalize" x-text="String(key).replace(/_/g, ' ')"></span>
+                            <div class="flex-grow flex items-center gap-2 overflow-hidden">
+                                <span class="text-gray-200 break-all" x-text="key === 'duration' ? formatTime(value) : value"></span>
+                                <template x-if="key === 'location'">
+                                    <button @click="copyFilepath()" class="p-1 rounded-md hover:bg-cyan-500/20 transition-colors flex-shrink-0" title="Copy filepath">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                                        </svg>
+                                    </button>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+            </template>
+            <div class="flex justify-end gap-4 mt-6">
+                <template x-if="!canEditTags">
+                    <button @click="showMetadataModal = false" type="button" class="bg-fuchsia-500/80 hover:bg-fuchsia-500 rounded-lg px-6 py-2 text-white font-bold shadow-lg shadow-fuchsia-500/50 transform hover:scale-105 transition-all">
+                        Close
+                    </button>
+                </template>
+                <template x-if="canEditTags">
+                    <div class="flex gap-4">
+                        <button @click="showMetadataModal = false" :disabled="savingMetadata" type="button" class="bg-gray-600 hover:bg-gray-700 rounded-lg px-6 py-2 text-white font-bold transform hover:scale-105 transition-all disabled:opacity-50">
+                            Cancel
+                        </button>
+                        <button @click="saveMetadata()" :disabled="savingMetadata" type="button" class="bg-fuchsia-500/80 hover:bg-fuchsia-500 rounded-lg px-6 py-2 text-white font-bold shadow-lg shadow-fuchsia-500/50 transform hover:scale-105 transition-all disabled:opacity-50 flex items-center gap-2">
+                            <template x-if="!savingMetadata">
+                                <span>Save</span>
+                            </template>
+                            <template x-if="savingMetadata">
+                                <span class="flex items-center gap-2">
+                                    <svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                    Saving...
+                                </span>
+                            </template>
+                        </button>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+    <!-- Playlists Out of Date Warning Modal -->
+    <div x-show="showPlaylistsWarning" x-cloak
+         @click="showPlaylistsWarning = false; outOfDatePlaylists = []"
+         @keydown.escape.window="showPlaylistsWarning = false; outOfDatePlaylists = []"
+         @keydown.enter.window="showPlaylistsWarning = false; outOfDatePlaylists = []"
+         class="fixed inset-0 bg-gray-900/80 flex justify-center items-start pt-8 md:pt-20 z-[10000] modal-content-host"
+         x-transition:enter="transition-opacity duration-300" x-transition:leave="transition-opacity duration-300">
+        <div @click.stop class="glassmorphism rounded-lg md:rounded-xl p-4 md:p-8 text-center max-w-md mx-4 modal-content">
+            <h3 class="text-1xl md:text-3xl font-bold text-amber-400 mb-2 md:mb-4">Warning: Playlists Out of Date</h3>
+            <p class="text-gray-300 mb-6">Some songs in your playlists were not found in the music library. You may need to update playlist files.</p>
+            <div x-show="outOfDatePlaylists.length > 0" class="text-left text-gray-200 mb-6 bg-black/20 p-3 rounded-md border border-fuchsia-500/20 max-h-40 overflow-y-auto">
+                <p class="mb-2 font-bold text-cyan-400">Affected Playlists:</p>
+                <ul class="list-disc list-inside space-y-1 text-sm">
+                    <template x-for="playlist in outOfDatePlaylists" :key="playlist">
+                        <li x-text="playlist"></li>
+                    </template>
+                </ul>
+            </div>
+            <button @click="showPlaylistsWarning = false; outOfDatePlaylists = []"
+                    class="bg-fuchsia-500/80 hover:bg-fuchsia-500 rounded-lg px-4 py-2 md:px-8 md:py-3 text-white font-bold text-base md:text-lg shadow-lg shadow-fuchsia-500/50 transform hover:scale-105 transition-all">
+                Got it
+            </button>
+        </div>
+    </div>
+
+    <!-- PWA Install Instructions Modal -->
+    <div x-show="showInstallModal" x-cloak
+         @click="showInstallModal = false"
+         @keydown.escape.window="showInstallModal = false"
+         class="fixed inset-0 bg-gray-900/80 flex justify-center items-start pt-8 md:pt-20 z-[10001] modal-content-host"
+         x-transition:enter="transition-opacity duration-300" x-transition:leave="transition-opacity duration-300">
+        <div @click.stop class="glassmorphism rounded-lg md:rounded-xl p-6 md:p-8 text-center max-w-md mx-4 modal-content">
+            <h3 class="text-2xl md:text-3xl font-bold neon-text-cyan mb-4">Install as App</h3>
+            <p class="text-gray-300 mb-6">Run Synthwave Player as a native app for a better experience and full-screen playback.</p>
+
+            <div class="text-left space-y-4 mb-8">
+                <div class="flex items-start gap-3">
+                    <div class="bg-fuchsia-500/20 p-2 rounded-lg text-fuchsia-400 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+                    </div>
+                    <div>
+                        <p class="font-bold text-gray-100">iOS (Safari)</p>
+                        <p class="text-sm text-gray-400">Tap the <span class="text-cyan-400">Share</span> button and select <span class="text-cyan-400">"Add to Home Screen"</span>.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <div class="bg-cyan-500/20 p-2 rounded-lg text-cyan-400 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    </div>
+                    <div>
+                        <p class="font-bold text-gray-100">Android (Chrome)</p>
+                        <p class="text-sm text-gray-400">Tap the <span class="text-cyan-400">Menu (⋮)</span> and select <span class="text-cyan-400">"Install app"</span> or <span class="text-cyan-400">"Add to Home screen"</span>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <button @click="showInstallModal = false"
+                    class="w-full bg-fuchsia-500/80 hover:bg-fuchsia-500 rounded-lg py-3 text-white font-bold shadow-lg shadow-fuchsia-500/50 transform hover:scale-105 transition-all">
+                Got it
+            </button>
+        </div>
+    </div>
+
+    <!-- Update Available Modal -->
+    <div x-show="showUpdateModal" x-cloak
+         @keydown.escape.window="dismissUpdate()"
+         @keydown.enter.window="dismissUpdate()"
+         class="fixed inset-0 bg-gray-900/80 flex justify-center items-start pt-8 md:pt-20 z-[10000] modal-content-host"
+         x-transition:enter="transition-opacity duration-300" x-transition:leave="transition-opacity duration-300">
+        <div @click.stop class="glassmorphism rounded-lg md:rounded-xl p-4 md:p-8 text-center max-w-2xl mx-4 w-full modal-content">
+            <h3 class="text-2xl md:text-4xl font-bold neon-text-cyan mb-2 md:mb-4" x-text="'New Version Available: ' + (updateInfo ? updateInfo.latest_version : '')"></h3>
+          <p class="text-gray-300 mb-6">A new version of Synthwave Player is available:</p>
+          <div class="text-left text-gray-200 mb-6 bg-black/20 p-3 rounded-md border border-fuchsia-500/20 max-h-60 overflow-y-auto prose prose-invert prose-sm prose-ul:list-disc prose-li:my-1">
+                <div x-html="updateInfo ? (updateInfo.changelog_html || 'Changelog not available.') : 'Loading changelog...'"></div>
+                <template x-if="updateInfo && updateInfo.previous_changelog_html">
+                    <details class="mt-4">
+                        <summary class="cursor-pointer text-cyan-400 hover:text-cyan-300 not-prose font-bold">Previous Changes</summary>
+                        <div class="mt-2" x-html="updateInfo.previous_changelog_html"></div>
+                        <br/>
+                    </details>
+                </template>
+            </div>
+            <div class="flex justify-center gap-4 mt-6">
+                <button @click="dismissUpdate()" type="button" class="bg-gray-600 hover:bg-gray-700 rounded-lg px-6 py-2 text-white font-bold transform hover:scale-105 transition-all">
+                    Ignore Update
+                </button>
+                <% if ($is_private_network) { %>
+                <button @click="window.open(updateInfo.download_url, '_blank')" type="button" class="bg-cyan-500/80 hover:bg-cyan-500 rounded-lg px-6 py-2 text-white font-bold shadow-lg shadow-cyan-500/50 transform hover:scale-105 transition-all">
+                    Download Update
+                </button>
+                <% } %>
+            </div>
+        </div>
+    </div>

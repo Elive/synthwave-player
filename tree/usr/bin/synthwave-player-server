@@ -1,0 +1,114 @@
+#!/bin/bash
+
+port="$( jq '.SERVER_PORT' ~/.config/synthwave-player/server-config.json 2>/dev/null || echo "8160" )"
+if grep -qsE "^(my | |)\\\$IS_PRO = 1(;)?$" "/usr/share/synthwave-player/synthwave-player-server" ; then
+    is_pro=1
+fi
+pid_server_prev_file="$( [ -d "/var/run/user/$(id -u)" ] && echo "/var/run/user/$(id -u)/synthwave-player-server.pid" || echo "/tmp/.synthwave-player-server-${USER}.pid" )"
+pid_server_prev="$( cat "$pid_server_prev_file" 2>/dev/null || true )"
+if [ -n "$pid_server_prev" ] && ! kill -0 "$pid_server_prev" 2>/dev/null; then
+    rm -f "$pid_server_prev_file"
+    pid_server_prev=""
+fi
+
+pid_avahi_file="$( echo "$pid_server_prev_file" | sed 's/\.pid$/_avahi.pid/' )"
+pid_avahi_prev="$( cat "$pid_avahi_file" 2>/dev/null || true )"
+if [ -n "$pid_avahi_prev" ] && ! kill -0 "$pid_avahi_prev" 2>/dev/null; then
+    rm -f "$pid_avahi_file"
+    pid_avahi_prev=""
+fi
+
+
+# Check if the server is already running
+# if command -v "nc" >/dev/null 2>&1; then
+#     if nc -z "localhost" "$port" >/dev/null 2>&1; then
+#         echo -e "Error: Synthwave Player server is already running on port ${port}." >&2
+#         exit
+#     fi
+# fi
+
+avahi_publish(){
+    # Broadcast service via Avahi/mDNS if available
+    if command -v "avahi-publish" >/dev/null 2>&1; then
+        avahi-publish -s "Synthwave Player" _http._tcp "$port" >/dev/null 2>&1 &
+        echo $! > "$pid_avahi_file"
+    fi
+}
+
+stop_server(){
+    # Avoid recursion if called from trap
+    trap - INT TERM EXIT
+    cd /usr/share/synthwave-player
+    if [ "$is_pro" = 1 ]; then
+        hypnotoad -s /usr/share/synthwave-player/synthwave-player-server >/dev/null 2>&1 || true
+    fi
+    # pkill -f synthwave-player-server 1>/dev/null 2>&1 || true
+    kill "$pid_server_prev" 2>/dev/null || kill -9 "$pid_server_prev" 2>/dev/null || true
+    rm -f "$pid_server_prev_file"
+
+    if [ -n "$pid_avahi_prev" ]; then
+        kill "$pid_avahi_prev" 2>/dev/null || kill -9 "$pid_avahi_prev" 2>/dev/null || true
+        rm -f "$pid_avahi_file"
+    fi
+}
+
+# Trap signals to ensure cleanup
+trap stop_server INT TERM EXIT
+
+# Handle command line arguments for the server
+case "$1" in
+    --help)
+        echo "Usage: synthwave-player-server [OPTION]"
+        echo "  --help        Show this help message"
+        echo "  --debug       Run the server in development mode on port ${port}"
+        echo "  --stop        Stop the running server"
+        echo ""
+        echo "Without options, it starts the server in the foreground."
+        exit 0
+        ;;
+    --stop)
+        if [ -n "$pid_server_prev" ]; then
+            echo "Stopping Synthwave Player server (PID: $pid_server_prev)..."
+        else
+            echo "Server does not seem to be running."
+        fi
+        stop_server
+        exit 0
+        ;;
+    --debug)
+        # Run in development mode on a specific port for debugging
+        # /usr/share/synthwave-player/synthwave-player-server daemon -m development --port ${port}
+        cd /usr/share/synthwave-player
+        morbo synthwave-player-server -l "http://*:${port}"
+        ;;
+    --daemon|--background)
+        # perl /usr/share/synthwave-player/synthwave-player-server daemon -l "http://*:${port}" &
+        stop_server
+        avahi_publish
+        cd /usr/share/synthwave-player
+        if [ "$is_pro" = 1 ]; then
+            hypnotoad /usr/share/synthwave-player/synthwave-player-server
+        else
+            perl /usr/share/synthwave-player/synthwave-player-server daemon -l "http://*:${port}" &
+        fi
+        ;;
+    ""|--foreground)
+        # Run the Mojolicious server in the foreground using hypnotoad.
+        # This is useful for seeing logs directly in the terminal.
+        # perl /usr/share/synthwave-player/synthwave-player-server daemon -l "http://*:${port}"
+        stop_server
+        avahi_publish
+        cd /usr/share/synthwave-player
+        # Stop the server if it's already running before starting in foreground
+        if [ "$is_pro" = 1 ]; then
+            hypnotoad -f /usr/share/synthwave-player/synthwave-player-server
+        else
+            perl /usr/share/synthwave-player/synthwave-player-server daemon -l "http://*:${port}"
+        fi
+        ;;
+    *)
+        echo "Error: Unknown option: $1" >&2
+        echo "Try 'synthwave-player-server --help' for more information." >&2
+        exit 1
+        ;;
+esac

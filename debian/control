@@ -1,0 +1,47 @@
+Source: synthwave-player
+Section: sound
+Priority: optional
+Maintainer: Thanatermesis <thanatermesis@elivecd.org>
+Standards-Version: 4.6.2
+Homepage: https://github.com/Elive/synthwave-player
+Build-Depends: debhelper (>= 12), perl
+
+Package: synthwave-player-server
+Architecture: all
+Depends: ${misc:Depends},
+         perl,
+         libdigest-sha-perl,
+         libfile-homedir-perl,
+         liblinux-inotify2-perl,
+         libmime-base64-perl,
+         libmojolicious-perl,
+         libmojo-sqlite-perl,
+         libimage-exiftool-perl,
+         libio-socket-ssl-perl,
+         libmp3-tag-perl,
+         libmp3-info-perl,
+         libnet-upnp-perl,
+         libtry-tiny-perl,
+         liburi-perl,
+         libxml-libxml-perl,
+         file,
+         netcat-openbsd | netcat-traditional,
+         zenity,
+         eyed3,
+         exiftool,
+         jq,
+         avahi-utils
+Description: A music player server with a synthwave-themed web interface
+ This package contains the backend server for Synthwave Player. It scans your
+ music library, and serves a web interface to browse and play your music.
+ It supports playlists, cover art, and UPnP for remote access.
+
+Package: synthwave-player
+Architecture: all
+Depends: ${misc:Depends},
+         synthwave-player-server (= ${binary:Version})
+Recommends: web-launcher | google-chrome-stable | chromium | firefox,
+         zenity,
+         netcat-openbsd | netcat-traditional
+Description: Launcher for the Synthwave Player web interface
+ This package provides a desktop launcher to easily open the Synthwave Player
