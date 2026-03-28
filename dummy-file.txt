@@ -1810,3 +1810,4 @@ make silent the external command
 branding in footer and links updated
 volume scrollbar a little longer
 added extra cover image
+add in menu an option so that other people can download the synthwave player too
