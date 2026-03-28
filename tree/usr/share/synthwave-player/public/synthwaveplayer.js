@@ -963,7 +963,6 @@ document.addEventListener('alpine:init', () => {
             }
         },
         async setInitialAdminPassword() {
-            this.initialPasswordLoading = true;
             this.initialPasswordError = '';
             if (this.initialAdminPassword !== this.initialAdminPasswordConfirm) {
                 this.initialPasswordError = 'Passwords do not match.';

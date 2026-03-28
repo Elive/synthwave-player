@@ -336,7 +336,7 @@
                     <button type="button" @click="showSetInitialPasswordModal = false" class="bg-gray-600 hover:bg-gray-700 rounded-lg px-6 py-2 text-white font-bold transform hover:scale-105 transition-all">
                         Cancel
                     </button>
-                    <button type="submit" :disabled="initialPasswordLoading" class="flex-grow bg-fuchsia-500/80 hover:bg-fuchsia-500 rounded-lg px-6 py-2 text-white font-bold shadow-lg shadow-fuchsia-500/50 transform hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-wait">
+                    <button type="submit" :disabled="initialPasswordLoading || !initialAdminPassword || initialAdminPassword !== initialAdminPasswordConfirm || initialAdminPassword.length < 4" class="flex-grow bg-fuchsia-500/80 hover:bg-fuchsia-500 rounded-lg px-6 py-2 text-white font-bold shadow-lg shadow-fuchsia-500/50 transform hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
                         <span x-show="!initialPasswordLoading">Set Password</span>
                         <span x-show="initialPasswordLoading">
                             <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
