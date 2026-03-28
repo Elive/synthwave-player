@@ -199,10 +199,6 @@
                     </svg>
                     <span>Download your own player</span>
                 </div>
-                <div x-show="adminMode" @click="window.open('https://www.patreon.com/c/elive', '_blank'); $data.menuPopup.hide()" class="px-4 py-2 text-sm text-amber-300 hover:bg-cyan-400/20 cursor-pointer flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" /></svg>
-                    <span>Support Updates</span>
-                </div>
                 <div x-show="adminMode || (!adminMode && !window.SWP_CONFIG.is_private_network)" class="border-t border-fuchsia-500/20 mx-2 my-1"></div>
             <% } %>
             <% if ($enable_cover_art) { %>
@@ -293,6 +289,10 @@
                     <div @click="checkForUpdates(); $data.menuPopup.hide()" class="px-4 py-2 text-sm text-gray-200 hover:bg-cyan-400/20 cursor-pointer flex justify-between">
                         <span>Check Updates</span>
                         <span class="text-xs text-gray-500" x-text="appVersion"></span>
+                    </div>
+                    <div @click="window.open('https://www.patreon.com/c/elive', '_blank'); $data.menuPopup.hide()" class="px-4 py-2 text-sm text-amber-300 hover:bg-cyan-400/20 cursor-pointer flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" /></svg>
+                        <span>Support Updates</span>
                     </div>
                     <div @click="openBugReportModal(); $data.menuPopup.hide()" class="px-4 py-2 text-sm text-gray-200 hover:bg-cyan-400/20 cursor-pointer">🐞 Report a Bug</div>
                     <div @click="window.open('https://synthwaveplayer.elivecd.org/#pro', '_blank'); $data.menuPopup.hide()" class="px-4 py-2 text-sm text-amber-400 hover:bg-cyan-400/20 cursor-pointer flex items-center gap-2">
