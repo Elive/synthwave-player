@@ -542,7 +542,6 @@ document.addEventListener('alpine:init', () => {
         playbackRates: [1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 0.8],
         playbackSpeedControl: 'auto',
         playbackSpeedMinDuration: window.SWP_CONFIG.show_playback_speed_min_minutes * 60,
-        showEqualizer: false,
         enableCoverArt: window.SWP_CONFIG.enable_cover_art,
         enableVisualEffects: true,
         enableLyrics: true,
@@ -591,12 +590,6 @@ document.addEventListener('alpine:init', () => {
             return urlObj.toString().replace(/%7C/g, '|');
         },
 
-        _createEqWatcher(propName, updateFn) {
-            this.$watch(propName, (value) => {
-                this[updateFn](value);
-                localStorage.setItem(propName, JSON.stringify(value));
-            });
-        },
         _loadJSONFromStorage(key, property = key) {
             const savedValue = localStorage.getItem(key);
             if (savedValue !== null) {
