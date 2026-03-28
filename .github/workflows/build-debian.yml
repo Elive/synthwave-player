@@ -1,0 +1,273 @@
+name: Build Debian Packages and Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    container:
+      image: debian:12
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install build dependencies
+      run: |
+        apt-get update
+        apt-get install -y devscripts equivs build-essential
+        mk-build-deps -i -t "apt-get -y --no-install-recommends" debian/control
+
+    - name: Build packages
+      run: debuild --no-tgz-check -us -uc
+
+    - name: Workaround actions/upload-artifact#176
+      run: |
+        echo "artifacts_path=$(realpath ..)" >> $GITHUB_ENV
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: debian-packages-bookworm
+        path: |
+          ${{ env.artifacts_path }}/*.deb
+
+    # - name: Upload artifacts
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: debian-packages-bookworm
+    #     path: |
+    #       ${{ env.artifacts_path }}/*.deb
+    #       # path: "*.deb"
+
+  build_appimage_player:
+    runs-on: ubuntu-latest
+    needs: [build]
+    strategy:
+      matrix:
+        include:
+          - arch: x86_64
+            tool_arch: x86_64
+          - arch: i386
+            tool_arch: i686
+    steps:
+    - name: Install dependencies and download appimagetool
+      run: |
+        sudo apt-get update
+        if [ "${{ matrix.arch }}" = "i386" ]; then
+          sudo dpkg --add-architecture i386
+          sudo apt-get update
+          sudo apt-get install -y libfuse2:i386 zlib1g:i386
+        else
+          sudo apt-get install -y libfuse2
+        fi
+        wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-${{ matrix.tool_arch }}.AppImage
+        chmod +x appimagetool-${{ matrix.tool_arch }}.AppImage
+    - name: Download debian packages
+      uses: actions/download-artifact@v4
+      with:
+        name: debian-packages-bookworm
+        path: deb-packages
+    - name: Build Player AppImage
+      run: |
+        set -x
+        mkdir AppDir
+        # Extract both debian packages to combine them into a single AppImage
+        PLAYER_DEB=$(find deb-packages -name "synthwave-player_*.deb")
+        SERVER_DEB=$(find deb-packages -name "synthwave-player-server_*.deb")
+        dpkg-deb -x "$PLAYER_DEB" AppDir
+        dpkg-deb -x "$SERVER_DEB" AppDir
+        # The .desktop file is required at the root of the AppDir
+        cp AppDir/usr/share/applications/synthwave-player.desktop AppDir/
+        # An icon file is also required. Let's find it and copy it.
+        # Assuming icon name is same as desktop file name without extension
+        DESKTOP_FILE_NAME=$(basename AppDir/usr/share/applications/synthwave-player.desktop .desktop)
+        ICON_PATH=$(find AppDir/usr/share/icons -name "${DESKTOP_FILE_NAME}.*" | head -n 1)
+        if [ -n "$ICON_PATH" ]; then
+          cp "$ICON_PATH" AppDir/
+        fi
+        # Create the AppRun file
+        cat <<'EOF' > AppDir/AppRun
+        #!/bin/sh
+        HERE=$(dirname $(readlink -f "$0"))
+        exec "${HERE}/usr/bin/synthwave-player" "$@"
+        EOF
+        chmod +x AppDir/AppRun
+        # Run appimagetool
+        ARCH=${{ matrix.arch }} ./appimagetool-${{ matrix.tool_arch }}.AppImage AppDir
+      env:
+        # The AppImage tools need the version from the tag
+        VERSION: ${{ github.ref_name }}
+    - name: Upload Player AppImage
+      uses: actions/upload-artifact@v4
+      with:
+        name: appimage-player-${{ matrix.arch }}
+        path: "Synthwave_Player-*.AppImage"
+
+  build_appimage_server:
+    runs-on: ubuntu-latest
+    needs: [build]
+    strategy:
+      matrix:
+        include:
+          - arch: x86_64
+            tool_arch: x86_64
+          - arch: i386
+            tool_arch: i686
+    steps:
+    - name: Install dependencies and download appimagetool
+      run: |
+        sudo apt-get update
+        if [ "${{ matrix.arch }}" = "i386" ]; then
+          sudo dpkg --add-architecture i386
+          sudo apt-get update
+          sudo apt-get install -y libfuse2:i386 zlib1g:i386
+        else
+          sudo apt-get install -y libfuse2
+        fi
+        wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-${{ matrix.tool_arch }}.AppImage
+        chmod +x appimagetool-${{ matrix.tool_arch }}.AppImage
+    - name: Download debian packages
+      uses: actions/download-artifact@v4
+      with:
+        name: debian-packages-bookworm
+        path: deb-packages
+    - name: Build Server AppImage
+      run: |
+        set -x
+        mkdir AppDir
+        # Extract both debian packages as server needs icon from player package
+        PLAYER_DEB=$(find deb-packages -name "synthwave-player_*.deb")
+        SERVER_DEB=$(find deb-packages -name "synthwave-player-server_*.deb")
+        dpkg-deb -x "$PLAYER_DEB" AppDir
+        dpkg-deb -x "$SERVER_DEB" AppDir
+        # The .desktop file is required at the root of the AppDir
+        cp AppDir/usr/share/applications/synthwave-player-server.desktop AppDir/
+        # An icon file is also required. Let's find it and copy it.
+        DESKTOP_FILE_NAME=$(basename AppDir/usr/share/applications/synthwave-player-server.desktop .desktop)
+        ICON_PATH=$(find AppDir/usr/share/icons -name "${DESKTOP_FILE_NAME}.*" | head -n 1)
+        if [ -n "$ICON_PATH" ]; then
+          cp "$ICON_PATH" AppDir/
+        fi
+        # Create the AppRun file
+        cat <<'EOF' > AppDir/AppRun
+        #!/bin/sh
+        HERE=$(dirname $(readlink -f "$0"))
+        exec "${HERE}/usr/bin/synthwave-player-server" "$@"
+        EOF
+        chmod +x AppDir/AppRun
+        # Run appimagetool
+        ARCH=${{ matrix.arch }} ./appimagetool-${{ matrix.tool_arch }}.AppImage AppDir
+      env:
+        # The AppImage tools need the version from the tag
+        VERSION: ${{ github.ref_name }}
+    - name: Upload Server AppImage
+      uses: actions/upload-artifact@v4
+      with:
+        name: appimage-server-${{ matrix.arch }}
+        path: "Synthwave_Player_Server-*.AppImage"
+
+  build_rpm:
+    runs-on: ubuntu-latest
+    needs: build
+    container:
+      image: fedora:latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Install build dependencies
+      run: dnf install -y rpm-build
+    - name: Create source archive for RPM build
+      run: |
+        TAG_NAME="${{ github.ref_name }}"
+        VERSION=${TAG_NAME#v}
+        tar -czf "synthwave-player-$VERSION.tar.gz" tree
+    - name: Build RPM
+      run: |
+        TAG_NAME="${{ github.ref_name }}"
+        VERSION=${TAG_NAME#v}
+        rpmbuild -bb rpm/synthwave-player.spec --define "tag_version $VERSION" --define "_sourcedir $(pwd)" --define "_srcrpmdir $(pwd)/rpm-packages" --define "_rpmdir $(pwd)/rpm-packages"
+    - name: Upload RPM packages
+      uses: actions/upload-artifact@v4
+      with:
+        name: rpm-packages
+        path: rpm-packages/**/*.rpm
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    needs: [build, build_appimage_player, build_appimage_server, build_rpm]
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Download debian packages
+      uses: actions/download-artifact@v4
+      with:
+        name: debian-packages-bookworm
+        path: deb-packages
+
+    - name: Download Player AppImages
+      uses: actions/download-artifact@v4
+      with:
+        pattern: appimage-player-*
+        path: appimage-player
+        merge-multiple: true
+
+    - name: Download Server AppImages
+      uses: actions/download-artifact@v4
+      with:
+        pattern: appimage-server-*
+        path: appimage-server
+        merge-multiple: true
+
+    - name: Download RPM packages
+      uses: actions/download-artifact@v4
+      with:
+        name: rpm-packages
+        path: rpm-packages
+
+    - name: Create source archives
+      run: |
+        (cd tree && tar -czf "../${{ github.ref_name }}.tar.gz" .)
+        (cd tree && zip -r "../${{ github.ref_name }}.zip" .)
+
+    - name: Get Changelog Entry for Release
+      id: changelog_entry
+      run: |
+        # The tag name (e.g., "v3.0") is extracted from the Git ref.
+        TAG_NAME="${GITHUB_REF_NAME}"
+
+        # Use awk to find the section for the current tag in CHANGELOG.md.
+        # It starts printing from the line with the tag, and stops at the next "##" header.
+        CHANGELOG_ENTRY=$(awk -v tag="## $TAG_NAME" '
+          $0 ~ tag { in_section=1 }
+          /^## / && NR > 1 && !($0 ~ tag) { if (in_section) exit }
+          in_section { print }
+        ' CHANGELOG.md)
+
+        # Set the multiline changelog entry as a step output.
+        {
+          echo 'entry<<EOF'
+          echo "$CHANGELOG_ENTRY"
+          echo 'EOF'
+        } >> "$GITHUB_OUTPUT"
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        body: ${{ steps.changelog_entry.outputs.entry }}
+        files: |
+          deb-packages/*.deb
+          appimage-player/*.AppImage
+          appimage-server/*.AppImage
+          rpm-packages/**/*.rpm
+          ${{ github.ref_name }}.tar.gz
+          ${{ github.ref_name }}.zip
+        make_latest: false # Disable automatic source code archives
